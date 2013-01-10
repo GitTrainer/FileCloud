@@ -1,0 +1,33 @@
+<h1 style="color:blue">Edit Folder Detail</h1>
+<%= form_for(@folder) do |f| %>
+<table  width ="400px">
+<tr>
+<td style="color:blue"> <%= f.label :name  %></td>
+</tr>
+<tr>
+<td>  <%= f.text_field :name %></td>
+</tr>
+
+<tr>
+	<td style="color:blue"><%=f.label :Category%></td>
+</tr>
+
+<tr>
+    <td><%=collection_select(:folder,:category_id,@categorys,:id,:name)%></td>
+</tr>
+
+<tr>
+	<td style="color:blue"><%= f.label :description %></td>
+</tr>
+<tr>
+	 <td><%= f.text_area :description %></td>
+</tr>
+</table>
+
+<p>
+<%= f.submit "Save change"%>
+</p>
+<%end%>
+<p>
+<%=link_to 'Back',{:action=>'index'}%>
+</p>

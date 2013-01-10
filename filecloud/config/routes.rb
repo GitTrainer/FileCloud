@@ -1,4 +1,19 @@
 Filecloud::Application.routes.draw do
+
+
+  resources :categories
+  resources :folders
+
+  #get "folders/index"
+
+  #get "categorys/new"
+
+  #get "categorys/index"
+
+  #match "folders" => "folders#show"
+
+  #match "folders" => "folders#new"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
