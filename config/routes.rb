@@ -1,6 +1,6 @@
 Filecloud::Application.routes.draw do
   resources :users
-  root to: 'users#index'
+  root to: 'sessions#new'
   
   match '/activate',to: 'users#activate'
   

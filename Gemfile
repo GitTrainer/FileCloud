@@ -33,6 +33,9 @@ group :development, :test do
   gem 'capybara', '1.1.2'
 end
 gem 'bootstrap-sass', '2.1'
+
+gem 'pry-rails', :group => :development
+gem 'pry', :group => :development
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

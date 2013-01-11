@@ -44,11 +44,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    @activated='activated'
-    @user.login=@activated
+    @activation_code=SecureRandom.urlsafe_base64
+    @user.login=@activation_code
     respond_to do |format|
       if @user.save
-
         UserMailer.welcome_email(@user).deliver
         
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -91,9 +90,11 @@ class UsersController < ApplicationController
   def activate
     @user=User.find(params[:id])
     if @user.login == params[:active_code]
-      redirect_to users_url
+      @user.login='activated'
+      @user.save
+      redirect_to @user
     else
-      redirect_to users_url
+      redirect_to signin_url
     end
   end
     

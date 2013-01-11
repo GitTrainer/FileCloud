@@ -7,8 +7,7 @@
     <h1>Welcome  <%= @user.name %></h1>
     <p>
       Please activation: 
-      <%= url_for(:action => 'activate', :controller => 'users',:host =>'localhost:3000',:id=>@user.id,:active_code =>@activated) %>
+      <%= url_for(:action => 'activate', :controller => 'users',:host =>'localhost:3000',:id=>@user.id,:active_code =>@activation_code) %>
     </p>
-    
   </body>
 </html>
