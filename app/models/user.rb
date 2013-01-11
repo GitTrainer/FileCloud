@@ -12,7 +12,7 @@
 
 class User < ActiveRecord::Base
   	
-  	attr_accessible :email,:name, :login,:password, :password_confirmation
+  	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at
 
     validates :name,  presence: true, length: { maximum: 50 }
     
@@ -22,6 +22,14 @@ class User < ActiveRecord::Base
 
   	before_save { |user| user.email = email.downcase }
   	before_save :create_remember_token
+
+    def send_resset_password
+      self.password_reset_sent_at=Time.zone.now
+      @pass=SecureRandom.urlsafe_base64
+      self.password_reset=@pass
+      save!
+      UserMailer.send_password(@user).deliver
+    end
 
   	private
     def create_remember_token
