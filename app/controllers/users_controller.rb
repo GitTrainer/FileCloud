@@ -97,7 +97,7 @@ class UsersController < ApplicationController
       redirect_to signin_url
     end
   end
-<<<<<<< HEAD
+
     
   private
 
@@ -113,7 +113,4 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
-=======
-
->>>>>>> sign-in-out
 end
