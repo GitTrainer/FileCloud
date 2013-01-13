@@ -1,8 +1,14 @@
 Filecloud::Application.routes.draw do
 
 
+  get "file_up_loads/new"
+
   resources :categories
   resources :folders
+  resources :file_up_loads
+  #resources :folders do
+  #resources :file_up_loads
+#end
 
   #get "folders/index"
 

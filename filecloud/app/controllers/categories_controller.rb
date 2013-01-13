@@ -7,6 +7,7 @@ def new
 
   def create
   	@category=Category.new(params[:category])
+    
   	if @category.save
   		redirect_to :action=>'index'
   	else

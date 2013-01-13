@@ -7,6 +7,34 @@
 <p>Description:
 	<%=@folder.description%>
 </p>
+<table class="tb-lst", border="1">
+  <tr align="center">
+   
+    <th sytle="color:blue">File_Id</th>
+    <th sytle="color:green">File Name</th>
+    <th sytle="color:green">File Type</th>
+    <th sytle="color:green">File Size(Bytes)</th>
+    <th sytle="color:green">Date Created</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @folder.file_up_loads.each do |f| %>
+  <tr align="center">
+    
+    <td><%= f.id %></td>
+    <td><%= f.attach_file_name %></td>
+    <td><%= f.attach_content_type %></td>
+    <td><%= f.attach_file_size %></td>
+    <td><%= f.created_at %></td>
+    <td><%= link_to 'Delete',{:action=>'destroy',:controller=>'file_up_loads',:id=>f.id},{:method=>'delete'},:confirm=>"Are you sure you want to delete this item?"%></td>
+    <%end%>
+  </tr>
+</table>
+
+<p> 
+<%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
+</p>
 <p>
 <%=link_to 'Back',{:action=>'index'}%>
 </p>
