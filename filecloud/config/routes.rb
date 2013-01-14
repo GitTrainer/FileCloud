@@ -1,4 +1,8 @@
 Filecloud::Application.routes.draw do
+  resources :folders
+
+  resources :categories
+
   resources :users
 
   # The priority is based upon order of creation:
