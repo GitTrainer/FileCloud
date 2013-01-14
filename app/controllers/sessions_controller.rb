@@ -7,15 +7,15 @@ class SessionsController < ApplicationController
 	def create
 		user = User.find_by_email(params[:session][:email].downcase)
 		if user && user.authenticate(params[:session][:password])
-			if user.login=='activated'
+			if user.status?
 				sign_in user
-	      		redirect_to user	
+	      		redirect_to user
       		else
-      			flash[:error] = 'please check your email to activation' 
+      			flash.now[:error] = 'Please check your email to activation' 
       			render 'new'
       		end
 		else
-	      	flash[:error] = 'Invalid email/password combination'
+	      	flash.now[:error] = 'Invalid email/password combination'
 	      	render 'new'
 	    end
 	end

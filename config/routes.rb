@@ -1,6 +1,6 @@
 Filecloud::Application.routes.draw do
   resources :users
-  root to: 'users#index'
+  root to: 'sessions#new'
   resources :reset_passwords
   match '/activate',to: 'users#activate'
   
@@ -9,9 +9,8 @@ Filecloud::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  match 'new', to: 'reset_password_controllers#new'
 
-
+  match 'capnhat', to: 'reset_passwords#capnhat'
 
 
 

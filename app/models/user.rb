@@ -24,11 +24,12 @@ class User < ActiveRecord::Base
   	before_save :create_remember_token
 
     def send_resset_password
+      # binding.pry
       self.password_reset_sent_at=Time.zone.now
       @pass=SecureRandom.urlsafe_base64
       self.password_reset=@pass
       save!
-      UserMailer.send_password(@user).deliver
+      UserMailer.send_password(self).deliver
     end
 
   	private

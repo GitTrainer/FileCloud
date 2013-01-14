@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.welcome_email(@user).deliver
         
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -90,11 +90,17 @@ class UsersController < ApplicationController
   def activate
     @user=User.find(params[:id])
     if @user.login == params[:active_code]
-      @user.login='activated'
-      @user.save
-      redirect_to @user
+      if @user.status==false
+        @user.status=true
+        @user.save
+        flash.now[:notice]='You have just activated your account'
+        render 'sessions/new'
+      else
+        flash.now[:notice]='You were activated, Please singin'
+        render 'sessions/new'
+      end
     else
-      redirect_to signin_url
+      redirect_to signin_url ,:notice => 'The link is not valid. Please try again!'
     end
   end
 
