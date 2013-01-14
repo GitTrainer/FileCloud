@@ -1,4 +1,4 @@
 FileCloud
 =========
 
-Share your files
+Share your files on the cloud
