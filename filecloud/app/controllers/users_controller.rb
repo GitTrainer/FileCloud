@@ -1,86 +1,43 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+  before_filter :authenticate_user!
+
   def index
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+    @chart = create_chart
   end
-
-  # GET /users/1
-  # GET /users/1.json
+  
   def show
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
   end
-
-  # GET /users/new
-  # GET /users/new.json
-  def new
-    @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
-    end
-  end
-
-  # GET /users/1/edit
-  def edit
+  
+  def invite
+    authorize! :invite, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:id])
+    @user.send_confirmation_instructions
+    redirect_to :back, :only_path => true, :notice => "Sent invitation to #{@user.email}."
   end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(params[:user])
-
-    respond_to do |format|
-      if @user.save
-
-        UserMailer.welcome_email(@user).deliver
-        
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  
+  def bulk_invite
+    authorize! :bulk_invite, @user, :message => 'Not authorized as an administrator.'
+    users = User.where(:confirmation_token => nil).order(:created_at).limit(params[:quantity])
+    users.each do |user|
+      user.send_confirmation_instructions
     end
+    redirect_to :back, :only_path => true, :notice => "Sent invitation to #{users.count} users."
   end
-
-  # PUT /users/1
-  # PUT /users/1.json
-  def update
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  
+  private
+  
+  def create_chart
+    users_by_day = User.group("DATE(created_at)").count
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('date')
+    data_table.new_column('number')
+    users_by_day.each do |day|
+      data_table.add_row([ Date.parse(day[0].to_s), day[1]])
     end
+    @chart = GoogleVisualr::Interactive::AnnotatedTimeLine.new(data_table)
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
-  end
 end

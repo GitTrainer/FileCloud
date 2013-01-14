@@ -1,8 +1,7 @@
 class UserMailer < ActionMailer::Base
-  default from: "dangkhanhit@gmail.com"
-
+  default :from => "notifications@filecloud.com"
+  
   def welcome_email(user)
-    @user = user
-    mail(:to => user.email, :subject => "Welcome to My Awesome Site")
+    mail(:to => user.email, :subject => "Register new account received")
   end
 end

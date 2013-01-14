@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Filecloud::Application.config.secret_token = '7fe88858dc847271a0128cc2ebe2d724ecd2540437855ee359c10a3f44f016793d4b8eb4d2a49ef12df3caac068cfe985bc55eed08123d13609f6ef4c9ccf916'
+RailsPrelaunchSignup::Application.config.secret_token = '1ba85dd1130cb8eed4b810a598d953d218b51c7a05503474fe24eac65df0f9d9f828a59dcc5adbf1183fba51dcadda34832e04bbd31b44854de0dd3f8cabf45a'
