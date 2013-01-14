@@ -27,4 +27,13 @@ end
       FileUpLoad.find_by_id(params[:id]).destroy
       redirect_to folder_path(@folder_id) 
     end
+
+    def download
+      @fileupload=FileUpLoad.find(params[:id])
+      if @fileupload.attach_content_type=="image/jpeg"
+       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
+     else
+      send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
+     end
+    end
 end

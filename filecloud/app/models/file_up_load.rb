@@ -3,4 +3,5 @@ class FileUpLoad < ActiveRecord::Base
   validates :folder_id, presence: true
   belongs_to :foler,dependent: :destroy
   has_attached_file :attach
+
 end

@@ -5,7 +5,13 @@ Filecloud::Application.routes.draw do
 
   resources :categories
   resources :folders
-  resources :file_up_loads
+  resources :file_up_loads do
+   member do
+    get 'download'
+   end
+
+   end
+
   #resources :folders do
   #resources :file_up_loads
 #end
