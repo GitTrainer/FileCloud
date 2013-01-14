@@ -1,0 +1,16 @@
+<h1>Folder details</h1>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Category</th>
+</tr>
+<tr>
+<td><%= @folder.name %></td>
+<td><%= @folder.description %></td>
+<td><%= Category.where(:id => @folder.category_id).first.name %></td>
+</tr>
+</table>
+

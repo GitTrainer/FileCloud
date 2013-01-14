@@ -1,0 +1,17 @@
+		<div class="span2">
+		<%= f.label :name %></div>
+
+    	<div class="span3"><%= f.text_field :name %></div>
+
+        <div class="span2">
+    	<%= f.label :Description %></div>
+    	<div class="span3"><%= f.text_area :description , :size => "20x4" %></div>
+    	 <div class="span2">
+    	<%= f.label :Category %></div>
+    	<div class="span3"> <%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%></div>
+    	<div class="span2">
+		<%= f.label :File %></div>
+
+    	<div class="span3"><%= f.file_field :file%></div>
+		</br>
+		
