@@ -6,7 +6,6 @@
 <th>Name</th>
 <th>Description</th>
 <th>Category</th>
-<th>File Name</th>
 <th>Upload</th>
 </tr>
 <tr>
@@ -15,6 +14,20 @@
 <td><%= Category.where(:id => @folder.category_id).first.name %></td>
 <td><%= @folder.file %>
 <td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
+<tr>
+
+
+<th>File Name</th>
+<th>Download</th>
+<th>Delete</th>
+</tr>
+<% @folder.filestreams.each do |filestream|%>
+<tr>
+<td><%= filestream.attach_file_name %></td>
+<td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
+<td><%= link_to 'Delete',filestream, method: :delete, data:{ confirm: "Are you sure?" } %></td>
+<% end %>
+</tr>
 </tr>
 </table>
 
