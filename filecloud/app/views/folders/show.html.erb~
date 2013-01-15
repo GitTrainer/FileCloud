@@ -1,6 +1,7 @@
 <h1>Folder details</h1>
-
-<table>
+<div class="row">
+<div class="span9">
+<table class="table table-hover">
 
 <tr>
 <th>Name</th>
@@ -12,7 +13,6 @@
 <td><%= @folder.name %></td>
 <td><%= @folder.description %></td>
 <td><%= Category.where(:id => @folder.category_id).first.name %></td>
-<td><%= @folder.file %>
 <td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
 <tr>
 
@@ -30,4 +30,5 @@
 </tr>
 </tr>
 </table>
-
+</div>
+</div>
