@@ -6,11 +6,15 @@
 <th>Name</th>
 <th>Description</th>
 <th>Category</th>
+<th>File Name</th>
+<th>Upload</th>
 </tr>
 <tr>
 <td><%= @folder.name %></td>
 <td><%= @folder.description %></td>
 <td><%= Category.where(:id => @folder.category_id).first.name %></td>
+<td><%= @folder.file %>
+<td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
 </tr>
 </table>
 

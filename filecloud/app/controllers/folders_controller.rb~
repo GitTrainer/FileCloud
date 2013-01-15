@@ -16,18 +16,18 @@ end
 def create
 	 @new_folder = Folder.new(params[:folder])
 	  @folders = Folder.all
-	  file = params[:folder][:file]
-        if (!file.nil?)
-		@new_folder.file = file.original_filename
-		path = "#{Rails.root}/app/assets/images/#{file.original_filename}"
-		FileUtils.copy(file.tempfile, path)
-        end
+#	  file = params[:folder][:file]
+#        if (!file.nil?)
+#		@new_folder.file = file.original_filename
+#		path = "#{Rails.root}/app/assets/images/#{file.original_filename}"
+#		FileUtils.copy(file.tempfile, path)
+#        end
        if @new_folder.save
-       if (!file.nil?)
-		  params[:folder][:file] ="#{file.original_filename}"
-	   else
-		  params[:folder][:file] =""
-       end
+#       if (!file.nil?)
+#		  params[:folder][:file] ="#{file.original_filename}"
+#	   else
+#		  params[:folder][:file] =""
+#       end
 			 	 @new_folder = nil
 			 	 flash[:success] = "Created successfully"
 				 redirect_to folders_url
@@ -61,6 +61,11 @@ end
 def update
 	@folder = Folder.find(params[:id])
 	@folders = Folder.all
+#	 file = params[:folder][:file]
+#        if (!file.nil?)
+#        path =  "#{Rails.root}/app/assets/images/#{file.original_filename}"
+#        FileUtils.copy(file.tempfile, path)
+#        end
        respond_to do |format|
          if @folder.update_attributes(params[:folder])
 		  @folder = nil                     

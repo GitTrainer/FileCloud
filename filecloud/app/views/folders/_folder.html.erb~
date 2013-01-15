@@ -9,9 +9,6 @@
     	 <div class="span2">
     	<%= f.label :Category %></div>
     	<div class="span3"> <%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%></div>
-    	<div class="span2">
-		<%= f.label :File %></div>
 
-    	<div class="span3"><%= f.file_field :file , :accept=> "image/*"%></div>
 		</br>
 		

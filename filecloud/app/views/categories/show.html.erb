@@ -12,7 +12,7 @@
 <td><%= @category.description %></td>
 </tr>
 </table>
-<b><p>List folders</p></b>s
+<b><p>List folders</p></b>
 <% if !@folders.nil?%>
 <% @folders.each do |a| %>
 <a href="/folders/<%=a.id%>"><%= a.name%></a><br/>

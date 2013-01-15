@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 gem "jquery-fileupload-rails"
-
+gem 'paperclip'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,6 +28,7 @@ group :test, :development do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'pry-debugger'
 end
 
 # To use ActiveModel has_secure_password

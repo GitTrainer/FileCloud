@@ -32,7 +32,7 @@ end
 
 def show	
 	@category = Category.find(params[:id])
-	@folders = Folders.where(:category_id => params[:id])
+	@folders = Folder.where(:category_id => params[:id])
           respond_to do |format|
              format.html { render action: "show"}
               format.js {render js: @category }

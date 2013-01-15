@@ -11,13 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114074510) do
+ActiveRecord::Schema.define(:version => 20130115013513) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "filestreams", :force => true do |t|
+    t.string   "filename"
+    t.integer  "folder_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
   end
 
   create_table "folders", :force => true do |t|
