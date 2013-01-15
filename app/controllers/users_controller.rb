@@ -91,10 +91,10 @@ class UsersController < ApplicationController
     @user=User.find(params[:id])
     if @user.login == params[:active_code]
       if @user.status==false
-        @user.status=true
-        @user.save
-        flash.now[:notice]='You have just activated your account'
-        render 'sessions/new'
+        if @user.update_attribute(:status,true)
+          flash.now[:notice]='You have just activated your account'
+          render 'sessions/new'
+        end
       else
         flash.now[:notice]='You were activated, Please singin'
         render 'sessions/new'
