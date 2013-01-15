@@ -40,34 +40,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
- # def create
-    #@user = User.new(params[:user])
-
-   # respond_to do |format|
-    # if @user.save
-
-        #UserMailer.welcome_email(@user).deliver
-        
-      #  format.html { redirect_to @user, notice: 'User was successfully created.' }
-      #  format.json { render json: @user, status: :created, location: @user }
-     # else
-       # format.html { render action: "new" }
-        #format.json { render json: @user.errors, status: :unprocessable_entity }
-     # end
-    #end
-  #end
-
 def create
     @user = User.new(params[:user])
+    @code = SecureRandom.urlsafe_base64
+    @user.login=@code
     if @user.save
-      
+
       UserMailer.welcome_email(@user).deliver
       # Handle a successful save.
-      flash[:success] = "Welcome to the Sample App!"
-      sign_in @user
-      redirect_to @user
+      flash[:success] = "Welcome to the Sample App! Please in your mail activate account"
+      
+      render 'sessions/new'
     else
       flash.now[:error]="errors"
       render 'new'
@@ -101,6 +84,32 @@ def create
       format.json { head :no_content }
     end
   end
+
+  def activate
+    
+    @user=User.find(params[:id])
+     if @user.login == params[:active_code]
+      if @user.status != true
+         
+      
+        #binding.pry
+          if @user.update_attribute(:status, true)
+            flash[:success] = "Welcome to the Sample App"
+            render 'sessions/newactive'
+      
+          else
+            flash[:success] = "Please activate in your mail"
+            render 'sessions/newactive'
+          end
+        else
+          signed_in_user
+        end
+    else
+      flash[:success] = "errors"
+      render 'sessions/new'   
+    end  
+  end
+
   private
 
     def signed_in_user

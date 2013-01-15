@@ -4,14 +4,12 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to http://localhost:3000/signin, <%= @user.name %></h1>
-    <p>
-      You have successfully signed up to http://localhost:3000/signin,
-      your username is: <%= @user.login %>.<br/>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    Congratulations, you are now a part of Poly Herd,
+your username is: <%= @user.name %>.
+
+ma : <%= @user.login %>.
+ Please activation: 
+      <%= url_for(:action => 'activate', :controller => 'users',:host =>'localhost:3000',:id=>@user.id,:active_code =>@user.login) %>
+Thanks for joining and have a great day!
   </body>
 </html>

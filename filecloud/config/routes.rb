@@ -1,4 +1,6 @@
 Filecloud::Application.routes.draw do
+  get "password_resets/new"
+
   resources :users 
   root to: 'sessions#new'
   match '/activate',to: 'users#activate'
