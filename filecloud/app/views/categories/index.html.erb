@@ -5,13 +5,13 @@
                 <h2>New category</h2>
                  <%= render 'shared/error_messages', object: f.object %>
                 <%= render 'categories',st: @new_category , f: f%>
-                
-                <div class="span1"></br><%= f.submit%></div> 
+
+                <div class="span1"></br><%= f.submit%></div>
                 </div>
                 <%end%>
                 </div>
-                
-                
+
+
                  <div class="span8">
 
         <table class="table table-hover">
@@ -20,15 +20,14 @@
                  <th>Name</th>
                 <th>Description </th>
                 <th>Show Details</th>
-                <th>Create folder </th>
                 <th> Edit </th>
                  <th>Delete </th>
                 </tr>
-               
+
                 <% @categories.each do |category|%>
                  <%if !@categories.nil? %>
                 <tr>
-              
+
                 <td><%= category.name %> </td>
                 <td><%= category.description %></td>
                 <td><a href="/categories/<%=category.id%>">Show</a></td>

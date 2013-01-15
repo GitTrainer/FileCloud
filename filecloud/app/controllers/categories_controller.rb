@@ -21,23 +21,23 @@ def create
        	 @new_category = nil
        	 flash[:success] = "Created successfully"
          redirect_to categories_url
-       else              
+       else
          respond_to do |format|
          format.html { render action: "index"}
          format.js {render js: @new_category.errors, status: :unprocessable_entity}
-         format.js {render js: @categories }          
+         format.js {render js: @categories }
 		 end
     end
 end
 
-def show	
+def show
 	@category = Category.find(params[:id])
 	@folders = Folder.where(:category_id => params[:id])
           respond_to do |format|
              format.html { render action: "show"}
               format.js {render js: @category }
              end
-	
+
 end
 
 def edit
@@ -55,13 +55,13 @@ def update
 	@categories = Category.all
        respond_to do |format|
          if @category.update_attributes(params[:category])
-		  @category = nil                     
-         format.html { redirect_to "/categories" }                     
-                                                         
-        else                                        
+		  @category = nil
+         format.html { redirect_to "/categories" }
+
+        else
              format.html {  render action: "index"}
              format.js {render js: @new_category.errors, status: :unprocessable_entity}
-             format.js {render js: @categories }                  
+             format.js {render js: @categories }
         end
          end
 end

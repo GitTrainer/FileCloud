@@ -39,7 +39,7 @@
                 <% end %>
 
         </table>
-         <td><a href="/folders">Create folder</a></td>
+         <a href="/folders">Create folder</a>
 
 </div>
 </div>
