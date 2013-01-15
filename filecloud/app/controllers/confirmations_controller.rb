@@ -23,9 +23,11 @@ class ConfirmationsController < Devise::PasswordsController
           do_confirm
         else
           do_show
-          @confirmable.errors.clear #so that we won't render :new
+          #so that we won't render :new
+          @confirmable.errors.clear 
         end
       else
+        #check exits account
         self.class.add_error_on(self, :email, :password_allready_set)
       end
     end

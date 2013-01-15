@@ -78,15 +78,6 @@ module RailsPrelaunchSignup
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    # method is send mail
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      :address  => "smtp.gmail.com",
-      :port  => 25,
-      :user_name  => "framgiatest@gmail.com",
-      :password  => "framgia123",
-    }
-    config.action_mailer.raise_delivery_errors = true
 
   end
 end

@@ -22,10 +22,10 @@ RailsPrelaunchSignup::Application.configure do
   config.action_mailer.default :charset => "utf-8"  
 
     config.action_mailer.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 25,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_API_KEY"]
+      :host   => "smtp.mandrillapp.com",
+      :port      => 587,
+      :user_name => ENV["vu.duc.tuan@framgia.com"],
+      :password  => ENV["d34ffaa3-9120-456e-bc40-4e757af62a8f"]
     }
 
 
