@@ -1,6 +1,8 @@
 Filecloud::Application.routes.draw do
-  get "password_resets/new"
+  #get "password_resets/new"
+ # get "password_reset/:id" => "users#password_reset"
 
+  resources :password_resets
   resources :users 
   root to: 'sessions#new'
   match '/activate',to: 'users#activate'
@@ -10,7 +12,7 @@ Filecloud::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-get "users/new"
+  get "users/new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
