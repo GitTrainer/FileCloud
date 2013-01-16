@@ -29,12 +29,13 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'faker'
-  gem 'capybara'
+  gem 'capybara', '1.1.2'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'pry-debugger'
   gem 'shoulda-matchers', :require => false
 end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
