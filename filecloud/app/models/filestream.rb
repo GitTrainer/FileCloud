@@ -1,6 +1,7 @@
 class Filestream < ActiveRecord::Base
   attr_accessible :folder_id,:attach, :filename
   validates :attach, :presence => true
+  validates :folder_id, :presence => true
   belongs_to :folder, class_name: "Folder"
   has_attached_file :attach
    include Rails.application.routes.url_helpers
