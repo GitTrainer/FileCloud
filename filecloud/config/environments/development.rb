@@ -1,4 +1,4 @@
-RailsPrelaunchSignup::Application.configure do
+Filecloud::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -17,18 +17,17 @@ RailsPrelaunchSignup::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   # change to true to allow email to be sent during development
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"  
 
-    config.action_mailer.smtp_settings = {
-      :host   => "smtp.mandrillapp.com",
-      :port      => 587,
-      :user_name => ENV["vu.duc.tuan@framgia.com"],
-      :password  => ENV["d34ffaa3-9120-456e-bc40-4e757af62a8f"]
-    }
-
-
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 25,
+    :user_name => "tuanthuasac",
+    :password  => "pm-NyMtEJIwpeJL_cDfoPA"
+  }
+  
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

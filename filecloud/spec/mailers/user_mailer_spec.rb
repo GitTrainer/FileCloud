@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe UserMailer do
   before(:all) do
-    @user = FactoryGirl.create(:user, email: "example@filecloud.com")
+    @user = FactoryGirl.create(:user, email: "framgiatest@framgia.com")
     @email = UserMailer.welcome_email(@user).deliver
   end
 
   it "should be delivered to the email address provided" do
-    @email.should deliver_to("example@filecloud.com")
+    @email.should deliver_to("framgiatest@gmail.com")
   end
 
   it "should contain the correct message in the mail body" do

@@ -1,7 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default :from => "notifications@filecloud.com"
-  
+  default :from => "framgiatest@gmail.com"
+
   def welcome_email(user)
     mail(:to => user.email, :subject => "Register new account received")
+    headers['X-MC-GoogleAnalytics'] = "localhost:3000"
+    headers['X-MC-Tags'] = "welcome"
   end
 end

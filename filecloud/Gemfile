@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'sqlite3'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -17,6 +18,7 @@ gem "factory_girl_rails", ">= 4.1.0", :group => [:development, :test]
 gem "bootstrap-sass", ">= 2.1.1.0"
 #for use mailchimp
 gem "hominid", ">= 3.0.5"
+#cho viecc chung thuc nguoi dung mem deo va phan quyen tot
 gem "devise", ">= 2.2.0"
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"

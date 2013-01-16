@@ -7,12 +7,9 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :opt_in
-  
-  #  after_create :add_user_to_mailchimp unless Rails.env.test?
-  #   before_destroy :remove_user_from_mailchimp unless Rails.env.test?
-
-    after_create :add_user_to_mailchimp unless Rails.env.development?
-    before_destroy :remove_user_from_mailchimp unless Rails.env.development?
+  # send mail after created
+  after_create :add_user_to_mailchimp unless Rails.env.development?
+  before_destroy :remove_user_from_mailchimp unless Rails.env.development?
 
   # override Devise method
   # no password is required when the account is created; validate password when the user sets one
@@ -52,17 +49,29 @@ class User < ActiveRecord::Base
   def only_if_unconfirmed
     pending_any_confirmation {yield}
   end
+  # devise confirm! method overriden
+  def confirm!
+    #   welcome_message
+    super
+  end
     
   private
+
+  def send_welcome_email
+    unless self.email.include?('@gmail.com') && Rails.env != 'development'
+      UserMailer.welcome_email(self).deliver
+    end
+  end
+
 
   def add_user_to_mailchimp
     unless self.email.include?('@gmail.com') or !self.opt_in?
       #get api key mail chimp from my account
-      mailchimp = Hominid::API.new(ENV['1f410c8fd594f6676417db2e97b030fc-us6'])
-#      binding.pry
+      mailchimp = Hominid::API.new('b962bd251a86805250e44d7535e158d3-us6')
       list_id = mailchimp.find_list_id_by_name "visitors"
       info = { }
       result = mailchimp.list_subscribe(list_id, self.email, info, 'html', false, true, false, true)
+      binding.pry
       Rails.logger.info("MAILCHIMP SUBSCRIBE: result #{result.inspect} for #{self.email}")
     end
   end
@@ -70,7 +79,7 @@ class User < ActiveRecord::Base
   def remove_user_from_mailchimp
     unless self.email.include?('@gmail.com')
       #get api key mail chimp from my account
-      mailchimp = Hominid::API.new(ENV['1f410c8fd594f6676417db2e97b030fc-us6'])
+      mailchimp = Hominid::API.new('1f410c8fd594f6676417db2e97b030fc-us6')
       list_id = mailchimp.find_list_id_by_name "visitors"
       result = mailchimp.list_unsubscribe(list_id, self.email, true, false, true)  
       Rails.logger.info("MAILCHIMP UNSUBSCRIBE: result #{result.inspect} for #{self.email}")
