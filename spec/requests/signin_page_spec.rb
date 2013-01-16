@@ -21,18 +21,32 @@ describe "sign -in page " do
 	     	it { should have_link('Sign in', href: signin_path) }
 		end
 
-		# describe "activate account" do
-		# 	let(:user) {FactoryGirl.create(:user)}
+		describe "activate account and sign out" do
 			
-		# 	before do
-		# 		fill_in 'Email',    with: user.email
-  #      			fill_in 'Password', with: user.password
-		# 		click_button "Sign in"
-		# 	end
-	 #     	it { should have_link('Sign out', href: signout_path) }#not activated account
-	 #     	it { should_not have_link('Sign in', href: signin_path) }
-		# end
-		
+			let(:user_activated) {FactoryGirl.create(:user_activated)}
+			
+			describe "sign in-out with user activated" do
+				before do
+					fill_in 'Email',    with: user_activated.email
+	       			fill_in 'Password', with: user_activated.password
+					click_button "Sign in"
+				end
+
+				it { should have_link('Sign out', href: signout_path) }
+		     	it { should_not have_link('Sign in', href: signin_path) }
+
+		     	describe "sign out " do
+			     	before do 
+						click_link 'Sign out'
+			     	end
+
+			     	it { should have_link('Sign in', href: signin_path) }
+			     	it { should_not have_link('Sign out', href: signout_path) }
+		    end
+		    end 	
+		     
+		    
+		end
 	end
 
 end
