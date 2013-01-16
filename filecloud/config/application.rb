@@ -78,6 +78,7 @@ module Filecloud
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.secret_token = '1ba85dd1130cb8eed4b810a598d953d218b51c7a05503474fe24eac65df0f9d9f828a59dcc5adbf1183fba51dcadda34832e04bbd31b44854de0dd3f8cabf45a'
     
 
   end
