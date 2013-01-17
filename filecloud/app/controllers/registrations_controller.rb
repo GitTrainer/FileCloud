@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
 
     build_resource
-
+#    binding.pry
     if resource.save
       if resource.active_for_authentication?
         sign_in(resource_name, resource)
