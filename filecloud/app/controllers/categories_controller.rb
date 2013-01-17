@@ -1,12 +1,14 @@
 class CategoriesController < ApplicationController
 def index
-@categories = Category.all
-if ( @new_category.nil?)
-	  @new_category = Category.new
-end
+
+	if ( @new_category.nil?)
+		  @new_category = Category.new
+	end
+	@categories = Category.all
           respond_to do |format|
              format.html { render action: "index"}
               format.js {render js: @new_category }
+              format.js {render js: @categories }
              end
 end
 
@@ -17,12 +19,14 @@ end
 def create
 	 @new_category = Category.new(params[:category])
 	  @categories = Category.all
+	  respond_to do |format|
        if @new_category.save
        	 @new_category = nil
-       	 flash[:success] = "Created successfully"
-         redirect_to categories_url
+       	 format.html { render action: "index"}
+              format.js {render js: @new_category }
+              format.js {render js: @categories }
        else
-         respond_to do |format|
+
          format.html { render action: "index"}
          format.js {render js: @new_category.errors, status: :unprocessable_entity}
          format.js {render js: @categories }
@@ -51,19 +55,19 @@ def edit
 end
 
 def update
-	@category = Category.find(params[:id])
+	@new_category = Category.find(params[:id])
 	@categories = Category.all
        respond_to do |format|
-         if @category.update_attributes(params[:category])
-		  @category = nil
-         format.html { redirect_to "/categories" }
-
-        else
+          if @new_category.update_attributes(params[:category])
+			 @new_category = nil
+              format.html { redirect_to "/categories"}
+             format.js { render js: @new_category }
+          else
              format.html {  render action: "index"}
              format.js {render js: @new_category.errors, status: :unprocessable_entity}
              format.js {render js: @categories }
-        end
-         end
+          end
+       end
 end
 
 def destroy

@@ -1,6 +1,11 @@
 <h1>Categories management</h1>
 <div class="row">
-<%= form_for(@new_category ) do |f| %>
+ <%
+                                   if(@new_category.nil?)
+                                    @new_category= Category.new
+                                    end
+                                    %>
+<%= form_for(@new_category) do |f| %>
                  <div class="span6">
                 <h2>New category</h2>
                  <%= render 'shared/error_messages', object: f.object %>
@@ -32,7 +37,7 @@
                 <td><%= category.description %></td>
                 <td><a href="/categories/<%=category.id%>">Show</a></td>
                 <td><%= link_to 'Edit', edit_category_path(category) %></td>
-                 <td><%= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+                 <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
                 </tr>
                 <% end %>
                 <% end %>

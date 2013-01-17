@@ -1,13 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :folder do
+  factory :category do
+  	id 5
     name "MyString"
     description "MyString"
-    category_id 1
   end
-  factory :new do
-    name "Other"
-    description "Other"
-    end
 end

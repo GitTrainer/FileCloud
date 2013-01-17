@@ -9,7 +9,7 @@ describe Category do
 
   it { should respond_to(:name)}
   it { should respond_to(:description)}
-
+   it { should respond_to(:folders) }
   it { should be_valid  }
 
   describe "when name is not presence" do
