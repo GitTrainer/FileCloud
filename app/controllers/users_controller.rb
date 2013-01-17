@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
-  before_filter :signed_in_user, only: [:edit, :update]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :signed_in_user, only: [:index]
+  before_filter :correct_user,   only: [:show,:edit, :update]
   before_filter :admin_user,     only: :destroy
   def index
     @users = User.all
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserMailer.welcome_email(@user).deliver
-        
+        cookies.permanent[:remember_token] = @user.remember_token
         format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -63,11 +63,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    # binding.pry
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        cookies.permanent[:remember_token] = @user.remember_token
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
+        # binding.pry
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -107,15 +109,16 @@ class UsersController < ApplicationController
   private
 
     def signed_in_user
+
       redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      redirect_to root_path, notice: "Not correct user" unless current_user?(@user)
     end
 
     def admin_user
-      redirect_to(root_path) unless current_user.admin?
+      redirect_to root_path, notice: "Not admin user" unless current_user.admin?
     end
 end

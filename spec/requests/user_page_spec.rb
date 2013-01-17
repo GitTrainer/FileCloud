@@ -19,9 +19,11 @@ describe "user page" do
 				fill_in "Password",with: "123456"
 				fill_in "Confirmation",with: "123456"
 			end
-			it "should crate user" do
+			it "should create user" do
 			expect {click_button submit}.to change(User,:count).by(1)
 			end
 		end
 	end
+
+
 end

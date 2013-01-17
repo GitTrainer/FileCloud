@@ -13,4 +13,13 @@ FactoryGirl.define do
 		password_confirmation "1234567"
 		status true
 	end
+
+	factory :user_admin ,class: User do
+		name "kunyokug"
+		email "user@yahoo.com"
+		password "1234567"
+		password_confirmation "1234567"
+		status true
+      	admin true
+	end
 end

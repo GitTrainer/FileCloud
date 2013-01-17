@@ -11,6 +11,7 @@ module SessionsHelper
   	end
 
 	def current_user
+		# binding.pry
 	    @current_user ||= User.find_by_remember_token(cookies[:remember_token])
 	    # a||=b  a=a if a#nill a=b if a nill
 	    # left to right , stop when a,b true
@@ -24,6 +25,7 @@ module SessionsHelper
   	end
   	
 	def signed_in?
+		# binding.pry
     	!current_user.nil?
 	end
 
@@ -31,4 +33,13 @@ module SessionsHelper
 	    self.current_user = nil
 	    cookies.delete(:remember_token)
   	end
+  	
+  	# def redirect_back_or(default)
+   #  	redirect_to(session[:return_to] || default)
+   #  	session.delete(:return_to)
+  	# end
+
+  	# def store_location
+   #  	session[:return_to] = request.url
+  	# end
 end
