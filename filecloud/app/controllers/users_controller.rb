@@ -61,11 +61,12 @@ def create
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    #binding.pry
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
+        #binding.pry
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -95,11 +96,11 @@ def create
         #binding.pry
           if @user.update_attribute(:status, true)
             flash[:success] = "Welcome to the Sample App"
-            render 'sessions/newactive'
+            render 'sessions/new'
       
           else
             flash[:success] = "Please activate in your mail"
-            render 'sessions/newactive'
+            render 'sessions/new'
           end
         else
           signed_in_user
@@ -126,5 +127,6 @@ def create
      def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+    
     
 end

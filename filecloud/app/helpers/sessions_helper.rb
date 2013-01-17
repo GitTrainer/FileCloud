@@ -7,6 +7,7 @@ module SessionsHelper
     @current_user = user
   end
   def current_user
+   # binding.pry
     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
   end
 

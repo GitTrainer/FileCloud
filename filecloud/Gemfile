@@ -29,8 +29,8 @@ gem 'pry', :group => :development
 group :test, :development do
  # gem "rspec-rails", "~> 2.0"
   gem 'faker'
-  gem 'capybara'
-  gem 'factory_girl_rails'
+  gem 'capybara', '1.1.2'
+  gem 'factory_girl_rails', '4.1.0'
   gem 'database_cleaner'
   gem "rspec-rails", "~> 2.11.0"
 end
@@ -38,6 +38,7 @@ end
 group :test do
   #gem "factory_girl_rails"
   #gem "capybara"
+  gem 'cucumber-rails', '1.2.1', :require => false
   gem "guard-rspec"
 end
 # To use ActiveModel has_secure_password
