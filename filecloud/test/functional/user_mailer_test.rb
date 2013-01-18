@@ -5,7 +5,7 @@ class UserMailerTest < ActionMailer::TestCase
   #   assert true
   # end
   def test_welcome_email
-    # user = User.new(name: "First user",email: "dangkhanhjava@gmail",login: "login")
+    user = User.new(name: "vandung",email: "ngvandung2010@gmail.com")
  	user=User.new
     # Send the email, then test that it got queued
     email = UserMailer.welcome_email(user).deliver
