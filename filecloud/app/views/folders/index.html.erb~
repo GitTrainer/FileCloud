@@ -1,10 +1,13 @@
 <h1>Folders management</h1>
 <div class="row">
+ <% if(@new_folder.nil?)
+       @new_folder= Folder.new
+     end %>
 <%= form_for(@new_folder ) do |f| %>
                  <div class="span6">
                 <h2>New Folder</h2>
                  <%= render 'shared/error_messages', object: f.object %>
-                <%= render 'folder',st: @new_category , f: f%>
+                <%= render 'folder',st: @new_folder , f: f%>
 
                 <div class="span1"></br><%= f.submit%></div>
                 </div>

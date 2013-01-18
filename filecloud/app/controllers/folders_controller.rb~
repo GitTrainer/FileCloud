@@ -7,6 +7,7 @@ def index
           respond_to do |format|
              format.html { render action: "index"}
               format.js {render js: @new_folder }
+               format.js {render js:  @folders }
              end
 end
 def new
@@ -16,14 +17,15 @@ end
 def create
 	 @new_folder = Folder.new(params[:folder])
 	  @folders = Folder.all
-
+ respond_to do |format|
        if @new_folder.save
 
 			 	 @new_folder = nil
-			 	 flash[:success] = "Created successfully"
-				 redirect_to folders_url
-       else           
-         respond_to do |format|
+			 	format.html { render action: "index"}
+              format.js {render js: @new_folder }
+              format.js {render js: @folders }
+       else
+
          format.html { render action: "index"}
          format.js {render js: @new_folder.errors, status: :unprocessable_entity}
          format.js {render js: @folders }
@@ -50,22 +52,18 @@ def show
 end
 
 def update
-	@folder = Folder.find(params[:id])
+	@new_folder = Folder.find(params[:id])
 	@folders = Folder.all
-#	 file = params[:folder][:file]
-#        if (!file.nil?)
-#        path =  "#{Rails.root}/app/assets/images/#{file.original_filename}"
-#        FileUtils.copy(file.tempfile, path)
-#        end
        respond_to do |format|
-         if @folder.update_attributes(params[:folder])
-		  @folder = nil                     
-         format.html { redirect_to "/folders" }                     
-                                                       
-        else                                        
+         if @new_folder.update_attributes(params[:folder])
+		  @new_folder = nil
+         format.html { redirect_to "/folders" }
+          format.js { render js: @new_folder }
+
+        else
              format.html {  render action: "index"}
              format.js {render js: @new_folder.errors, status: :unprocessable_entity}
-             format.js {render js: @folders }                  
+             format.js {render js: @folders }
         end
          end
 end

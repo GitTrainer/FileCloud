@@ -6,8 +6,4 @@ FactoryGirl.define do
     description "MyString"
     category_id 1
   end
-  factory :new do
-    name "Other"
-    description "Other"
-    end
 end
