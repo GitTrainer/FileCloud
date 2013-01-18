@@ -1,5 +1,5 @@
 def new_user
-  @user ||= { :email => "example@example.com",
+  @user ||= { :email => "user@filecloud.com",
     :password => "please", :password_confirmation => "please" }
 end
 
@@ -30,12 +30,12 @@ Then /^I should see a message "([^\"]*)"$/ do |arg1|
 end
 
 Then /^my email address should be stored in the database$/ do
-  test_user = User.find_by_email("example@example.com")
+  test_user = User.find_by_email("user@filecloud.com")
   test_user.should respond_to(:email)
 end
 
 Then /^my account should be unconfirmed$/ do
-  test_user = User.find_by_email("example@example.com")
+  test_user = User.find_by_email("user@filecloud.com")
   test_user.confirmed_at.should be_nil
 end
 

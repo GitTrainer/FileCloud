@@ -6,22 +6,30 @@ class UsersController < ApplicationController
     @users = User.all
     @chart = create_chart
   end
-  
+  def listuser
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    @search = User.search(params[:search])
+    @users =      @search.paginate(:per_page => 30, :page => params[:page])
+    
+  end
+
   def show
     @user = User.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      
-    end
   end
-  
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+  end
+
   def invite
     authorize! :invite, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:id])
     @user.send_confirmation_instructions
     redirect_to :back, :only_path => true, :notice => "Sent invitation to #{@user.email}."
   end
-  
+
   def bulk_invite
     authorize! :bulk_invite, @user, :message => 'Not authorized as an administrator.'
     users = User.where(:confirmation_token => nil).order(:created_at).limit(params[:quantity])
@@ -30,9 +38,9 @@ class UsersController < ApplicationController
     end
     redirect_to :back, :only_path => true, :notice => "Sent invitation to #{users.count} users."
   end
-  
+
   private
-  
+
   def create_chart
     users_by_day = User.group("DATE(created_at)").count
     data_table = GoogleVisualr::DataTable.new
