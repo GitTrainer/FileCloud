@@ -6,7 +6,6 @@ describe Filestream do
 	end
 
 	 subject { @file }
-
 	it {should respond_to(:folder_id)}
 	it {should respond_to(:attach)}
 
