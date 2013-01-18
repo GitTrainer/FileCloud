@@ -15,14 +15,14 @@ class ResetPasswordsController < ApplicationController
 		end	
 	end
 
-	def update 
+	def update
 		@user=User.find_by_password_reset(params[:id])
 		@user.password_reset=nil
 		if @user.password_reset_sent_at < 24.hours.ago
 			redirect_to new_reset_passwords
 		elsif @user.update_attributes(params[:user])
 			flash.now[:notice]='You have just changed your passowrd'
-			redirect_to root_url
+			render 'sessions/new'
 		else
 			render 'edit'
 		end

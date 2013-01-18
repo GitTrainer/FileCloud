@@ -13,11 +13,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
-  email: MyString
-  login: MyString
+  name: HoangKhanh
+  email: dangkhanhjava@gmail.com
+  login: activated
 
 two:
-  name: MyString
-  email: MyString
-  login: MyString
+  name: KhanhHoang
+  email: dangkhanhit@gmail.com
+  login: activated
+ 

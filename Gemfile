@@ -31,6 +31,7 @@ gem 'bcrypt-ruby', '3.0.1'
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem 'capybara', '1.1.2'
+
 end
 gem 'bootstrap-sass', '2.1'
 
@@ -40,6 +41,7 @@ gem 'pry', :group => :development
  group :test do
     gem 'factory_girl_rails', '4.1.0'
     gem 'email_spec'
+    gem "guard-rspec"
  end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

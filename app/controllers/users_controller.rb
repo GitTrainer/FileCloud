@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.welcome_email(@user).deliver
         cookies.permanent[:remember_token] = @user.remember_token
-        format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
+        format.html { redirect_to signin_url, notice: 'User was successfully created! Please check your email to Activate password' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
