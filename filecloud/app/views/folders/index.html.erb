@@ -5,7 +5,7 @@
     <th>Category</th>
     <th>Name</th>
     <th>Description</th>
-    <th></th>
+    <th>Picture</th>
     <th></th>
     <th></th>
   </tr>
@@ -15,6 +15,16 @@
     <td><%= folder.category.name %></td>
     <td><%= folder.name %></td>
     <td><%= folder.description %></td>
+    <%= form_for(folder,:html => {:multipart => true}) do |f| %>
+                     <div class="span3"> <%if !f.object.description.blank? %>
+<div class="avatar img-rounded">
+
+<td><img src="/assets/<%=f.object.description%>" width="150" hight="260"/></td></div>
+<%else%>
+<div class="avatar img-rounded"> <img src="/assets/noimage.jpg" width="150" hight="260"/></div>
+<%end%>
+<%end%>
+</div>
     <td><%= link_to 'Show', folder %></td>
     <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
     <td><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,3 +35,4 @@
 <br />
 
 <%= link_to 'New Folder', new_folder_path %>
+

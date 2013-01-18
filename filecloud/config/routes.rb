@@ -1,9 +1,24 @@
 Filecloud::Application.routes.draw do
+  resources :upload_files do
+    member do
+      get 'download'
+    end
+  end
+
   resources :folders
 
   resources :categories
 
   resources :users
+
+get "upload_files/new"
+match "/home", to: "static_pages#home"
+match "signup", to: "users#new"
+
+
+root to:"static_pages#home"
+
+match "/",  to: "static_pages#home"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
