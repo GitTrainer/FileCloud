@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'rspec/rails'
+require 'rspec/autorun'
+require 'capybara/rails'
+require 'factory_girl'
+require 'factory_girl_rails'
 
 describe "Filestreams" do
 	subject{page}
@@ -29,13 +34,23 @@ describe "Filestreams" do
 	end
 
 	describe "Should back to folder" do
-		before { visit ('/filestreams/?folder_id='+ @file.folder_id.to_s)}
-		#click_button "Back to Folder"
-		let(:submit) { "Back to Folder" }
-		it "should have_content" do
-			binding.pry
-			page.should have_content("Folder details")
+		before { visit ('/filestreams/?folder_id='+ @file.folder_id.to_s)
+		click_button "Back to Folder" }
+		it "should have upload file content" do
+			page.should have_content("Upload file")
 		end
+	end
+
+	describe "File should be attached to server" do
+		before do
+			visit ('/filestreams/?folder_id='+ @file.folder_id.to_s
+			page.attach_file('attach', '#{Rails.root}/bongda.jpg')
+			let(:submit) {"Start"}
+		end
+		it "should save file to public folder" do
+
+		end
+
 	end
 
 

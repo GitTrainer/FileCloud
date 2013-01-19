@@ -12,6 +12,8 @@ gem 'jquery-rails'
 gem 'jquery-fileupload-rails'
 gem 'paperclip'
 gem 'bootstrap-sass', '2.1'
+#gem 'less', '2.2.2' # (at this date)
+#gem 'therubyracer'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
