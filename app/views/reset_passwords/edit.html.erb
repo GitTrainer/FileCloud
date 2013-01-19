@@ -1,3 +1,4 @@
+<% provide(:title, 'Update Password') %>
 <h1>Update your new password</h1>
 <%= form_for @user, :url => reset_password_path(params[:id]) do |f| %>
    <%= render 'shared/error_messages' %>

@@ -7,7 +7,7 @@ class ResetPasswordsController < ApplicationController
 			# binding.pry
 			@user.send_resset_password
 			flash.now[:notice]='Please check your email to reset password'
-			render 'sessions/new'
+			render  'sessions/new'
 		else
 			# flash.now[:error]='Could not found email'
 			# render 'reset_passwords/new'
