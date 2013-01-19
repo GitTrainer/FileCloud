@@ -2,14 +2,9 @@ require 'spec_helper'
 
 describe "User" do
 
-  # before do  
-  # 	@user = User.new(name: "vandung", email: "ngvandung2010@gmail.com", password: "123456", 
-  # 	password_confimation: "123456") 
-  # end
-
 before do
-    @user = User.new(name: "Example User", email: "user@example.com", 
-                     password: "foobar", password_confirmation: "foobar")
+    @user = User.new(name: "Van dung", email: "dung@gmail.com", 
+                     password: "123456", password_confirmation: "123456")
   end
 
   subject { @user }
@@ -103,7 +98,9 @@ before do
     end
   end
   describe "remember token" do
-  	before(@user.save)
+  	before do
+     @user.save
+   end
   	# its(:remember_token) {should_not be_blank}
   	it {@user.remember_token.should_not be_blank}
   end
@@ -114,5 +111,34 @@ before do
     end
     it{should be_admin}
   end
+ 
+
+   describe "send password reset" do
+     let(:user) { FactoryGirl.create(:user) }
+ 
+     # This fails
+     context "generates a unique password_reset_token each time" do
+       let(:user) { FactoryGirl.create(:user) }
+       before do
+         user.send_password_reset
+         user.password_reset_token
+         user.send_password_reset
+       end
+       its(:password_reset_token) { should_not == user.password_reset_token }
+     end
+       it "saves the time the password reset was sent" do
+      user.send_password_reset
+      user.reload.password_reset_sent_at.should be_present
+    end
+
+    it "delivers email to user" do
+      user.send_password_reset
+      last_email.to.should include(user.email)
+    end
+   end
+
+
 
 end
+
+

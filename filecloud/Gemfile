@@ -33,6 +33,8 @@ group :test, :development do
   gem 'factory_girl_rails', '4.1.0'
   gem 'database_cleaner'
   gem "rspec-rails", "~> 2.11.0"
+   gem "spork", "> 0.9.0.rc"  
+   gem "guard-spork"  
 end
 
 group :test do
@@ -40,7 +42,12 @@ group :test do
   #gem "capybara"
   gem 'cucumber-rails', '1.2.1', :require => false
   gem "guard-rspec"
+ 
 end
+
+
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
