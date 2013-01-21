@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome <%=@user.name%></h1>
+    <p>
+      Please activation: 
+      <%= url_for(:action => 'activate', :controller => 'users',:host =>'localhost:3000',:id=>@user.id,:active_code =>@activation_code) %>
+    </p>
+  </body>
+</html>

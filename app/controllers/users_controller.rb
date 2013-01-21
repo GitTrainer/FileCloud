@@ -1,0 +1,126 @@
+class UsersController < ApplicationController
+  # GET /users
+  # GET /users.json
+  before_filter :signed_in_user, only: [:index]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :admin_user,     only: :destroy
+  def index
+    # binding.pry
+    @users = User.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @users }
+    end
+  end
+
+  # GET /users/1
+  # GET /users/1.json
+  def show
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/new
+  # GET /users/new.json
+  def new
+    @user = User.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  # POST /users
+  # POST /users.json
+  def create
+    @user = User.new(params[:user])
+    @activation_code=SecureRandom.urlsafe_base64
+    @user.login=@activation_code
+    respond_to do |format|
+      if @user.save
+        UserMailer.welcome_email(@user).deliver
+        # cookies.permanent[:remember_token] = @user.remember_token
+        format.html { redirect_to signin_url, notice: 'User was successfully created! Please check your email to Activate password' }
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /users/1
+  # PUT /users/1.json
+  def update
+    @user = User.find(params[:id])
+    # binding.pry
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        cookies.permanent[:remember_token] = @user.remember_token
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+        # binding.pry
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /users/1
+  # DELETE /users/1.json
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url ,:notice =>"You have just deleted user" }
+      format.json { head :no_content }
+    end
+  end
+
+  def activate
+    @user=User.find(params[:id])
+   
+    if @user.status==false
+      if @user.login == params[:active_code]
+        if @user.update_attributes(:status=>true,:login=>"activated")
+          flash.now[:notice]='You have just activated your account'
+          render 'sessions/new'
+        else
+          flash.now[:notice]='Error!'
+          render 'sessions/new'
+        end
+      else
+        redirect_to signin_url ,:notice => 'The link is not valid. Please try again!'
+      end
+    else
+      flash.now[:notice]='You were activated, Please singin'
+      render 'sessions/new'
+    end
+  end
+
+  private
+
+    def signed_in_user
+
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_path, notice: "Not correct user" unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to root_path, notice: "Not admin user" unless current_user.admin?
+    end
+end
