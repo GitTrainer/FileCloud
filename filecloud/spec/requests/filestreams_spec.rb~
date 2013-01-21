@@ -42,18 +42,14 @@ describe "Filestreams" do
 	end
 
 	describe "File should be attached to server" do
+		path = "#{Rails.root}/bongda.jpg"
 		before do
-			visit ('/filestreams/?folder_id='+ @file.folder_id.to_s
-			page.attach_file('attach', '#{Rails.root}/bongda.jpg')
-			let(:submit) {"Start"}
+			visit ('/filestreams/?folder_id='+ @file.folder_id.to_s)
+			page.attach_file('filestream_attach', path)
+			click_button ("Start")
 		end
 		it "should save file to public folder" do
-
+			page.should have_content("bongda.jpg")
 		end
-
 	end
-
-
-
-
 end
