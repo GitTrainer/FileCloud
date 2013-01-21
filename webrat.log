@@ -1,5 +1,0 @@
-# Logfile created on 2013-01-18 15:52:30 +0700 by logger.rb/31641
-REQUESTING PAGE: GET /signin with {} and HTTP headers {}
-REQUESTING PAGE: GET /password_resets/new with {} and HTTP headers {"HTTP_REFERER"=>"/signin"}
-REQUESTING PAGE: POST /password_resets with {"utf8"=>"✓", "email"=>"ngvandung20102gmail.com", "commit"=>"Reset Password"} and HTTP headers {"HTTP_REFERER"=>"/password_resets/new"}
-REQUESTING PAGE: GET http://www.example.com/ with {} and HTTP headers {"HTTP_REFERER"=>"/password_resets"}
