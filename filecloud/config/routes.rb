@@ -1,16 +1,16 @@
 Filecloud::Application.routes.draw do
 
 
-  get "file_up_loads/new"
+ # get "file_up_loads/new"
+  #resources :file_up_loads
 
   resources :categories
-  resources :folders
+  resources :folders 
   resources :file_up_loads do
-   member do
-    get 'download'
-   end
-
-   end
+         member do
+           get 'download'
+         end
+    end
 
   #resources :folders do
   #resources :file_up_loads

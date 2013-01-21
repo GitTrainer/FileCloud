@@ -2,6 +2,16 @@
 
 <%= form_for @folder do |f| %>
 
+<%if @folder.errors.any?%>
+   <h3 style="color:red">Errors:</h3>
+    <ul style="color:red">
+     <% @folder.errors.full_messages.each do|message|%>
+ 
+   	<%= message%>
+   	<%end%>
+   </ul>
+   <%end%>
+
 <table  width ="400px">
 <tr>
 <td style="color:blue"> <%= f.label :name %></td>
@@ -32,5 +42,5 @@
 </p>
 <% end %>
 <p>
-<%=link_to "Back",{:action=>'index'}%>
+<%=link_to "Back",folders_path %>
 </p>

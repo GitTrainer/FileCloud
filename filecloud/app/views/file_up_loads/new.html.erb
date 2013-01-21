@@ -1,4 +1,4 @@
-<h1 style="color:blue">UpLoadFile  <%=@folder.name%></h1>
+<h1 style="color:blue">UpLoadFile <%=@folder.name %></h1>
 
 <%= form_for(@fileupload,:html => { :multipart => true }) do |f| %>
     <p>
@@ -11,5 +11,5 @@
     <% end %>
     </p>
     <p>
-    <%=link_to 'Back',{:action=>'show',:controller=>'folders',:id=>@folder.id}%>
-    </p>
+    <%=link_to 'Back',folder_path(@folder.id)%>
+    </p> 

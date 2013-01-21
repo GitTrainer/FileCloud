@@ -1,6 +1,15 @@
-<h1 style="color:blue">Add new Categroy</h1>
+<h1 style="color:blue">Add new Category</h1>
 
 <%= form_for @category do |f| %>
+  <%if @category.errors.any?%>
+   <h3 style="color:red">Errors:</h3>
+    <ul style="color:red">
+     <% @category.errors.full_messages.each do|message|%>
+ 
+   	<%= message%>
+   	<%end%>
+   </ul>
+   <%end%>
 <table  width ="400px">
 <tr>
 <td style="color:blue"> <%= f.label :name %></td>
@@ -24,5 +33,5 @@
       <%= f.submit "Create Category"%>
     <% end %>
  <p>
-<%=link_to "Back",{:action=>'index'}%>
+<%=link_to "Back", categories_path %>
 </p>
