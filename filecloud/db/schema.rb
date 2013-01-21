@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20130118031512) do
     t.datetime "updated_at",  :null => false
     t.string   "file"
   end
->>>>>>> 1de1de041470cffe47b10aed86ed9fd892a9cfe1
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -49,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130118031512) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "status",                 :default => false
+    t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "admin",                  :default => false
