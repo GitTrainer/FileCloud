@@ -29,11 +29,19 @@ textarea {
 
 .center {
   text-align: center;
+<<<<<<< HEAD
   h1 {
     margin-bottom: 10px;
   }
 }
 
+=======
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+>>>>>>> 1de1de041470cffe47b10aed86ed9fd892a9cfe1
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -53,13 +61,18 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
+<<<<<<< HEAD
   color: $grayLight;
+=======
+  color: #999;
+>>>>>>> 1de1de041470cffe47b10aed86ed9fd892a9cfe1
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+<<<<<<< HEAD
 
 
 /* header */
@@ -246,3 +259,5 @@ aside {
   width: 280px;
   
 }
+=======
+>>>>>>> 1de1de041470cffe47b10aed86ed9fd892a9cfe1

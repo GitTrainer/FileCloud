@@ -8,6 +8,12 @@ gem 'rails', '3.2.8'
 gem 'sqlite3'
 
 
+gem 'jquery-rails'
+gem 'jquery-fileupload-rails'
+gem 'paperclip'
+gem 'bootstrap-sass', '2.1'
+gem 'less', '2.2.2' # (at this date)
+gem 'therubyracer'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -20,7 +26,20 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+
+
+group :test, :development do
+  gem 'factory_girl_rails', '4.1.0'
+  gem "rspec-rails", "~> 2.0"
+  gem 'faker'
+  gem 'capybara', '1.1.2'
+  gem 'database_cleaner'
+  gem 'pry-debugger'
+  gem 'shoulda-matchers', :require => false
+  gem 'launchy'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 
 # To use ActiveModel has_secure_password

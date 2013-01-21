@@ -13,6 +13,33 @@
 
 ActiveRecord::Schema.define(:version => 20130118031512) do
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "filestreams", :force => true do |t|
+    t.string   "filename"
+    t.integer  "folder_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+  end
+
+  create_table "folders", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "file"
+  end
+>>>>>>> 1de1de041470cffe47b10aed86ed9fd892a9cfe1
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"

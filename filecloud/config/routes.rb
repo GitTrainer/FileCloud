@@ -12,7 +12,13 @@ Filecloud::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  get "users/new"
+  resources :categories
+  resources :folders
+  resources :filestreams do
+   member do
+    get 'download'
+   end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
