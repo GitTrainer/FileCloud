@@ -13,9 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-<<<<<<< HEAD
 //= require jquery-fileupload
-=======
-
 //= require bootstrap
->>>>>>> remotes/origin/dung-useraccess

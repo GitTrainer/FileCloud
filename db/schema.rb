@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130115025632) do
+ActiveRecord::Schema.define(:version => 20130118031512) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -39,9 +38,6 @@ ActiveRecord::Schema.define(:version => 20130115025632) do
     t.datetime "updated_at",  :null => false
     t.string   "file"
   end
-=======
-ActiveRecord::Schema.define(:version => 20130118031512) do
->>>>>>> remotes/origin/dung-useraccess
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -52,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130118031512) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "status",                 :default => false
+    t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "admin",                  :default => false

@@ -1,7 +1,5 @@
 @import "bootstrap";
 
-<<<<<<< HEAD
-=======
 
 /* mixins, variables, etc. */
 
@@ -11,7 +9,7 @@ $grayMediumLight: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
->>>>>>> remotes/origin/dung-useraccess
+
 /* universal */
 
 html {
@@ -32,19 +30,14 @@ textarea {
 
 .center {
   text-align: center;
-<<<<<<< HEAD
+
 }
 
 .center h1 {
   margin-bottom: 10px;
 }
-=======
-  h1 {
-    margin-bottom: 10px;
-  }
-}
 
->>>>>>> remotes/origin/dung-useraccess
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,19 +57,18 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-<<<<<<< HEAD
+
   color: #999;
-=======
+
   color: $grayLight;
->>>>>>> remotes/origin/dung-useraccess
+
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-<<<<<<< HEAD
-=======
+
 
 
 /* header */
@@ -106,12 +98,12 @@ footer {
   color: $grayLight;
   a {
     color: $gray;
-    &:hover { 
+    &:hover {
       color: $grayDarker;
     }
-  }  
-  small { 
-    float: left; 
+  }
+  small {
+    float: left;
   }
   ul {
     float: right;
@@ -261,6 +253,5 @@ aside {
 }
 .field{
   width: 280px;
-  
+
 }
->>>>>>> remotes/origin/dung-useraccess

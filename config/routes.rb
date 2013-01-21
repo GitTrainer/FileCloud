@@ -1,5 +1,4 @@
 Filecloud::Application.routes.draw do
-<<<<<<< HEAD
   resources :users
   resources :categories
   resources :folders
@@ -8,22 +7,21 @@ Filecloud::Application.routes.draw do
     get 'download'
    end
   end
-=======
+
   #get "password_resets/new"
  # get "password_reset/:id" => "users#password_reset"
 
   resources :password_resets
-  resources :users 
+
   root to: 'sessions#new'
   match '/activate',to: 'users#activate'
-  
+
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  get "users/new"
->>>>>>> remotes/origin/dung-useraccess
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
