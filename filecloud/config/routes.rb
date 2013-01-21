@@ -2,8 +2,7 @@ Filecloud::Application.routes.draw do
 
 
  # get "file_up_loads/new"
-  #resources :file_up_loads
-
+ 
   resources :categories
   resources :folders 
   resources :file_up_loads do
