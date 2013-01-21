@@ -1,0 +1,17 @@
+	<% provide(:title, @category.name)%>
+<h1 style="color:blue"><%= @category.name%></h1>
+<p><h4 style="color:green">These is Files contian in this category:</h4>
+	<ul>
+     <%@category.folders.each do |f|%>
+        <li>
+ 	        <%= link_to f.name,folder_path(f.id)%>	
+        </li>
+        <%end%>
+    </ul>
+</p>	
+<p><h4 style="color:green">Description:</h4>
+	<%=@category.description%>
+</p>
+<p>
+<%=link_to 'Back',categories_path %>
+</p>

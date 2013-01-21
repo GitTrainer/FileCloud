@@ -1,5 +1,33 @@
 Filecloud::Application.routes.draw do
+
   resources :users
+
+
+
+ # get "file_up_loads/new"
+ 
+  resources :categories
+  resources :folders 
+  resources :file_up_loads do
+         member do
+           get 'download'
+         end
+    end
+
+  #resources :folders do
+  #resources :file_up_loads
+#end
+
+  #get "folders/index"
+
+  #get "categorys/new"
+
+  #get "categorys/index"
+
+  #match "folders" => "folders#show"
+
+  #match "folders" => "folders#new"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

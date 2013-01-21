@@ -19,6 +19,32 @@ ActiveRecord::Schema.define(:version => 20130108065816) do
     t.string   "login"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+
+ActiveRecord::Schema.define(:version => 20130112021140) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "file_up_loads", :force => true do |t|
+    t.integer  "folder_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+  end
+
+  create_table "folders", :force => true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+
   end
 
 end
