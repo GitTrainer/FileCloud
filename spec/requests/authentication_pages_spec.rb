@@ -1,5 +1,6 @@
 require 'spec_helper'
-
+require 'factory_girl'
+require 'factory_girl_rails'
 describe "Authentication " do 
 
   	subject { page }
@@ -7,28 +8,31 @@ describe "Authentication " do
 	describe "non-admin" do
 		let(:user) { FactoryGirl.create(:user_activated) }
 		let(:non_admin){FactoryGirl.create(:user_activated,:email=>"Myemail@yahoo.com")}
-		before do
-			sign_in non_admin
-			visit users_path
-		end
 		describe "Delete user with non-admin" do
 			before do
+				sign_in non_admin
+				visit users_path
 				delete user_path(user)
 			end
 			specify { response.should redirect_to(root_path) } 
 		end
 	end
 
-	# describe "with admin" do
-	# 	let(:user) { FactoryGirl(:user,:email =>"abcddkf@yahoo.com",:status=>true) }
-	# 	let(:user_admin){FactoryGirl.create(:user_activated,:admin=>true)}
-	# 	# let(:user_admin){FactoryGirl.create(:user_activated,:email=>"cdkdslfa@gmail.com")}
+	describe "with admin" do
+		# binding.pry
+		let(:user1){FactoryGirl.create(:user) }
+		let(:admin){FactoryGirl.create(:user_admin)}
+		FactoryGirl.create(:user3)
 		
-	# 	before do
-	# 		sign_in user_admin
-	# 		visit users_path
-	# 	end
-	# 	it {should have_selector('div.container h1',text: 'Listing users')}
-	# 	it { should have_content('delete') }
-	# end	
+		describe "delete" do
+			before do
+				# binding.pry
+				sign_in admin
+				visit users_path
+			end
+			it "delete user" do
+				expect { click_link('delete') }.to change(User, :count).by(-1)
+			end
+		end
+	end	
 end

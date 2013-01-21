@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   before_filter :signed_in_user, only: [:index]
-  before_filter :correct_user,   only: [:show,:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
   def index
+    # binding.pry
     @users = User.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserMailer.welcome_email(@user).deliver
-        cookies.permanent[:remember_token] = @user.remember_token
+        # cookies.permanent[:remember_token] = @user.remember_token
         format.html { redirect_to signin_url, notice: 'User was successfully created! Please check your email to Activate password' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -82,9 +81,8 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to users_url ,:notice =>"You have just deleted user" }
       format.json { head :no_content }
     end
   end

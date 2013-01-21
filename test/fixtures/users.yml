@@ -16,7 +16,7 @@ one:
   name: HoangKhanh
   email: dangkhanhjava@gmail.com
   login: activated
-
+  status: true
 two:
   name: KhanhHoang
   email: dangkhanhit@gmail.com

@@ -6,6 +6,13 @@ FactoryGirl.define do
 		password_confirmation "1234567"
 	end
 
+	factory :user3 ,class: User do
+		name "KhanhHoang"
+		email "user3@gmail.com"
+		password "1234567"
+		password_confirmation "1234567"
+	end
+
 	factory :user_activated ,class: User do
 		name "kunyokug"
 		email "dangkhanhjava@gmail.com"
@@ -16,7 +23,7 @@ FactoryGirl.define do
 
 	factory :user_admin ,class: User do
 		name "kunyokug"
-		email "refresh1102@yahoo.com"
+		email "test@yahoo.com"
 		password "1234567"
 		password_confirmation "1234567"
 		status true

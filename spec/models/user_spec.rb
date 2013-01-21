@@ -64,6 +64,5 @@ describe User do
   			last_email.to.should include(user_activated.email)
   		end
   	end
-  	
 
 end
