@@ -16,8 +16,15 @@
     <td><%= user.email %></td>
     <td><%= user.login %></td>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if current_user?(user) %>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <% end %>
+    <td>
+    <% if current_user.admin?%>
+      <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+    <%end%>  
+    </td>
   </tr>
 <% end %>
 </table>

@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :admin_user,     only: :destroy
   def index
     @users = User.all
 
@@ -41,13 +44,13 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-
+    @activation_code=SecureRandom.urlsafe_base64
+    @user.login=@activation_code
     respond_to do |format|
       if @user.save
-
         UserMailer.welcome_email(@user).deliver
         
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -83,4 +86,36 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def activate
+    @user=User.find(params[:id])
+    if @user.login == params[:active_code]
+      if @user.status==false
+        if @user.update_attribute(:status,true)
+          flash.now[:notice]='You have just activated your account'
+          render 'sessions/new'
+        end
+      else
+        flash.now[:notice]='You were activated, Please singin'
+        render 'sessions/new'
+      end
+    else
+      redirect_to signin_url ,:notice => 'The link is not valid. Please try again!'
+    end
+  end
+
+  private
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 end
