@@ -6,12 +6,6 @@ class UsersController < ApplicationController
     @users = User.all
     @chart = create_chart
   end
-  def listuser
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
-    @search = User.search(params[:search])
-    @users =      @search.paginate(:per_page => 30, :page => params[:page])
-    
-  end
 
   def show
     @user = User.find(params[:id])
@@ -21,6 +15,35 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /roles/1/edit
+  def edit
+    @search = User.search(params[:search])
+    @users = @search.paginate(:per_page => 10, :page => params[:page])
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html { render action: "index"}
+    end
+  end
+
+  # PUT /roles/1.json
+  def update
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to roles_path, notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def invite

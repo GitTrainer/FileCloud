@@ -81,7 +81,8 @@ describe RolesController do
 
       it "redirects to the created role" do
         post :create, {:role => valid_attributes}, valid_session
-        response.should redirect_to(Role.last)
+        #response.should redirect_to(Role.last)
+        response.should redirect_to("http://test.host/roles")
       end
     end
 
@@ -97,7 +98,7 @@ describe RolesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Role.any_instance.stub(:save).and_return(false)
         post :create, {:role => { "name" => "invalid value" }}, valid_session
-        response.should render_template("new")
+        response.should render_template("roles/index")
       end
     end
   end
@@ -123,7 +124,8 @@ describe RolesController do
       it "redirects to the role" do
         role = Role.create! valid_attributes
         put :update, {:id => role.to_param, :role => valid_attributes}, valid_session
-        response.should redirect_to(role)
+      #  response.should redirect_to(role)
+      response.should redirect_to("http://test.host/roles")
       end
     end
 

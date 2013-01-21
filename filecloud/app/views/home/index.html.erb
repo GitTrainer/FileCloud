@@ -1,7 +1,68 @@
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= link_to user.name, user %> signed up <%= user.created_at.to_date %>
-    </li>
-  <% end %>
-</ul>
+
+  <div id="outercontainer">
+
+    <!-- SLIDER -->
+    <div id="outerslider">
+      <div id="slidercontainer">
+
+
+        <div id="feature_gallery">
+          <div class="bigimg">
+            <img src="images/content/slide1.jpg" alt="" class="change"  />
+            <div class="slidedesc">Maecenas lobortis consectetur metus, cursus malesuada lacus interdum sit amet</div>
+          </div>
+          <div class="bigimg">
+            <img src="images/content/slide2.jpg" alt="" class="change"  />
+            <div class="slidedesc">Pellentesque at urna sit amet lorem condimentum aliquet.</div>
+          </div>
+          <div class="bigimg">
+            <img src="images/content/slide3.jpg" alt="" class="change"  />
+            <div class="slidedesc">Curabitur vel felis imperdiet tortor varius vehicula a quis velit.</div>
+          </div>
+          <div class="bigimg">
+            <img src="images/content/slide1.jpg" alt="" class="change"  />
+            <div class="slidedesc">Morbi cursus quam vel sem cursus consequat consequat lacus bibendum.</div>
+          </div>
+          <div class="bigimg">
+            <img src="images/content/slide2.jpg" alt="" class="change"  />
+            <div class="slidedesc">Quisque malesuada lorem nec mauris ornare rutrum egestas magna sodales.</div>
+          </div>
+          <div class="bigimg">
+            <img src="images/content/slide3.jpg" alt="" class="change"  />
+            <div class="slidedesc">Sed semper lacus iaculis est pretium at ultrices ligula cursus.</div>
+          </div>
+        </div>
+        </section>
+      </div>
+    </div>
+    <!-- END SLIDER -->
+
+    <!-- BEFORE CONTENT -->
+    <div id="outerbeforecontent">
+      <div id="beforecontent">
+        <section id="beforethecontent">
+          <div id="latest-post">
+            <div class="text">
+              <div class="date">
+                Today is
+                <%=DateTime.current.strftime('%d-%m-%Y')%>
+
+              </div>
+              <h1>Welcome to Filecloud</h1>
+            </div>
+            <a href="#" class="button">Read More</a>
+          </div>
+          <div id="banner">
+            <div class="text">
+              <h1>Today's New</h1>
+              <span>All treatements 10%</span>
+            </div>
+            <a href="#" class="button">Read More</a>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+    <!-- END BEFORE CONTENT -->
+</div> 
+
