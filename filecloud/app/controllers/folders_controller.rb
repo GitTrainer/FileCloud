@@ -67,7 +67,7 @@ def create
     @folder = Folder.new(params[:folder])
         pic=params[:folder][:description]
     if (!pic.nil?)
-      binding.pry
+      # binding.pry
     @folder.description = pic.original_filename
     path = "#{Rails.root}/app/assets/images/#{@folder.category_id}_#{pic.original_filename}"
     FileUtils.copy(pic.tempfile, path)
@@ -90,7 +90,7 @@ def create
   # PUT /folders/1
   # PUT /folders/1.json
   def update
-    binding.pry
+    # binding.pry
     @folder = Folder.find(params[:id])
     pic=params[:folder][:description]
     if(!pic.nil?)
@@ -117,7 +117,7 @@ def create
     @folder.destroy
 
     respond_to do |format|
-      format.html { redirect_to folders_url }
+      format.html { redirect_to folders_path }
       format.json { head :no_content }
     end
   end

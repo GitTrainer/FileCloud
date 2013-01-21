@@ -26,13 +26,19 @@ end
     end
 
     def destroy
+      
+      binding.pry
       @folder_id=UploadFile.find_by_id(params[:id]).folder_id
       UploadFile.find_by_id(params[:id]).destroy
-      redirect_to folder_path(@folder_id) 
+      respond_to do |format|
+          format.html { redirect_to folders_url }
+        
+      end
+    
     end
 
     def download
-      binding.pry
+      # binding.pry
       @fileupload=UploadFile.find(params[:id])
       if @fileupload.attach_content_type=="image/*"
         send_file @fileupload.attach.path, :type=>@fileupload.attach_content_type,:disposition=>'inline'

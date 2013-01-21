@@ -27,11 +27,14 @@ describe "Categories" do
     end
 
     describe "with valid information" do
-      before do
-        fill_in "name" ,    with:"Category one"
-        fill_in "description" ,   with:"This is category one."
-        
+      before do         
+         fill_in "Name" ,       with: "Category one"
+         fill_in "Description" ,   with:"This is category one."        
       end
+      #   it "Should create a category" do
+      #   expect{ click_link ('New Category') }.to change(Category,:count).by(1)
+      #   it { should have_link('Back', href: categories_path) }
+      # end
     end
   end
 end

@@ -30,7 +30,7 @@
     
     <td><%= f.image %></td>
     <td><%= link_to 'Download',download_upload_file_path(f.id) %></td>
-    <td><%= link_to 'Delete',f,method: :delete, data: { confirm: 'Are you sure?' }%></td>
+    <td><%= link_to 'Delete',{:action=>'destroy',:controller=>'file_up_loads',:id=>f.id} %></td>
 
     </tr>
   <%end%>

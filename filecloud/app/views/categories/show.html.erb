@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 <%if @category.folders.blank?%>
-<h1>These is Files not contian in this category</h1>
+	<h1>These is Files not contian in this category</h1>
 <%else%>
-<h1>These is Files contian in this category</h1>
+	<h1>These is Files contian in this category</h1>
 
 <% @category.folders.each do |f|%>
+<b>Name folder:
+<%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'}%> </b>
+<% end %>
+<% end %>
 
-<%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'}%>
-</br>
-<% end %>
-<% end %>
 <p>
   <b>Name:</b>
   <%= @category.name %>
