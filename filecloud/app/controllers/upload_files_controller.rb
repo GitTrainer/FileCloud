@@ -27,13 +27,12 @@ end
 
     def destroy
       
-      binding.pry
-      @folder_id=UploadFile.find_by_id(params[:id]).folder_id
-      UploadFile.find_by_id(params[:id]).destroy
-      respond_to do |format|
-          format.html { redirect_to folders_url }
-        
-      end
+   @upload = UploadFile.find(params[:id])
+    @upload.destroy
+
+    redirect_to folder_path(@upload.folder_id)
+
+      
     
     end
 
