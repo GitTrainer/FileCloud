@@ -1,7 +1,11 @@
 Filecloud::Application.routes.draw do
+<<<<<<< HEAD
 
   resources :users
 
+=======
+  resources :users
+>>>>>>> 3ee58f47aff9e55b2e9937d19a16dc7d0b485016
 
 
  # get "file_up_loads/new"

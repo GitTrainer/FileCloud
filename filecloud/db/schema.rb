@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< Temporary merge branch 1
 ActiveRecord::Schema.define(:version => 20130108065816) do
 
   create_table "users", :force => true do |t|

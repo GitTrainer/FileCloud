@@ -13,3 +13,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+#Ignore file upload on directory public.
+/public/system/file_up_loads/attaches/*

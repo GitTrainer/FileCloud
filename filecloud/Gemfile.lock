@@ -106,7 +106,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.4.0)
       mime-types
-
+>>>>>>> Temporary merge branch 2
     polyglot (0.3.3)
     pry (0.9.11.3)
       coderay (~> 1.0.5)
