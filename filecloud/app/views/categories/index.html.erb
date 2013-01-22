@@ -1,0 +1,19 @@
+<%provide(:title,"Categories")%>
+<h1 style="color:blue"> List Category</h1>
+<%if @categorys.blank?%>
+    <p style="color:red">There are not any category in the app.</p>
+<%else%>
+     <p style="color:green">These are current category in app</p>
+     <ul>
+     <% @categorys.each do |f|%>
+        <li>
+ 	        <%= link_to f.name,category_path(f.id) %>
+ 	        <b><%= link_to 'Edit',edit_category_path(f.id)%></b>
+ 	         <b><%= link_to 'Delete',f,method: :delete,data:{confirm: "Are you sure you want to delete this item?"}%>
+ 	        </b>	
+ 	        
+        </li>
+        <%end%>
+    </ul>
+<%end%>
+<p><%=link_to "Add new Category",new_category_path %></p>
