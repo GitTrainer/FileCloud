@@ -1,0 +1,2 @@
+class FilesharingsController < ApplicationController
+end

@@ -3,10 +3,10 @@ Filecloud::Application.routes.draw do
  # get "password_reset/:id" => "users#password_reset"
 
   resources :password_resets
-  resources :users 
+  resources :users
   root to: 'sessions#new'
   match '/activate',to: 'users#activate'
-  
+
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
@@ -14,6 +14,9 @@ Filecloud::Application.routes.draw do
 
   resources :categories
   resources :folders
+  resources :foldersharings
+  resources :filesharings
+
   resources :filestreams do
    member do
     get 'download'

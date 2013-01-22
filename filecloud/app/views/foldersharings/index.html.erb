@@ -1,0 +1,19 @@
+<h1>Share folder to members</h1>
+<div class="row">
+ <% if(@new_foldersharing.nil?)
+       @new_foldersharing= Foldersharing.new
+     end %>
+<%= form_for(@new_foldersharing ) do |f| %>
+                 <div class="span6">
+
+                 <%= render 'shared/error_messages', object: f.object %>
+
+               	<% @users.each do |user| %>
+					<div class="span2"><%= f.label user.name%></div>
+					<div class="span3"><%= f.check_box :isShare, {}, 'true', 'false' %></div>
+               	<% end %>
+
+                <div class="span1"></br><%= f.submit%></div>
+                </div>
+                <%end%>
+                </div>

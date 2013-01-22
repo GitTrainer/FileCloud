@@ -54,7 +54,6 @@ def show
 end
 
 def update
-  binding.pry
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
        respond_to do |format|
@@ -79,5 +78,10 @@ def destroy
              format.html { redirect_to "/folders/?user_id=" + @user_id.to_s }
          end
 end
+
+def share
+
+end
+	@users = User.all
 
 end
