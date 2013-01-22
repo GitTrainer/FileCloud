@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 gem 'sqlite3'
+gem "jquery-fileupload-rails"
+gem "pry"
+gem 'paperclip'
 
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
@@ -15,6 +18,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'jquery-rails'
+
 gem "rspec-rails", ">= 2.12.1", :group => [:development, :test]
 gem "database_cleaner", ">= 0.9.1", :group => :test
 gem "email_spec", ">= 1.4.0", :group => :test
@@ -43,4 +47,5 @@ group :development, :test do
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
+
 end

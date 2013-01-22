@@ -1,0 +1,15 @@
+<h1 style="color:blue">UpLoadFile </h1>
+
+<%= form_for(@fileupload,:html => { :multipart => true }) do |f| %>
+    <p>
+      <%= f.hidden_field :folder_id,:value=> @folder.id %>
+      <%= f.label :FileUpLoad %><br,style="color:green" />
+      <%= f.file_field :attach %>
+     </p>
+     <p>
+      <%= f.submit "Up File" %>
+    <% end %>
+    </p>
+    <p>
+    <%=link_to 'Back',{:action=>'show',:controller=>'folders',:id=>@folder.id}%>
+    </p>
