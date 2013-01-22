@@ -21,8 +21,8 @@ class ResetPasswordsController < ApplicationController
 		if @user.password_reset_sent_at < 24.hours.ago
 			redirect_to new_reset_passwords
 		elsif @user.update_attributes(params[:user])
-			flash.now[:notice]='You have just changed your passowrd'
-			redirect_to root_url
+			sign_in @user
+			redirect_to @user,:notice=>"You have just changed your passowrd"
 		else
 			render 'edit'
 		end

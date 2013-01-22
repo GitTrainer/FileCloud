@@ -47,6 +47,22 @@ describe User do
   		it {should_not be_valid}
   	end
 
-  	
+  	describe "send_resset_password" do
+		before {reset_email}
+		let(:user_activated){FactoryGirl.create(:user_activated)}
+		it "Generate password_reset unique each time" do
+		   user_activated.send_resset_password
+		   pr1=user_activated.password_reset
+		   user_activated.send_resset_password
+		   pr2=user_activated.password_reset
+		   pr1.should_not eq(pr2)
+  		end
+
+	   it "Delivers email to user" do
+		   reset_email
+		   user_activated.send_resset_password
+		   last_email.to.should include(user_activated.email)
+	   end
+   end
 
 end
