@@ -54,12 +54,13 @@ def show
 end
 
 def update
+  binding.pry
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
        respond_to do |format|
          if @new_folder.update_attributes(params[:folder])
 		  @new_folder = nil
-         format.html { redirect_to "/folders" }
+         format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
           format.js { render js: @new_folder }
 
         else

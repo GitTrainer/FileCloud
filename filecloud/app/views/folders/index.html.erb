@@ -34,7 +34,7 @@
                 <td><%= folder.name %> </td>
                 <td><%= folder.description %></td>
                 <td><a href="/folders/<%=folder.id%>">Show</a></td>
-                <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
+                <td><a href="/folders/<%=folder.id%>/edit/?user_id=<%=folder.user_id%>">Edit</a></td>
                  <td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
                 </tr>
                 <% end %>
