@@ -54,7 +54,7 @@ def show
 end
 
 def update
-  binding.pry
+  # binding.pry
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
        respond_to do |format|
@@ -72,6 +72,7 @@ def update
 end
 
 def destroy
+  binding.pry
   @user_id = Folder.find(params[:id]).user_id
 	@folder = Folder.find(params[:id])
 	@folder.destroy
