@@ -2,7 +2,7 @@ class UploadFile < ActiveRecord::Base
   attr_accessible :folder_id, :attach, :image
   validates :folder_id, presence: true
   belongs_to :folder
-  has_attached_file :attach
+#  has_attached_file :attach
 
   include Rails.application.routes.url_helpers
 
