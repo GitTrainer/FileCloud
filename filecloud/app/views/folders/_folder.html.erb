@@ -9,5 +9,5 @@
     	 <div class="span2">
     	<%= f.label :category_id %></div>
     	<div class="span3"> <%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%></div>
-
+        <%= f.hidden_field :user_id, :value=> params[:user_id] %>
 		</br>

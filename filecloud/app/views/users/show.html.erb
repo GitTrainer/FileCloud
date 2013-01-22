@@ -9,12 +9,14 @@
   <b>Email:</b>
   <%= @user.email %>
 </p>
-
 <p>
-  <b>Login:</b>
-  <%= @user.login %>
+	<b>Lists folder: </b><br/>
+	<% @user.folders.each do |folder|%>
+		<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+	<%end%>
 </p>
 
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path %> |
+<a href="/folders/?user_id=<%= @user.id%>">Create folder</a>
+<!-- # <%= link_to 'Back', users_path %> | -->

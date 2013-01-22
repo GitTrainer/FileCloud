@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token, :password_reset_sent_at, :admin
+  has_many :folders
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
