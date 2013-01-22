@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20130114102940) do
 
   create_table "roles", :force => true do |t|
@@ -23,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20130114102940) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
 
 
   create_table "categories", :force => true do |t|
@@ -40,6 +42,17 @@ ActiveRecord::Schema.define(:version => 20130114102940) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name"], :name => "index_roles_on_name"
+
   create_table "upload_files", :force => true do |t|
     t.integer  "folder_id"
     t.datetime "created_at",          :null => false
@@ -49,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20130114102940) do
     t.integer  "attach_file_size"
     t.string   "image"
   end
-
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -83,4 +95,8 @@ ActiveRecord::Schema.define(:version => 20130114102940) do
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
 
 
+
 end
+
+
+
