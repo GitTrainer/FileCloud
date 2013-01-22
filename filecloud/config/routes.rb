@@ -1,12 +1,21 @@
 Filecloud::Application.routes.draw do
-<<<<<<< HEAD
+
 
   resources :users
+  root to: 'sessions#new'
+  resources :reset_passwords
+  match '/activate',to: 'users#activate'
+  
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
-=======
+
   resources :users
 >>>>>>> 3ee58f47aff9e55b2e9937d19a16dc7d0b485016
 
+  match 'capnhat', to: 'reset_passwords#capnhat'
 
  # get "file_up_loads/new"
  

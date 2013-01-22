@@ -1,14 +1,7 @@
-<%= form_for(@user) do |f| %>
+<% provide(:title, 'Update password') %>
+<h1>Update your new password</h1>
+<%= form_for @user, :url => reset_password_path(params[:id]) do |f| %>
    <%= render 'shared/error_messages' %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
 
   <div >
       <%= f.label :password %>
