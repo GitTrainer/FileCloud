@@ -1,19 +1,27 @@
 <%provide(:title,"Categories")%>
 <h1 style="color:blue"> List Category</h1>
 <%if @categorys.blank?%>
-    <p style="color:red">There are not any category in the app.</p>
+    <div style="color:red">There are not any category in the app.</div>
 <%else%>
-     <p style="color:green">These are current category in app</p>
-     <ul>
-     <% @categorys.each do |f|%>
-        <li>
- 	        <%= link_to f.name,category_path(f.id) %>
- 	        <b><%= link_to 'Edit',edit_category_path(f.id)%></b>
- 	         <b><%= link_to 'Delete',f,method: :delete,data:{confirm: "Are you sure you want to delete this item?"}%>
- 	        </b>	
- 	        
-        </li>
-        <%end%>
-    </ul>
+     <div style="color:green"><h5>These are current category in app</h5></div>
+     
+      <% @categorys.each do |f|%>
+      <ul>
+ 	      <div>
+ 	      	<h5 style="color:blue">Category:<%= link_to f.name,category_path(f.id)%></br></h5>
+          </div>
+
+          <div>
+           <h5 style="color:blue">Created Date:<%=f.created_at%></br></h5>
+          </div>
+           <div>
+           	<h5 style="color:blue">Description:</h5><%=f.description%>
+            </div>
+
+           <b ><%= link_to 'Edit|', edit_category_path(f.id)%></b>
+           <b ><%= link_to 'Delete',f, method: :delete, data:{confirm:"Are you user you want to delete this category?"}%>
+      </ul><hr>
+     <%end%>
+    
 <%end%>
-<p><%=link_to "Add new Category",new_category_path %></p>
+<div class="btn"><%=link_to "Add new Category",new_category_path %></div>

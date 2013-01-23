@@ -1,21 +1,50 @@
 <% provide(:title, 'Show User') %>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
+<div>
+  <h4>
+  <b style="color:blue">Name:</b>
+ 
   <%= @user.name %>
-</p>
+ </h4>
+</div>
 
-<p>
-  <b>Email:</b>
+<div>
+<h4>	
+  <b style="color:blue">Email:</b>  
   <%= @user.email %>
-</p>
+</h4>
+</div>
 
-<p>
-  <b>Login:</b>
+<div>
+ <h4>
+  <b style="color:blue">Login:</b>
   <%= @user.login %>
-</p>
+</h4>
+</div>
+<div><h5 style="color:blue">Danh Sach Folders:</h5></div>
+<div>
+<table class="tb-lst", border="1">
+  <tr align="center">
+   
+    <th style="color:green">Ten Folder</th>
+    <th style="color:green">Ten Category</th>
+    <th style="color:green">Ngay Tao</th>
+    <th style="color:green">So Luong File</th> 
+   </tr>
+<% @user.folders.each do |f| %>
+  <tr align="center">
+    <td><%=link_to f.name,folder_path(f.id) %></td>
+    <td><%= f.category.name%></td>
+    <td><%= f.created_at%></td>
+    <td><%= f.file_up_loads.count%></td>
+   </tr>
+  <%end%>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+</table>
+</div>
+<div class="btn"><%=link_to 'Create new folder',new_folder_path%></div>
+<div>
+<%= link_to 'Edit', edit_user_path %> |
 <%= link_to 'Back', users_path %>
+</div>

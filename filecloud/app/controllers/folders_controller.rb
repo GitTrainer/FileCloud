@@ -9,7 +9,6 @@ class FoldersController < ApplicationController
   end
 
   def new
-
   	@folder=Folder.new
   	@categorys=Category.all
   end
@@ -18,7 +17,7 @@ class FoldersController < ApplicationController
 
   	@folder=Folder.new(params[:folder])
     if @folder.save
-    	 redirect_to :action =>'index'
+    	 redirect_to current_user
     else
         @categorys=Category.all
         render :action=>'new' 
@@ -42,6 +41,6 @@ class FoldersController < ApplicationController
 
   def destroy
     Folder.find(params[:id]).destroy
-    redirect_to folders_path 
+    redirect_to current_user 
 end
 end

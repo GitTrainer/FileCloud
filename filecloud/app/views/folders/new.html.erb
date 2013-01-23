@@ -28,7 +28,9 @@
 <tr>
     <td><%=collection_select(:folder,:category_id,@categorys,:id,:name)%></td>
 </tr>
-
+ <tr>
+  <%= f.hidden_field :user_id,:value=>current_user.id %>
+</tr>
 <tr>
 	<td style="color:blue"><%= f.label :description %></td>
 </tr>
@@ -42,5 +44,5 @@
 </p>
 <% end %>
 <p>
-<%=link_to "Back",folders_path %>
+<%=link_to "Back",current_user %>
 </p>
