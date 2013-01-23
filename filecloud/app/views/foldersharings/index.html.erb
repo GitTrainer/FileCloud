@@ -15,7 +15,9 @@
                             select=true
                         end
                       %>
-                        <%= check_box_tag 'list_user_id[]', user.id,select %> <%= user.name%>
+                         <%= hidden_field_tag('seen[]', user.id) -%>
+ 						 <%= check_box_tag 'activated[]', user.id,select -%>
+                       <!-- <%= check_box_tag 'list_user_id[]', user.id,select %> --> <%= user.name%>
 
                       </div>
                     <%end%>
