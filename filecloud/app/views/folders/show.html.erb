@@ -14,8 +14,13 @@
 <td><%= @folder.name %></td>
 <td><%= @folder.description %></td>
 <td><%= Category.where(:id => @folder.category_id).first.name %></td>
+<% if Foldersharing.where(:shared_user_id => current_user, :folder_id => params[:id]).exists? %>
+<td>N/A</td>
+<%end%>
+<% if Folder.where(:user_id => current_user).exists? %>
 <td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
-<td></td>
+<%end%>
+
 <tr>
 <th>File Name</th>
 <th>Download</th>
@@ -30,6 +35,8 @@
 </tr>
 </tr>
 </table>
+<% if Folder.where(:user_id => current_user).exists? %>
 <p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
+<%end%>
 </div>
 </div>

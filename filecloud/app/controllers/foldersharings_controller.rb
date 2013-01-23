@@ -11,6 +11,8 @@ class FoldersharingsController < ApplicationController
              end
 	end
 
+
+
 	def new
 	@users = User.find_by_sql(["select * from users where users.id != ?",current_user])
 		 @new_foldersharing = Foldersharing.new
@@ -30,8 +32,8 @@ class FoldersharingsController < ApplicationController
 		 		 end
 		 		 redirect_to "/folders/"+ @folder_id.to_s
 		 else
-		 	 flash[:notice] = "Please choose member(s) to share. If not, click Back to Folder"
-		 	 redirect_to "/foldersharings/?folder_id="+ @folder_id.to_s
+		 	  Foldersharing.delete_all(["folder_id = ?", @folder_id])
+		  	redirect_to "/folders/"+ @folder_id.to_s
 		 end
 
 	end
