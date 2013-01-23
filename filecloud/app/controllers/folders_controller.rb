@@ -17,7 +17,6 @@ end
 
 def create
 	 @new_folder = Folder.new(params[:folder])
-   # binding.pry
 	@folders = Folder.where(:user_id => current_user)
  respond_to do |format|
        if @new_folder.save
