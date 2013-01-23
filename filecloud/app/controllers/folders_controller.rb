@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-before_filter :correct_user,   only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
 def index
 	@foldersharings = Foldersharing.all
 	@folders = Folder.where(:user_id => current_user)

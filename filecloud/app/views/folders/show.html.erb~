@@ -7,35 +7,38 @@
 <th>Name</th>
 <th>Description</th>
 <th>Category</th>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <th>Upload</th>
+<%end%>
 
 </tr>
 <tr>
 <td><%= @folder.name %></td>
 <td><%= @folder.description %></td>
 <td><%= Category.where(:id => @folder.category_id).first.name %></td>
-<% if Foldersharing.where(:shared_user_id => current_user, :folder_id => params[:id]).exists? %>
-<td>N/A</td>
-<%end%>
-<% if Folder.where(:user_id => current_user).exists? %>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
 <%end%>
 
 <tr>
 <th>File Name</th>
 <th>Download</th>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <th>Delete</th>
+<%end%>
 </tr>
 <% @folder.filestreams.each do |filestream|%>
 <tr>
 <td><%= filestream.attach_file_name %></td>
 <td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <td><%= link_to 'Delete',filestream, method: :delete, data:{ confirm: "Are you sure?" } %></td>
+<%end%>
 <% end %>
 </tr>
 </tr>
 </table>
-<% if Folder.where(:user_id => current_user).exists? %>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
 <%end%>
 </div>

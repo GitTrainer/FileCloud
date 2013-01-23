@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
+  before_filter :correct_user,   only: [:edit, :update]
 def index
 	@foldersharings = Foldersharing.all
 	@folders = Folder.where(:user_id => current_user)
@@ -61,7 +62,9 @@ def show
 end
 
 def update
+
 @foldersharings = Foldersharing.all
+
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
        respond_to do |format|
@@ -79,7 +82,9 @@ def update
 end
 
 def destroy
+
 @foldersharings = Foldersharing.all
+
   @user_id = Folder.find(params[:id]).user_id
 	@folder = Folder.find(params[:id])
 	@folder.destroy
