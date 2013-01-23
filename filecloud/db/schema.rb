@@ -11,13 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122030332) do
+ActiveRecord::Schema.define(:version => 20130122071626) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "filesharings", :force => true do |t|
+    t.integer  "file_id"
+    t.integer  "shared_user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "filestreams", :force => true do |t|
@@ -38,6 +45,12 @@ ActiveRecord::Schema.define(:version => 20130122030332) do
     t.datetime "updated_at",  :null => false
     t.string   "file"
     t.integer  "user_id"
+  end
+
+  create_table "foldersharings", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "isShare"
   end
 
   create_table "users", :force => true do |t|

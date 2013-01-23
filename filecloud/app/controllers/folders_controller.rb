@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
+before_filter :correct_user,   only: [:edit, :update]
 def index
 	@folders = Folder.where(:user_id => current_user)
 	if ( @new_folder.nil?)
@@ -54,7 +55,7 @@ def show
 end
 
 def update
-  # binding.pry
+
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
        respond_to do |format|
@@ -72,7 +73,7 @@ def update
 end
 
 def destroy
-  binding.pry
+  # binding.pry
   @user_id = Folder.find(params[:id]).user_id
 	@folder = Folder.find(params[:id])
 	@folder.destroy
@@ -80,5 +81,10 @@ def destroy
              format.html { redirect_to "/folders/?user_id=" + @user_id.to_s }
          end
 end
+
+def share
+
+end
+	@users = User.all
 
 end
