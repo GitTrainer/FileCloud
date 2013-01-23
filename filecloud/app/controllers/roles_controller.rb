@@ -9,7 +9,7 @@ class RolesController < ApplicationController
       format.json { render json: @roles }
     end
   end
-
+z
   # GET /roles/1
   # GET /roles/1.json
   def show

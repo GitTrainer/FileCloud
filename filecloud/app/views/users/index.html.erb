@@ -1,24 +1,7 @@
-<% content_for :head do %>
-  <%= javascript_include_tag 'http://www.google.com/jsapi' %>
-<% end %>
-<h2 style="margin-top:30px;">Users</h2>
-<h2>Users</h2>
-<div class="span9">
-  <div id="chart" style="width: 700px; height: 240px">
-    <%= render_chart @chart, 'chart' %>
-  </div>
-</div>
 
-<div class="span9">
-  <p>
-    Send Bulk Invitations:
-    <%= link_to "10 &#183;".html_safe, bulk_invite_path(:quantity => '10') %>
-    <%= link_to "50 &#183;".html_safe, bulk_invite_path(:quantity => '50') %>
-    <%= link_to "100 &#183;".html_safe, bulk_invite_path(:quantity => '100') %>
-    <%= link_to "500 &#183;".html_safe, bulk_invite_path(:quantity => '500') %>
-    <%= link_to "1000", bulk_invite_path(:quantity => '1000') %>
-  </p>
-  <table class="datatable table table-bordered table-condensed">
+<legend>Users</legend>
+
+  <table class="datatable table table-bordered table-condensed" style="width: 884px;">
     <thead>
       <tr>
         <th>Name</th>
@@ -44,12 +27,16 @@
           <td><%= user.last_sign_in_at.to_date if user.last_sign_in_at %></td>
           <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <td>
-            <%= link_to "Update" %>
+            Role
           </td>
 
+        </tr>
+        <tr>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>
+
+
+
 

@@ -1,5 +1,8 @@
 Filecloud::Application.routes.draw do
 
+  resources :uploads
+#  root :to => 'uploads#index'
+
   resources :roles
 
   resources :upload_files do
@@ -32,7 +35,7 @@ Filecloud::Application.routes.draw do
   match 'users/bulk_invite/:quantity' => 'users#bulk_invite', :via => :get, :as => :bulk_invite
   
 
-  resources :users, :only => [:delete,:show, :index] do
+  resources :users, :only => [:destroy,:show, :index] do
     get 'invite', :on => :member
   end
  

@@ -16,6 +16,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
+//= require jquery-fileupload
 $('document').ready(function() {
   
   // use AJAX to submit the "request invitation" form
@@ -37,6 +38,27 @@ $('document').ready(function() {
     });
     return false;
   });
+
+//  //them
+//  $('#update').live('click', function() {
+////    var email = $('form #user_email').val();
+////    if($('form #user_opt_in').is(':checked'))
+////        var opt_in = true;
+////    else
+////        var opt_in = false;
+////    var dataString = 'user[email]='+ email + '&user[opt_in]=' + opt_in;
+//var dataString = 'user[email]=' +email ;
+//    $.ajax({
+//      type: "POST",
+//      url: "/users",
+//      data: dataString,
+//      success: function(data) {
+//        $('#update_role').html(data);
+//        loadSocial();
+//      }
+//    });
+//    return false;
+//  });
 
   
 })
