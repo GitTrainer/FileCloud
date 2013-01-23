@@ -2,6 +2,7 @@ class FoldersController < ApplicationController
   before_filter :signed_in_user
 before_filter :correct_user,   only: [:edit, :update]
 def index
+	@foldersharings = Foldersharing.all
 	@folders = Folder.where(:user_id => current_user)
 	if ( @new_folder.nil?)
 	  @new_folder = Folder.new
@@ -12,11 +13,16 @@ def index
                format.js {render js:  @folders }
              end
 end
+
+
+
 def new
+@foldersharings = Foldersharing.all
  @new_folder = Folder.new
 end
 
 def create
+@foldersharings = Foldersharing.all
 	 @new_folder = Folder.new(params[:folder])
 	@folders = Folder.where(:user_id => current_user)
  respond_to do |format|
@@ -36,6 +42,7 @@ def create
 end
 
 def edit
+@foldersharings = Foldersharing.all
 	@folders = Folder.where(:user_id => current_user)
     @new_folder = Folder.find(params[:id])
     respond_to do |format|
@@ -46,6 +53,7 @@ def edit
 end
 
 def show
+@foldersharings = Foldersharing.all
 	@folder = Folder.find(params[:id])
           respond_to do |format|
              format.html { render action: "show"}
@@ -54,6 +62,8 @@ def show
 end
 
 def update
+
+@foldersharings = Foldersharing.all
 
 	@new_folder = Folder.find(params[:id])
 	@folders = Folder.where(:user_id => current_user)
@@ -72,7 +82,9 @@ def update
 end
 
 def destroy
-  # binding.pry
+
+@foldersharings = Foldersharing.all
+
   @user_id = Folder.find(params[:id]).user_id
 	@folder = Folder.find(params[:id])
 	@folder.destroy
