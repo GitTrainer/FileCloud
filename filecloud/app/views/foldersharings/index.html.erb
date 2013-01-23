@@ -5,15 +5,27 @@
      end %>
 <%= form_for(@new_foldersharing ) do |f| %>
                  <div class="span6">
-
                  <%= render 'shared/error_messages', object: f.object %>
+				<table>
+             <% @users.each do |user|%>
+                      <div class="span4">
+                        <%
+                        select=false
+                        Foldersharing.where(:shared_user_id => user.id).each  do |pm|
+                            select=true
+                        end
+                      %>
+                        <%= check_box_tag 'list_user_id[]', user.id,select %> <%= user.name%>
 
-               	<% @users.each do |user| %>
-					<div class="span2"><%= f.label user.name%></div>
-					<div class="span3"><%= f.check_box :isShare, {}, 'true', 'false' %></div>
-               	<% end %>
-
-                <div class="span1"></br><%= f.submit%></div>
+                      </div>
+                    <%end%>
+                  </div>
+				</table>
+				<%= f.hidden_field :folder_id, :value => params[:folder_id] %>
+                <div class="span1"></br><%= f.submit 'Share folder'%></div>
                 </div>
+
                 <%end%>
+
                 </div>
+                <a href="/folders/<%= params[:folder_id]%>">Back to Folder</a>
