@@ -4,6 +4,6 @@ class Folder < ActiveRecord::Base
   validates :description, presence: true
   validates :category_id, presence: true
 
-  belongs_to :category
+  belongs_to :category 
   has_many :upload_files
 end
