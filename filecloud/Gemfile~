@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-
+gem 'bootstrap-sass', '2.1'
+gem 'bcrypt-ruby', '3.0.1'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -12,8 +15,8 @@ gem 'jquery-rails'
 gem 'jquery-fileupload-rails'
 gem 'paperclip'
 gem 'bootstrap-sass', '2.1'
-gem 'less', '2.2.2' # (at this date)
-gem 'therubyracer'
+#gem 'less', '2.2.2' # (at this date)
+#gem 'therubyracer'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -26,8 +29,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
-
 group :test, :development do
   gem 'factory_girl_rails', '4.1.0'
   gem "rspec-rails", "~> 2.0"
@@ -37,6 +38,7 @@ group :test, :development do
   gem 'pry-debugger'
   gem 'shoulda-matchers', :require => false
   gem 'launchy'
+	gem 'spork', '>= 0.8.4'
   gem 'better_errors'
   gem 'binding_of_caller'
 end

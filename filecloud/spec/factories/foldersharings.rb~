@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :foldersharing do
-  	folder_id 1
-    shared_user_id 1
+  	folder_id 2
+    shared_user_id 2
   end
 end

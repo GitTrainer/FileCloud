@@ -1,15 +1,15 @@
 class CategoriesController < ApplicationController
+before_filter :signed_in_user
 def index
-
 	if ( @new_category.nil?)
-		  @new_category = Category.new
+		@new_category = Category.new
 	end
 	@categories = Category.all
-          respond_to do |format|
-             format.html { render action: "index"}
-              format.js {render js: @new_category }
-              format.js {render js: @categories }
-             end
+    respond_to do |format|
+      format.html { render action: "index"}
+      format.js {render js: @new_category }
+      format.js {render js: @categories }
+    end
 end
 
 def new

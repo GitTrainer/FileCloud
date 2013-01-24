@@ -1,6 +1,17 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :correct_user_create, :only => [:index]
+
+   def correct_user_create
+      if params[:user_id].to_s != current_user.id.to_s
+         redirect_to root_path
+      end
+   end
+  def correct_user
+      if Folder.where(:user_id=> current_user.id , :id => params[:id]).blank?
+         redirect_to root_path
+      end
+   end
 def index
 	@foldersharings = Foldersharing.all
 	@folders = Folder.where(:user_id => current_user)
@@ -33,7 +44,7 @@ def create
               format.js {render js: @new_folder }
               format.js {render js: @folders }
        else
-       
+
          format.html { render action: "index"}
          format.js {render js: @new_folder.errors, status: :unprocessable_entity}
          format.js {render js: @folders }

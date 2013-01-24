@@ -84,7 +84,6 @@ class FilestreamsController < ApplicationController
   # DELETE /uploads/1
   # DELETE /uploads/1.json
   def destroy
-  	binding.pry
     @upload = Filestream.find(params[:id])
     @upload.destroy
 
