@@ -24,10 +24,11 @@ class UploadsController < ApplicationController
   # GET /uploads/new
   # GET /uploads/new.json
   def new
+    @folder=Folder.find_by_id(params[:id])
     @upload = Upload.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render action:"index" } # new.html.erb
       format.json { render json: @upload }
     end
   end
@@ -40,15 +41,18 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
+     binding.pry
     @upload = Upload.new(params[:upload])
 
     respond_to do |format|
       if @upload.save
-        format.html {
-          render :json => [@upload.to_jq_upload].to_json,
-          :content_type => 'text/html',
-          :layout => false
-        }
+        # format.html {
+        #   render :json => [@upload.to_jq_upload].to_json,
+
+        #   :content_type => 'text/html',
+        #   :layout => false
+        # }
+        format.html {redirect_to folder_path(@upload.folder_id)}
       
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }
       else

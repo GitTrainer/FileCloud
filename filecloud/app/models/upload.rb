@@ -1,6 +1,7 @@
 class Upload < ActiveRecord::Base
-  attr_accessible :upload
+  attr_accessible :upload, :folder_id, :image
   has_attached_file :upload
+  belongs_to :folder_id
 
   include Rails.application.routes.url_helpers
 
