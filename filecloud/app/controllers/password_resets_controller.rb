@@ -47,7 +47,7 @@ end
       
   	elsif @user.update_attributes(params[:user])
       
-  		redirect_to @user, :notice =>"password reset has been success"
+  		redirect_to signin_path, :notice =>"password reset has been success"
   	else
   			render 'edit'
   	end

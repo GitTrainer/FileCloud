@@ -14,7 +14,7 @@ describe "DeletePages" do
       visit users_path
         
     end
-     binding.pry
+     # binding.pry
 	  it { should_not have_link('Destroy', href: user_path(User.first)) }
 	  #it {save_and_open_page}
 	  it "should have content listing uers" do

@@ -33,7 +33,7 @@ def create
               format.js {render js: @new_folder }
               format.js {render js: @folders }
        else
-
+       
          format.html { render action: "index"}
          format.js {render js: @new_folder.errors, status: :unprocessable_entity}
          format.js {render js: @folders }
