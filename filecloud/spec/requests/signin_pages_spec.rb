@@ -21,6 +21,7 @@ describe "SigninPages" do
       end
   		it {should_not have_link('Sign in',href: signin_path)}
       it {should have_link('a', :href =>@current_user.user_id.name)}
+      binding.pry
        it {save_and_open_page}
       # it "should have link edit and create folder in current user log in" do
       #   current_user.should have_link("Edit")
