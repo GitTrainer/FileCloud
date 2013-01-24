@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
+  before_filter :set_mailer_host
   def index
     @users = User.all
 
@@ -50,8 +51,13 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.save
           UserMailer.welcome_email(@user).deliver
-          format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
-          format.json { render json: @user, status: :created, location: @user }
+          if !current_user
+            format.html { redirect_to signin_url, notice: 'User was successfully created! Please check your email to Activate password' }
+            format.json { render json: @user, status: :created, location: @user }
+          else
+            format.html { redirect_to users_url, notice: 'You have successfully created!' }
+            format.json { render json: @user, status: :created, location: @user }
+          end
         else
           format.html { render action: "new" }
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -66,6 +72,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    binding.pry
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -92,10 +99,12 @@ class UsersController < ApplicationController
   end
 
   def activate
+    binding.pry
     @user=User.find(params[:id])
     if @user.status==false
       if @user.login == params[:active_code]
-        if @user.update_attributes(:status=>true,:login=>"activated")
+        binding.pry
+        if @user.update_attribute(:status,true) && @user.update_attribute(:login,"activated")
           flash.now[:notice]='You have just activated your account'
           render 'sessions/new'
         else

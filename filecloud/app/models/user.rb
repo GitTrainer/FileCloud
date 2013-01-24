@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
-    # validates :password, length: { maximum: 20, minimum: 2 }
+    validates :password, length: { maximum: 20, minimum: 5 }
   	has_secure_password
 
   	before_save { |user| user.email = email.downcase }
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       self.password_reset_sent_at=Time.zone.now
       @pass=SecureRandom.urlsafe_base64
       self.password_reset=@pass
-      save!
+      save!(:validate => false)
       UserMailer.send_password(self).deliver
     end
 
