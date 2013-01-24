@@ -44,17 +44,22 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    @activation_code=SecureRandom.urlsafe_base64
-    @user.login=@activation_code
-    respond_to do |format|
-      if @user.save
-        UserMailer.welcome_email(@user).deliver
-        format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if !User.find_by_email(@user.email)
+      @activation_code=SecureRandom.urlsafe_base64
+      @user.login=@activation_code
+      respond_to do |format|
+        if @user.save
+          UserMailer.welcome_email(@user).deliver
+          format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
+          format.json { render json: @user, status: :created, location: @user }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash.now[:notice]="Email exist"
+      render 'new'
     end
   end
 
