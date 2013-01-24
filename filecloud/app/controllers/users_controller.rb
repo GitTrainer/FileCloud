@@ -58,7 +58,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      flash.now[:notice]="Email exist"
+      flash.now[:notice]="Email exist! Please enter another email"
       render 'new'
     end
   end
