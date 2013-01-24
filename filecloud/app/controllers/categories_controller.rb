@@ -22,7 +22,7 @@ def create
 	  respond_to do |format|
        if @new_category.save
        	 @new_category = nil
-       	 format.html { redirect_to 'index'}
+       	 format.html { redirect_to "/categories"}
               format.js {render js: @new_category }
               format.js {render js: @categories }
        else
