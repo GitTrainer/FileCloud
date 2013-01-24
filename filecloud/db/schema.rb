@@ -43,14 +43,12 @@ ActiveRecord::Schema.define(:version => 20130122085813) do
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "file"
     t.integer  "user_id"
   end
 
   create_table "foldersharings", :force => true do |t|
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.boolean  "isShare"
     t.integer  "folder_id"
     t.integer  "shared_user_id"
   end
@@ -64,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20130122085813) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "status",                 :default => false
-    t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "admin",                  :default => false

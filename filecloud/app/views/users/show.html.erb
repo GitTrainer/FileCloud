@@ -24,7 +24,7 @@
 <b>List folders are shared by other members : </b><br/>
     <% @lists = Foldersharing.where(:shared_user_id => current_user) %>
     <% @lists.each do |list|%>
-    	<a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a>
+    	<a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a></br>
     <% end %>
 </p>
 <% end %>
