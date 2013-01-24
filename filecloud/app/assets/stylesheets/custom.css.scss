@@ -55,6 +55,7 @@ textarea {
 }
 
 
+
 /* footer */
 
 footer {
@@ -109,3 +110,8 @@ footer ul li {
   @extend .control-group;
   @extend .error;
  }
+
+ .bar {
+    height: 18px;
+    background: green;
+} 
