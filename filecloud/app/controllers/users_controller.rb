@@ -93,18 +93,22 @@ class UsersController < ApplicationController
 
   def activate
     @user=User.find(params[:id])
-    if @user.login == params[:active_code]
-      if @user.status==false
-        if @user.update_attribute(:status,true)
+    if @user.status==false
+      if @user.login == params[:active_code]
+        if @user.update_attributes(:status=>true,:login=>"activated")
           flash.now[:notice]='You have just activated your account'
+          render 'sessions/new'
+        else
+          flash.now[:notice]='Errors'
           render 'sessions/new'
         end
       else
-        flash.now[:notice]='You were activated, Please singin'
+        flash.now[:notice]='The link is invalid! Please try again'
         render 'sessions/new'
       end
     else
-      redirect_to signin_url ,:notice => 'The link is not valid. Please try again!'
+      flash.now[:notice]='Your account have activated! Please sign In'
+      render 'sessions/new'
     end
   end
 
