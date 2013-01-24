@@ -4,11 +4,11 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @user = user
     @activation_code=user.login
-    mail(:to =>"dangkhanhjava@gmail.com", :subject => "Welcome to My  Site")
+    mail(:to =>@user.email, :subject => "Welcome to My  Site")
   end
 
   def send_password(user)
   	@user = user
-    mail(:to => "dangkhanhjava@gmail.com", :subject => "You have Forgot password")#replaced user.mail to dangkhanhjava
+    mail(:to => @user.email, :subject => "You have Forgot password")#replaced user.mail to dangkhanhjava
   end
 end
