@@ -15,7 +15,12 @@ end
     
     
     if @fileupload.save
-       redirect_to folder_path(@fileupload.folder_id)
+       #redirect_to folder_path(@fileupload.folder_id)
+        # binding.pry
+        respond_to do |format|
+          format.html { redirect_to folder_path(@fileupload.folder)}
+          format.js { render json: [@fileupload.folder.to_json] }
+        end
      else
    
         render :action=>'new' 
