@@ -1,4 +1,4 @@
-<legend style="margin-top:25px;">Edit <%= resource_name.to_s.humanize %></legend>
+<legend >Edit <%= resource_name.to_s.humanize %></legend>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>

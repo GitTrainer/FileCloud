@@ -100,4 +100,88 @@ describe User do
 
   end
 
+  #login
+  describe "Login system" do
+
+    context "User signin system" do
+
+      it "shows error for not confirmed users after signin" do
+        visit "/"
+        fill_in "email", :with => "framgiatest@framgia.com"
+        fill_in "password", :with => "framgia@123456"
+        click_button "user_submit"
+        page.should have_content(I18n.t('devise.failure.invalid'))
+      end
+
+    end
+  end
+
+  describe 'should be able to signin with admin' do
+    before do
+      visit '/'
+      #test with user admin login
+      user = FactoryGirl.create(:admin)
+      
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      click_on 'Sign in'
+    end
+    it { should have_link 'Logout' }
+  end
+
+  describe "should be able to signin with admin" do
+    before(:each) do
+      @admin = FactoryGirl.create(:admin)
+
+      visit '/'
+      click_link "Sign_in"
+      fill_in "email",  :with => @admin.email
+      fill_in "password", :with => 'valid'
+      click_button "Sign in"
+    end
+  end
+    
+  describe "Admin panel" do
+    it "should have correct links" do
+      click_link "User"
+      response.should be_success
+    end
+  end
+
+
+  describe 'should wrong value signin' do
+    before do
+      visit '/'
+      fill_in "email",:with => "invalid"
+      fill_in "password", :with => "valid"
+      click_button "user_submit"
+      page.should have_content(I18n.t('devise.failure.invalid'))
+    end
+  end
+  #Register system
+  describe 'should be able to Register' do
+    after do
+      visit 'localhost:3000'
+      click_link "Didn't receive confirmation instructions?"
+      visit 'users/confirmation/new'
+      fill_in "email", :with => "valid"
+      click_button "Send me reset password instructions"
+      @email.should deliver_to("vu.duc.tuan@framgia.com")
+
+      it "should contain the correct message in the mail body and token actived link" do
+        @email.should have_body_text(/Welcome/)
+      end
+    end
+  end
+
+
+  describe "Sign_out" do
+    it "user can logout system" do
+      test_sign_in(Factory(:user))
+      delete :destroy
+      controller.should_not be_signed_in
+      response.should redirect_to(root_path)
+    end
+  end
+
 end
