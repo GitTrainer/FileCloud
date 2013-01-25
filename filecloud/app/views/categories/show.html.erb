@@ -1,20 +1,20 @@
 <h1>Category details</h1>
-
-<table>
-
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Folders</th>
-</tr>
-<tr>
-<td><%= @category.name %></td>
-<td><%= @category.description %></td>
-</tr>
-</table>
-<b><p>List folders</p></b>
-<% if !@folders.nil?%>
-<% @folders.each do |a| %>
-<a href="/folders/<%=a.id%>"><%= a.name%></a><br/>
-<%end%>
-<%end%>
+	<table class="table table-hover">
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><%= @category.name %></td>
+			<td><%= @category.description %></td>
+		</tr>
+  </table>
+	<b>
+		<p>List folders</p>
+	</b>
+	<% if !@folders.nil? %>
+		<% @folders.each do |a| %>
+			<a href="/folders/<%=a.id%>&?user_id=<%=a.user_id%>"><%= a.name %></a>
+			<br/>
+  	<%end%>
+	<%end%>
