@@ -4,12 +4,10 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome  <%= @user.name %></h1>
-     <h1>Welcome  <%=@activation_code %></h1>
-    
-    <p>
+    <p align="center"><h3>Welcome  <%= @user.name %></h1></p>
+    <p align="center">
       Please activation: 
-      <%= url_for(:action => 'activate', :controller => 'users',:host =>'localhost:3000',:id=>@user.id,:active_code =>@activation_code) %>
+      <a href="<%= url_for(:action => 'activate', :only_path => false, :controller => 'users',:id=>@user.id,:active_code =>@activation_code) %>">Click link to activate your account</a>
     </p>
   </body>
 </html>

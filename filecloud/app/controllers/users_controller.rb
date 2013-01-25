@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
+  before_filter :set_mailer_host
   def index
     @users = User.all
 
@@ -44,17 +45,27 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    @activation_code=SecureRandom.urlsafe_base64
-    @user.login=@activation_code
-    respond_to do |format|
-      if @user.save
-        UserMailer.welcome_email(@user).deliver
-        format.html { redirect_to @user, notice: 'User was successfully created! Please check your email to Activate password' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if !User.find_by_email(@user.email)
+      @activation_code=SecureRandom.urlsafe_base64
+      @user.login=@activation_code
+      respond_to do |format|
+        if @user.save
+          UserMailer.welcome_email(@user).deliver
+          if !current_user
+            format.html { redirect_to signin_url, notice: 'User was successfully created! Please check your email to Activate password' }
+            format.json { render json: @user, status: :created, location: @user }
+          else
+            format.html { redirect_to users_url, notice: 'You have successfully created!' }
+            format.json { render json: @user, status: :created, location: @user }
+          end
+        else
+          format.html { render action: "new" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash.now[:notice]="Email exist! Please enter another email"
+      render 'new'
     end
   end
 
@@ -88,18 +99,22 @@ class UsersController < ApplicationController
 
   def activate
     @user=User.find(params[:id])
-    if @user.login == params[:active_code]
-      if @user.status==false
-        if @user.update_attribute(:status,true)
+    if @user.status==false
+      if @user.login == params[:active_code]
+        if @user.update_attribute(:status,true) && @user.update_attribute(:login,"activated")
           flash.now[:notice]='You have just activated your account'
+          render 'sessions/new'
+        else
+          flash.now[:notice]='Errors'
           render 'sessions/new'
         end
       else
-        flash.now[:notice]='You were activated, Please singin'
+        flash.now[:notice]='The link is invalid! Please try again'
         render 'sessions/new'
       end
     else
-      redirect_to signin_url ,:notice => 'The link is not valid. Please try again!'
+      flash.now[:notice]='Your account have activated! Please sign In'
+      render 'sessions/new'
     end
   end
 
