@@ -37,7 +37,6 @@
                             select=true
                         end
                       %>
-                         <%= hidden_field_tag('seen[]', user.id) -%>
  						 <%= check_box_tag 'activated[]', user.id,select -%>
                        <%= user.name%>
                       </div>
@@ -48,4 +47,4 @@
                 </div>
                 <%end%>
                 </div>
-                <a href="/folders/<%= params[:folder_id]%>">Back to Folder</a>
+                <a href="/folders/<%= params[:folder_id] %>&?user_id=<%=current_user.id%>">Back to Folder</a>

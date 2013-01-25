@@ -1,10 +1,5 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
-<<<<<<< HEAD
-  before_filter :correct_user, only:[:edit,:update]
-  before_filter :admin_user, only: :destroy
-=======
->>>>>>> bcb101b07c35ffe085a8068f31b9eceda3d6d8f5
 
 	def index
 		if (@new_category.nil?)

@@ -30,17 +30,15 @@
                 <% @folders.each do |folder|%>
                  <%if !@folders.nil? %>
                 <tr>
-
-                <td><%= folder.name %> </td>
-                <td><%= folder.description %></td>
-                <td><a href="/folders/<%=folder.id%>">Show</a></td>
-                <td><a href="/folders/<%=folder.id%>/edit/?user_id=<%=folder.user_id%>">Edit</a></td>
-                 <td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+		              <td><%= folder.name %> </td>
+		              <td><%= folder.description %></td>
+		              <td><a href="/folders/<%=folder.id%>&?user_id=<%=folder.user_id%>">Show</a></td>
+		              <td><a href="/folders/<%=folder.id%>/edit/?user_id=<%=folder.user_id%>">Edit</a></td>
+		              <td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
                 </tr>
                 <% end %>
                 <% end %>
 
         </table>
-
 </div>
 </div>
