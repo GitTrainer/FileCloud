@@ -1,8 +1,0 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
-  factory :foldersharing do
-  	folder_id 2
-    shared_user_id 2
-  end
-end

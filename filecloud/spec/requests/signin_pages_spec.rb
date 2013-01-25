@@ -30,6 +30,7 @@ describe "SigninPages" do
       # binding.pry
       it "show link back" do
         page.should have_link("Back")
+        response.redirect()
       end
       it "show link edit" do
         page.should have_link("Edit")

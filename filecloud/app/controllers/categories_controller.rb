@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user
+  before_filter :correct_user, only:[:edit,:update, :create]
+  before_filter :admin_user, only:[:destroy]
 
 def index
 	if ( @new_category.nil?)
@@ -94,5 +95,10 @@ end
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
+    def admin_user
+      @user=User.find(params[:id])
+      redirect_to (root_path) unless current_user.admin?
+        
+      end
 
 end
