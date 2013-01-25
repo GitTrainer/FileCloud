@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 
 <legend>Users List</legend>
 
+=======
+<% content_for :head do %>
+  <%= javascript_include_tag 'http://www.google.com/jsapi' %>
+<% end %>
+<legend>Users List</legend>
+
+>>>>>>> 5d4f7fcf23a550ee59b66718ef1e60be91c834bb
 <table class="datatable table table-bordered table-condensed" style="width: 884px;">
   <thead>
     <tr>
@@ -15,6 +23,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
+<<<<<<< HEAD
       <tr>
         <td><%= user.name%></td>
         <td><%= user.email%></td>
@@ -26,6 +35,19 @@
       </tr>
       <tr>
       </tr>
+=======
+      <tr>
+        <td><%= user.name%></td>
+        <td><%= user.email%></td>
+        <td><%= user.created_at.to_date %></td>
+        <td><%= user.confirmed_at.to_date if user.confirmed_at %></td>
+        <td><%= user.sign_in_count if user.sign_in_count %></td>
+        <td><%= user.last_sign_in_at.to_date if user.last_sign_in_at %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr>
+      </tr>
+>>>>>>> 5d4f7fcf23a550ee59b66718ef1e60be91c834bb
     <% end %>
   </tbody>
 </table>
