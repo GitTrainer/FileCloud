@@ -13,16 +13,17 @@ describe "SigninPages" do
   		it { should have_selector('div.alert.alert-error', text: 'Invalid') }
   	end
   	describe "with valid information" do
-  		  let(:user) {FactoryGirl.create(:user)}
+  		  let(:user) {FactoryGirl.create(:user, :name => "vandung")}
   		before do
+        # fill_in "Name", with: user.name
   			fill_in "Email", with: user.email
   			fill_in "Password", with: user.password
   			click_button "Sign in"
       end
   		it {should_not have_link('Sign in',href: signin_path)}
-      it {should have_link('a', :href =>@current_user.user_id.name)}
-      binding.pry
-       it {save_and_open_page}
+      it {should have_link(:text => user.name)}
+      # binding.pry
+       # it {save_and_open_page}
       # it "should have link edit and create folder in current user log in" do
       #   current_user.should have_link("Edit")
       # end
@@ -44,7 +45,9 @@ describe "SigninPages" do
       it "show folder share" do
         page.should have_content("List folders are shared by other members :")
       end
-
+      it "after click button Edit" do
+        page.response.should redirect_to(edit_user_path)
+      end
       # response.should redirect_to(:action => 'create')
 
         # it {}
