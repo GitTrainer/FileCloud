@@ -1,9 +1,9 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user,   only: [:edit, :update]
-  before_filter :correct_user_create, only: [:index, :create]
+  before_filter :correct_user_index, only: [:index]
 
-  def correct_user_create
+  def correct_user_index
     if params[:user_id].to_s != current_user.id.to_s
       redirect_to root_path
     end
@@ -44,9 +44,8 @@ class FoldersController < ApplicationController
 		      format.js {render js: @new_folder }
 		      format.js {render js: @folders }
 		  else
-		    format.html { render action: "index"}
-		    format.js {render js: @new_folder.errors, status: :unprocessable_entity}
-		    format.js {render js: @folders }
+		  	flash[:error] = "Please fill all fields correctly"
+		    format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
 		  end
 		end
 	end
