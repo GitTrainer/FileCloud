@@ -25,6 +25,7 @@ before_filter :signed_in_user
    def create
 	   @users = User.find_by_sql(["select * from users where users.id != ?",current_user])
 		 activated_ids = params[:activated].collect {|id| id.to_i} if params[:activated]
+		 # binding.pry
 		 @folder_id =  params[:foldersharing][:folder_id]
 		 if !activated_ids.nil?
 		 	 if Foldersharing.where(:folder_id => @folder_id).exists?
