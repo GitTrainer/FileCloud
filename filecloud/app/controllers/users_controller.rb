@@ -72,7 +72,6 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    binding.pry
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -99,11 +98,9 @@ class UsersController < ApplicationController
   end
 
   def activate
-    binding.pry
     @user=User.find(params[:id])
     if @user.status==false
       if @user.login == params[:active_code]
-        binding.pry
         if @user.update_attribute(:status,true) && @user.update_attribute(:login,"activated")
           flash.now[:notice]='You have just activated your account'
           render 'sessions/new'
