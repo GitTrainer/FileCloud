@@ -26,7 +26,11 @@
                 <th>Description </th>
                 <th>Show Details</th>
                 <th> Edit </th>
+                <!-- If use admin function
+                <% if current_user.admin?%>
                  <th>Delete </th>
+                  <%end%>
+                  -->
                 </tr>
 
                 <% @categories.each do |category|%>
@@ -37,15 +41,18 @@
                 <td><%= category.description %></td>
                 <td><a href="/categories/<%=category.id%>">Show</a></td>
                 <td><%= link_to 'Edit', edit_category_path(category) %></td>
+                <!-- If use admin function
                 <% if current_user.admin?%>
-                 <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %> </td> <%end%>
+                 <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+                 <%end%>
+                 -->
                 </tr>
 
                 <% end %>
                 <% end %>
 
         </table>
-         <a href="/folders">Create folder</a>
+         <a href="/folders/?user_id=<%=current_user.id%>">Create folder</a>
 
 </div>
 </div>

@@ -27,14 +27,16 @@
 </p>
 <% if current_user.id == params[:id].to_i %>
 <p>
-<b>List folders are shared by other members : </b><br/>
+
     <% @lists = Foldersharing.where(:shared_user_id => current_user) %>
+    <b>List folders are shared by other members : </b><br/>
     <% @lists.each do |list|%>
-    	<a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a></br>
+    	<a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></br>
     <% end %>
 </p>
 <% end %>
 <% if current_user.id == params[:id].to_i %>
+<br/><br/><br/><br/>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>
 <%= link_to 'Back', users_path %>
