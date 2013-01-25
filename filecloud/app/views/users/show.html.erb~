@@ -14,8 +14,14 @@
 	<b>List folders: </b><br/>
 
 	<% @user.folders.each do |folder|%>
-		<% if Foldersharing.where(:shared_user_id => current_user ).exists? || Folder.where(:user_id => current_user).exists? %>
-		<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+		<% if Folder.where(:user_id => current_user, :id => folder.id).exists? %>
+			<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+		<% else %>
+			<% folder.foldersharings.each do |f|%>
+				<% if Foldersharing.where(:shared_user_id => f.shared_user_id, :folder_id => f.folder_id).exists? %>
+					<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+				<% end %>
+			<% end %>
 		<% end %>
 	<% end %>
 </p>
@@ -24,7 +30,7 @@
 <b>List folders are shared by other members : </b><br/>
     <% @lists = Foldersharing.where(:shared_user_id => current_user) %>
     <% @lists.each do |list|%>
-    	<a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a>
+    	<a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a></br>
     <% end %>
 </p>
 <% end %>
