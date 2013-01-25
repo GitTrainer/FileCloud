@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
-  before_filter :signed_in_user
-  before_filter :correct_user_create, :only => [:index]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :correct_user,   only: [:edit, :update]
 
    def correct_user_create
       if params[:user_id].to_s != current_user.id.to_s
@@ -108,5 +108,22 @@ def share
 
 end
 	@users = User.all
+
+
+
+
+    private
+
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 
 end

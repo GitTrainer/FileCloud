@@ -1,6 +1,10 @@
 class FilestreamsController < ApplicationController
   # GET /uploads
   # GET /uploads.json
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :correct_user,   only: [:edit, :update]
+
+  
   def index
    @folder = Folder.all
     @folder_id = params[:folder_id]
@@ -98,7 +102,19 @@ class FilestreamsController < ApplicationController
         send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
       end
  end
+  private
 
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 
 
 end
