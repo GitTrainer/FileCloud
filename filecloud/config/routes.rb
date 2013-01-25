@@ -10,10 +10,7 @@ Filecloud::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  match 'capnhat', to: 'reset_passwords#capnhat'
-
- # get "file_up_loads/new"
- 
+  match '/home',  to: 'static_pages#home'
   resources :categories
   resources :folders 
   resources :file_up_loads do
