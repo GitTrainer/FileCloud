@@ -18,11 +18,16 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
-    respond_to do |format|
+    rescue ActiveRecord::RecordNotFound
+    if @user 
+      respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
+      end  
+    else
+      render 'shared/notify'
     end
+    
   end
 
   # GET /users/new
