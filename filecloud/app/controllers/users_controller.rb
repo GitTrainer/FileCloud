@@ -1,24 +1,27 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-#  before_filter :verify_admin
-#
-#  def verify_admin
-#    :authenticate_user!
-#    redirect_to root_url unless has_role?(current_user, 'admin')
-#  end
-#
-#  def current_ability
-#    @current_ability ||= AdminAbility.new(current_user)
-#  end
+  #  before_filter :verify_admin
+  #
+  #  def verify_admin
+  #    :authenticate_user!
+  #    redirect_to root_url unless has_role?(current_user, 'admin')
+  #  end
+  #
+  #  def current_ability
+  #    @current_ability ||= AdminAbility.new(current_user)
+  #  end
 
   def index
     #    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @users = User.all
     @chart = create_chart
   end
+  def password
+    redirect_to('/')
+  end
 
   def show
-    @user = User.find(params[:id])
+    #    @user = User.find(params[:id])
   end
 
   def destroy

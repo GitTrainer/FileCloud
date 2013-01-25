@@ -21,6 +21,8 @@ Filecloud::Application.routes.draw do
   
   get "upload_files/new"
 
+  get "users/password"
+
   authenticated :user do
     root :to => 'home#index'
   end
@@ -32,6 +34,7 @@ Filecloud::Application.routes.draw do
     match '/users/:id' => 'users#destroy', :via => :delete, :as => :destroy
     match '/users/:id/edit' => 'users#update', :via => :put, :as => :update
   end
+#map.connect '/:username/:id', :controller => 'submissions', :action => 'show'
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
 
