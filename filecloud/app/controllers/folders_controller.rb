@@ -1,7 +1,8 @@
 class FoldersController < ApplicationController
-  
+   before_filter :signed_in_user,only:[:index,:show,:edit,:destroy]
+ 
   def index
-  	 @folders=Folder.all
+  	 @folders=current_user.folders
   end
 
   def show

@@ -3,16 +3,28 @@
 <%if @folders.blank?%>
     <div>There are not any folder in the app.</div>
 <%else%>
-     <div>These are current folder in app</div>
-     <ul>
-     <%@folders.each do |f|%>
-        <li>
- 	        <%= link_to f.name,folder_path(f.id) %>
- 	        <b ><%= link_to 'Edit', edit_folder_path(f.id)%></b>
- 	        <b ><%= link_to 'Delete',f,	method: :delete, data:{confirm:"Are you user you want to delete this item?"}%>
- 	        </b>	
-        </li>
-        <%end%>
-    </ul>
+<div class="listUser">
+<table>
+  <tr>
+    <th>Ten folder</th>
+    <th>Ten category</th>
+    <th>Ngay tao</th>
+    <th>So Nguoi chia se</th>
+    <th>So luong file</th>
+    <th></th>
+  </tr>
+
+<% @folders.each do |f| %>
+  <tr align="center">
+    <td><%=link_to f.name,folder_path(f.id)%></td>
+    <td><%= f.category.name %></td>
+    <td><%= f.created_at %></td>
+    <td><%= "0"%></td>
+    <td><%= f.file_up_loads.count%></td>
+  </tr>
+<% end %>
+</table>
+</div>
 <%end%>
 <div  class="btn"><%=link_to "Create new folder", new_folder_path %></div>
+	

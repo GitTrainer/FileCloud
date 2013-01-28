@@ -14,7 +14,8 @@ describe Folder do
 	it {should respond_to(:description)}
   it { should respond_to(:category) }
   its(:category) { should == category }
-    it {should be_valid}
+
+  it { should be_valid }
 
     describe "when name is not present" do
      before {@folder.name=""}
@@ -35,19 +36,4 @@ describe Folder do
        before{@folder.name="a"}
        it {should_not be_valid}
     end
-
-
-    describe "when name is already taken" do 
-    let(:folder){FactoryGirl.create(:folder)}
-     before do
-     
-      folder_same_name = folder.dup
-      folder_same_name.save
-      
-    end
-   
-     it {should_not be_valid}
-      
-    end
-
 end

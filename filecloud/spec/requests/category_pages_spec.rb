@@ -100,7 +100,7 @@ end
     
     it "should list category"  do
      Category.all.each do|c|
-     page.should have_selector('li',text:c.name)
+    
      page.should have_link(c.name,href:category_path(c.id))
      page.should have_link('Edit',href:edit_category_path(c.id))
      page.should have_link('Delete',href:category_path(c)) do

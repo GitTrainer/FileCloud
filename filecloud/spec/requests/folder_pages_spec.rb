@@ -10,14 +10,12 @@ describe "Folder pages" do
     	end
 
 	describe "show page" do
-       before { visit folder_path(@folder)}
+       before { visit folder_path(@folder.id)}
 
        it {should have_selector('h1',text:@folder.name)}
        it {should have_selector('title',text:@folder.name)}
-       it {should have_link(category.name ,href:category_path(category.id))}
-
-
-     it "should list files in this folder" do
+      
+      it "should list files in this folder" do
       @folder.file_up_loads.each do |f|
       page.should have_selector('td',text:f.attach_file_name)
       page.should have_selector('td',text:f.attach_content_type)
@@ -66,13 +64,13 @@ describe "Folder pages" do
         expect{click_button submit}.to change(Folder,:count).by(1)
        end
    end
-    it {should have_link('Back',href:folders_path)}
+   
 
 end
 
   describe "edit page" do
     
-     before{visit edit_folder_path(@folder)}
+     before{visit edit_folder_path(@folder.id)}
 
      it {should have_selector('h1',text:"Edit Folder Detail")}
      it {should have_selector('title',text:@folder.name)}
@@ -104,7 +102,7 @@ end
      it{should have_content ('Errors')}
      end
 
-     it {should have_link('Back',href:folders_path)} 
+     it {should have_link('Back',href:folderolder_path(@folder.id))} 
   end
 
    describe "index page" do
@@ -129,7 +127,7 @@ end
          end
      end
     end
-   it {should have_link('Add new folder',href:new_folder_path)}
+   it {should have_link('Create new folder',href:new_folder_path)}
    end
 
 end
