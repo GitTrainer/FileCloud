@@ -8,21 +8,19 @@
   <%= @user.name %>
  </h4>
 </div>
-
 <div>
 <h4>	
   <b style="color:blue">Email:</b>  
   <%= @user.email %>
 </h4>
 </div>
-
 <div>
  <h4>
   <b style="color:blue">Login:</b>
   <%= @user.login %>
 </h4>
 </div>
-<div>
+  <div>
 <%= link_to 'Edit', edit_user_path %> |
 <%= link_to 'Back', users_path %>
 </div>
