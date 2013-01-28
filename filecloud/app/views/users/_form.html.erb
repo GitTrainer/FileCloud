@@ -1,26 +1,42 @@
-<%= form_for(@user) do |f| %>
-   <%= render 'shared/error_messages' %>
+<div id="container_form">
+  <div id="fields_form">
+    <%= form_for(@user) do |f| %>
+       <%= render 'shared/error_messages' %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.text_field :email %>
+      </div>
+
+      <div >
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+      </div>
+
+      <div>
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation %>
+      </div>
+
+      <div>
+          <%= f.label :avatar %>
+          <%= f.file_field :avatar %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
 
-  <div >
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-  </div>
-
-  <div>
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% if @user.id!=nil %>
+    <div id="avatar_form">
+      <%= image_tag @user.avatar.url(:medium) %>
+    </div>
+  <% end %>
+  <div class="clear"></div>
+</div>

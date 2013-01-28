@@ -12,10 +12,11 @@
 
 class User < ActiveRecord::Base
   	
-  	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at,:status
-
+  	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at,:status,:avatar
+    has_attached_file :avatar, :styles => { :medium => "400x600>", :thumb => "400x600>" }
     validates :name,  presence: true, length: { maximum: 50, minimum: 5 }
-    
+    validates :avatar, :attachment_presence => true
+    validates_with AttachmentPresenceValidator, :attributes => :avatar
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
     validates :password, length: { maximum: 20, minimum: 5 }

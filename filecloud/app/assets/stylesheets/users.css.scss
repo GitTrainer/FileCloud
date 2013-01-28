@@ -175,3 +175,54 @@
 
 }
 h1{text-align:center}
+
+#container_show{
+	
+	width:100%;
+	height:auto;
+	possition:relative;
+
+}
+#infor_show{
+	with:300px;
+	
+	float:left;
+}
+#avatar_show{
+	width:400px;
+	margin-left:10px;	
+	
+	float:right;
+}
+#avatar_show img{
+	padding-top:15px;
+	width:200px;
+	height:200px;
+}
+#link_show{
+	
+	padding-top:200px;
+}
+.clear{clear:both;}
+
+#container_form
+{
+	possition:relative;
+	width:100%;
+	height:auto;
+}
+#fields_form{
+
+	width:300px;
+	float:left;
+}
+#avatar_form{
+	float:right;
+	margin-right:400px;
+	margin-top:30px;
+}
+#avatar_form img{
+	padding-top:15px;
+	width:200px;
+	height:200px;
+}

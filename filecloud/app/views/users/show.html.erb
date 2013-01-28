@@ -1,26 +1,22 @@
 <% provide(:title, 'Show User') %>
-<p id="notice"><%= notice %></p>
-
-<div>
-  <h4>
-  <b style="color:blue">Name:</b>
- 
-  <%= @user.name %>
- </h4>
-</div>
-<div>
-<h4>	
-  <b style="color:blue">Email:</b>  
-  <%= @user.email %>
-</h4>
-</div>
-<div>
- <h4>
-  <b style="color:blue">Login:</b>
-  <%= @user.login %>
-</h4>
-</div>
-  <div>
-<%= link_to 'Edit', edit_user_path %> |
-<%= link_to 'Back', users_path %>
+<div id="container_show">
+	<div id="infor_show">
+		  <h4>
+			  <b style="color:blue">Name:</b>
+			  <%= @user.name %>
+		 </h4>
+		<h4>	
+		  <b style="color:blue">Email:</b>  
+		  <%= @user.email %>
+		</h4>
+	</div>
+	<div id="avatar_show">
+		<%= image_tag @user.avatar.url(:medium) %>
+	</div>
+	<div id="link_show">
+		<%= link_to 'Edit', edit_user_path %> |
+		<%= link_to 'Back', users_path %>
+	</div>
+	<div class="clear"> 
+	</div>
 </div>
