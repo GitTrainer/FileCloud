@@ -6,15 +6,13 @@ Filecloud::Application.routes.draw do
     end
   end
 
-  resources :roles
 
+  resources :roles
 
   resources :folders
 
   resources :categories
   
-  get "upload_files/new"
-
   authenticated :user do
     root :to => 'home#index'
   end
@@ -25,12 +23,10 @@ Filecloud::Application.routes.draw do
     match '/users/sign_out' => 'devise/sessions#destroy', :via => :delete, :as => :destroy
     match '/users/:id' => 'users#destroy', :via => :delete, :as => :destroy
     match '/users/:id/edit' => 'users#update', :via => :put, :as => :update
-    get "/users/password" => "registrations#change_password", :as => :change_password
   end
+#map.connect '/:username/:id', :controller => 'submissions', :action => 'show'
 
-  #  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
-  devise_for :users, :controllers => { :registrations => "registrations"}
-  devise_for :users, :controllers=>{:confirmations => "confirmations" }
+  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
 
 
   match 'users/bulk_invite/:quantity' => 'users#bulk_invite', :via => :get, :as => :bulk_invite
@@ -38,6 +34,13 @@ Filecloud::Application.routes.draw do
 
   resources :users, :only => [:destroy,:show, :index] do
     get 'invite', :on => :member
+  end
+ 
+
+  resources :upload_files do
+    member do
+      get 'download'
+    end
   end
 
 end

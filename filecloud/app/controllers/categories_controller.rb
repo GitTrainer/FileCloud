@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  
+  before_filter :authenticate_user!
   # GET /categories
   # GET /categories.json
   def index
@@ -48,7 +50,7 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-     # binding.pry
+    # binding.pry
     @category = Category.new(params[:category])
 
     respond_to do |format|
@@ -56,7 +58,7 @@ class CategoriesController < ApplicationController
         format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }
       else
-         format.html { redirect_to categories_path, notice: 'Category errors.' }
+        format.html { redirect_to categories_path, notice: 'Category errors.' }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end

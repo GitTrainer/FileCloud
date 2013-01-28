@@ -39,15 +39,8 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
-    # binding.pry
 
-    # @upload = Upload.new(params[:upload])
-    # image=params[:upload][:upload]
-    # if (!image.nil?)
-    #   @upload.upload=image.original_filename
-    #   path = "#{Rails.root}/app/assets/images/#{@upload.id}_#{image.original_filename}"
-    #   FileUtils.copy(pic.tempfile, path)
-    # end
+    @upload = Upload.new(params[:upload])
 
     respond_to do |format|
       if @upload.save

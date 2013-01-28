@@ -1,13 +1,15 @@
 class FoldersController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /folders
   # GET /folders.json
 
-#upaload file
-def uploadFile
+  #upaload file
+  def uploadFile
   
-  post=DataFile.save(params[:upaload])
-  render :text => "File has been uploaded successfully!"
-end
+    post=DataFile.save(params[:upaload])
+    render :text => "File has been uploaded successfully!"
+  end
 
   def index
     @folders = Folder.all
@@ -70,8 +72,8 @@ end
   #   end
   # end
 
-def create
-  # binding.pry
+  def create
+    # binding.pry
     @folder = Folder.new(params[:folder])
   
     respond_to do |format|

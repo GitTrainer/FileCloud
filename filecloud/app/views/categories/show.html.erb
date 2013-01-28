@@ -8,17 +8,17 @@
 	<tr>
 		<th>Name</th>
 		<th>Description</th>
-		<th colspan="2" style="text-align:center">List name folder</th>
+		<th colspan="2" style="text-align:center">Name folder</th>
 	</tr>
 	
 		<tr>
 			<td><%= @category.name %></td>
 			<td><%= @category.description %></td>
-			<% @category.folders.each do |f| %>			
-				<td ><%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'} %></td>
+			<% @category.folders.each do |f| %>
+				<td><%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'} %></td>
 			<% end %>	
 		</tr>
 	
 </table>
 
-<p class="btn btn-primary"><%= link_to 'Back', categories_path %></p>
+<%= link_to 'Back', categories_path %>

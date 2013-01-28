@@ -18,13 +18,13 @@
       <%= f.error_notification %>
     </div>
 
-      <div>
-        <%= f.label "Name category" %>
+    <div class="form-inputs">
+        <%= f.label "Category Name" %>
       </div>
       <div class="form-inputs">
         <%= f.collection_select(:category_id,Category.all,:id,:name) %>
       </div>
-
+     
       <div class="form-inputs">
         <%= f.input :name %>
       </div>
