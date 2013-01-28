@@ -1,6 +1,6 @@
 class FileUpLoadsController < ApplicationController
 
-before_filter :correct_user_folder_fileupload,only:[:new,:destroy,:download] 
+before_filter :correct_user_folder_fileupload,only:[:new,:download] 
 def index
 	
 end  

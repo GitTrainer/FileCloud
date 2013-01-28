@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
  
- 
+ before_filter :signed_in_user,only:[:new]
  before_filter :correct_user_folder,only:[:show,:edit,:destroy]
   def index
   	 @folders=current_user.folders
@@ -19,7 +19,7 @@ class FoldersController < ApplicationController
 
   	@folder=Folder.new(params[:folder])
     if @folder.save
-    	 redirect_to current_user
+    	 redirect_to folders_path
     else
         @categorys=Category.all
         render :action=>'new' 
@@ -43,7 +43,7 @@ class FoldersController < ApplicationController
 
   def destroy
     Folder.find(params[:id]).destroy
-    redirect_to current_user 
+    redirect_to folders_path
 end
 def correct_user_folder
         @current_folder=Folder.find(params[:id])
