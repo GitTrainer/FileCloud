@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-  
+  before_filter :signed_in_user
+  before_filter :current_admin_category,only:[:new,:show,:edit,:destroy,:index]  
 def new
   	@category=Category.new
 
@@ -43,4 +44,8 @@ def destroy
 	Category.find(params[:id]).destroy
 	redirect_to categories_path
 end
+
+def current_admin_category 
+     redirect_to current_user, notice: "You are not authorize access" unless current_user.admin?
+  end
 end

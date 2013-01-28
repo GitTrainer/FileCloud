@@ -1,5 +1,6 @@
 class FileUpLoadsController < ApplicationController
-  
+
+before_filter :correct_user_folder_fileupload,only:[:new,:download] 
 def index
 	
 end  
@@ -44,5 +45,12 @@ end
      else
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
      end
+    end
+
+    def correct_user_folder_fileupload
+        @current_folder=Folder.find(params[:id])
+       if @current_folder.user.id.to_s!=current_user.id.to_s
+          redirect_to current_user  
+       end
     end
 end
