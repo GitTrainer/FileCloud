@@ -14,7 +14,7 @@ describe "EdituserPages" do
 	  		it {should have_selector('h1', text: "Editing user")}
 	  	end
 	  	describe "with invalid information" do 
-	  		before {click_button "Create my account"}
+	  		before {click_button "Update"}
 	  		# it {should have_selector ('div.alert alert-error'),text: 'The form contains 2 errors.'}
 	  		it { should have_content('error') }
 	  	end
@@ -32,7 +32,7 @@ describe "EdituserPages" do
     		fill_in "Email",	with: new_email
     		fill_in "Password",	with: user.password
     		fill_in "Confirmation", with: user.password
-    		click_button "Create my account"
+    		click_button "Update"
     	end
     	# it { should have_selector('title', text: new_name) }
         it { should have_selector('div.alert alert-success',text:'Profile updated') }

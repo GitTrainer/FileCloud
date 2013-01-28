@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token, :password_reset_sent_at, :admin
+  attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token, :password_reset_sent_at, :admin, :avatar
   has_many :folders
+  has_attached_file :avatar, :styles => { :medium => "240x150>", :thumb => "100x100>" }
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
   has_many :filesharings, foreign_key: "shared_user_id", class_name: "Filesharing", dependent: :destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122085813) do
+ActiveRecord::Schema.define(:version => 20130128023054) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -43,14 +43,16 @@ ActiveRecord::Schema.define(:version => 20130122085813) do
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "file"
     t.integer  "user_id"
   end
 
   create_table "foldersharings", :force => true do |t|
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
     t.integer  "folder_id"
     t.integer  "shared_user_id"
+    t.boolean  "isShare"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -65,6 +67,10 @@ ActiveRecord::Schema.define(:version => 20130122085813) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "admin",                  :default => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

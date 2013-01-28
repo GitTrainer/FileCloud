@@ -38,15 +38,14 @@ class UsersController < ApplicationController
   end
 
 def create
+    
     @user = User.new(params[:user])
     @code = SecureRandom.urlsafe_base64
     @user.login=@code
     if @user.save
-
+      
       UserMailer.welcome_email(@user).deliver
-      # Handle a successful save.
       flash[:success] = "Welcome to the Sample App! Please in your mail activate account"
-
       render 'sessions/new'
     else
       flash.now[:error]="errors"
@@ -103,6 +102,8 @@ def create
       render 'sessions/new'
     end
   end
+
+
 
   private
 

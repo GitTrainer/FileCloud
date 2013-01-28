@@ -14,7 +14,7 @@
 /log/*
 /tmp/*
 #Ingore all upload files.
-/public/system/filestreams/attaches/*
+/public/system/*
 #Ingore other files
 *.rbc
 *.sassc
