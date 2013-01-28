@@ -26,7 +26,6 @@ describe "Authentication " do
 
 			describe "delete" do
 				before do
-					# binding.pry
 					sign_in admin
 					visit users_path
 				end
