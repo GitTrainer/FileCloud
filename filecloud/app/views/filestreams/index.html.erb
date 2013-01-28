@@ -24,7 +24,7 @@
         <button type="button" class="btn btn-danger delete">
           <i class="icon-trash icon-white"></i>
           <span>Delete</span>
-        <button type="button" class="btn btn-primary" onClick="location.href='/folders/<%=folder.id%>&?user_id=<%=current_user.id%>'" value="Back to Folder">  <span>Back to Folder</span></button>
+        <button type="button" class="btn btn-primary" onClick="location.href='/folders/<%=params[:folder_id]%>&?user_id=<%=current_user.id%>'" value="Back to Folder">  <span>Back to Folder</span></button>
         <input type="checkbox" class="toggle">
 
       </div>
