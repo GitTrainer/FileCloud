@@ -1,6 +1,7 @@
 class FoldersController < ApplicationController
-   before_filter :signed_in_user,only:[:index,:show,:edit,:destroy]
  
+ 
+ before_filter :correct_user_folder,only:[:show,:edit,:destroy]
   def index
   	 @folders=current_user.folders
   end
@@ -44,4 +45,10 @@ class FoldersController < ApplicationController
     Folder.find(params[:id]).destroy
     redirect_to current_user 
 end
+def correct_user_folder
+        @current_folder=Folder.find(params[:id])
+       if @current_folder.user.id.to_s!=current_user.id.to_s
+          redirect_to current_user  
+       end
+    end
 end
