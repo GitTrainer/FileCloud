@@ -61,15 +61,22 @@ class FoldersController < ApplicationController
 		end
 	end
 
+	class String
+	  def is_number?
+	    true if Float(self) rescue false
+  	end
+	end
+
 	def show
 		@foldersharings = Foldersharing.all
+		@id = params[:id].to_i
 		respond_to do |format|
 			if current_user.id.to_s == params[:user_id].to_s
-				@folder = Folder.find(params[:id])
+				@folder = Folder.find(@id)
 				format.html { render action: "show"}
 				format.js {render js: @folder }
 			else
-				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => params[:id]).exists?
+				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
 					@folder = Folder.find(params[:id])
 					format.html { render action: "show"}
 				  format.js {render js: @folder }

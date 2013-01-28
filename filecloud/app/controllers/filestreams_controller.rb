@@ -1,10 +1,9 @@
 class FilestreamsController < ApplicationController
   # GET /uploads
   # GET /uploads.json
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :signed_in_user
+  before_filter :correct_user,   only: [:index]
 
-  
   def index
    @folder = Folder.all
     @folder_id = params[:folder_id]
@@ -90,8 +89,6 @@ class FilestreamsController < ApplicationController
   def destroy
     @upload = Filestream.find(params[:id])
     @upload.destroy
-
-    redirect_to folder_path(@upload.folder_id)
   end
 
    def download
@@ -102,6 +99,13 @@ class FilestreamsController < ApplicationController
         send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
       end
  end
+
+	 def delete_from_folder
+	 	  @upload = Filestream.find(params[:id])
+		  @upload.destroy
+			redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
+	 end
+
   private
 
     def signed_in_user
@@ -112,8 +116,10 @@ class FilestreamsController < ApplicationController
     end
 
     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+			if Folder.find(params[:folder_id]).user_id.to_s != current_user.id.to_s
+				flash[:notice] = "You do not have permission to do this"
+				redirect_to root_path
+      end
     end
 
 

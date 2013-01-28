@@ -19,7 +19,10 @@ Filecloud::Application.routes.draw do
 
   resources :filestreams do
    member do
-    get 'download'
+     get 'download'
+   end
+   member do
+     get 'delete_from_folder'
    end
   end
   # The priority is based upon order of creation:

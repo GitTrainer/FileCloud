@@ -32,7 +32,7 @@
 <td><%= filestream.attach_file_name %></td>
 <td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-<td><%= link_to 'Delete',filestream, method: :delete, data:{ confirm: "Are you sure?" } %></td>
+<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
 <%end%>
 <% end %>
 </tr>
@@ -40,6 +40,7 @@
 </table>
 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
+<P><a href="/folders/?user_id=<%=current_user.id.to_s%>">Go to Folders</a></p>
 <%end%>
 </div>
 </div>

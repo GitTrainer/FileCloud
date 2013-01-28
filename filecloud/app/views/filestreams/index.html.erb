@@ -3,7 +3,7 @@
   <h1>Upload file</h1>
   <%= form_for Filestream.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-     <%= f.hidden_field :folder_id, :value => params[:folder_id] %>
+
     <div class="row fileupload-buttonbar">
       <div class="span7">
 
