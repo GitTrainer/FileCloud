@@ -8,14 +8,22 @@
 	<tr>
 		<th>Name</th>
 		<th>Description</th>
+<<<<<<< HEAD
 		<th colspan="2" style="text-align:center">List Name folder</th>
+=======
+		<th colspan="2" style="text-align:center">Name folder</th>
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
 	</tr>
 	
 		<tr>
 			<td><%= @category.name %></td>
 			<td><%= @category.description %></td>
 			<% @category.folders.each do |f| %>
+<<<<<<< HEAD
 				<td style="coler:red"><%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'} %></td>
+=======
+				<td><%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'} %></td>
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
 			<% end %>	
 		</tr>
 	

@@ -1,13 +1,21 @@
 class FoldersController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /folders
   # GET /folders.json
 
-#upaload file
-def uploadFile
+  #upaload file
+  def uploadFile
   
+<<<<<<< HEAD
   post=DataFile.save(params[:upload])
   render :text => "File has been uploaded successfully!"
 end
+=======
+    post=DataFile.save(params[:upaload])
+    render :text => "File has been uploaded successfully!"
+  end
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
 
   def index
    # @folders = Folder.all
@@ -37,7 +45,11 @@ end
   # GET /folders/new
   # GET /folders/new.json
   def new
+<<<<<<< HEAD
     # binding.pry
+=======
+    binding.pry
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
     @folder = Folder.new
 
     respond_to do |format|
@@ -50,7 +62,11 @@ end
   def edit
     # @folder = Folder.find(params[:id])
     @search = Folder.search(params[:search])
+<<<<<<< HEAD
     @folders = @search.paginate(:per_page => 2, :page => params[:page])
+=======
+    @folders = @search.paginate(:per_page => 10, :page => params[:page])
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
 
     @folder = Folder.find(params[:id])
     respond_to do |format|
@@ -75,8 +91,13 @@ end
   #   end
   # end
 
+<<<<<<< HEAD
 def create
   # binding.pry
+=======
+  def create
+    # binding.pry
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
     @folder = Folder.new(params[:folder])
   
     respond_to do |format|

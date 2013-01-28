@@ -1,6 +1,7 @@
 Filecloud::Application.routes.draw do
 
   resources :uploads do 
+<<<<<<< HEAD
     member do
       get 'download'
     end
@@ -10,17 +11,20 @@ Filecloud::Application.routes.draw do
   resources :roles
 
   resources :upload_files do
+=======
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
     member do
       get 'download'
     end
   end
 
+
+  resources :roles
+
   resources :folders
 
   resources :categories
   
-  get "upload_files/new"
-
   authenticated :user do
     root :to => 'home#index'
   end
@@ -32,6 +36,7 @@ Filecloud::Application.routes.draw do
     match '/users/:id' => 'users#destroy', :via => :delete, :as => :destroy
     match '/users/:id/edit' => 'users#update', :via => :put, :as => :update
   end
+#map.connect '/:username/:id', :controller => 'submissions', :action => 'show'
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
 

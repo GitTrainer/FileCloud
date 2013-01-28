@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
       list_id = mailchimp.find_list_id_by_name "visitors"
       info = { }
       result = mailchimp.list_subscribe(list_id, self.email, info, 'html', false, true, false, true)
-      binding.pry
+#      binding.pry
       Rails.logger.info("MAILCHIMP SUBSCRIBE: result #{result.inspect} for #{self.email}")
     end
   end
