@@ -1,24 +1,19 @@
 class FoldersController < ApplicationController
-  # GET /folders
-  # GET /folders.json
+  before_filter :authenticate_user!
 
-#upaload file
-def uploadFile
-  
-  post=DataFile.save(params[:upload])
-  render :text => "File has been uploaded successfully!"
-end
+# GET /folders
+# GET /folders.json
 
   def index
    # @folders = Folder.all
     @search =Folder.search(params[:search])  
     @folders = @search.paginate(:per_page => 10, :page => params[:page])
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @folders }
-    end
+  respond_to do |format|
+    format.html # index.html.erb
+    format.json { render json: @folders }
   end
+end
 
   # GET /folders/1
   # GET /folders/1.json
@@ -26,13 +21,12 @@ end
     @folder = Folder.find(params[:id])
     @search=Folder.search(params[:search])
     @folders=@search.paginate(:per_page=>10,:page=>params[:page])
-    
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @folder }
-    end
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @folder }
   end
+end
 
   # GET /folders/new
   # GET /folders/new.json
@@ -46,6 +40,7 @@ end
     end
   end
 
+
   # GET /folders/1/edit
   def edit
     # @folder = Folder.find(params[:id])
@@ -58,23 +53,6 @@ end
     end
   end
 
-  # POST /folders
-  # POST /folders.json
-
-  # def create
-  #   @folder = Folder.new(params[:folder])
-
-  #   respond_to do |format|
-  #     if @folder.save
-  #       format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
-  #       format.json { render json: @folder, status: :created, location: @folder }
-  #     else
-  #       format.html { render action: "new" }
-  #       format.json { render json: @folder.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
 def create
   # binding.pry
     @folder = Folder.new(params[:folder])
@@ -85,18 +63,17 @@ def create
         format.json { render json: @folder, status: :created, location: @folder }
       else
         
-        format.html { redirect_to folders_path }
+        format.html { redirect_to folders_path, notice: 'Folder errors.' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
-    end
   end
+end
 
-  # PUT /folders/1
-  # PUT /folders/1.json
+# PUT /folders/1
+# PUT /folders/1.json
   def update
-    # binding.pry
-    @folder = Folder.find(params[:id])
-    
+  # binding.pry
+  @folder = Folder.find(params[:id])
 
     respond_to do |format|
       if @folder.update_attributes(params[:folder])
@@ -109,15 +86,15 @@ def create
     end
   end
 
-  # DELETE /folders/1
-  # DELETE /folders/1.json
-  def destroy
-    @folder = Folder.find(params[:id])
-    @folder.destroy
+# DELETE /folders/1
+# DELETE /folders/1.json
+def destroy
+  @folder = Folder.find(params[:id])
+  @folder.destroy
 
-    respond_to do |format|
-      format.html { redirect_to folders_path }
-      format.json { head :no_content }
-    end
+  respond_to do |format|
+    format.html { redirect_to folders_path }
+    format.json { head :no_content }
   end
+end
 end
