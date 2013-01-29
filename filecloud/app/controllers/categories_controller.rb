@@ -4,8 +4,8 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     # @categories = Category.all
-    @search =Category.search(params[:search])
-    @categories = @search.paginate(:per_page => 2, :page => params[:page])
+    @search =Category.search(params[:search])  
+    @categories = @search.paginate(:per_page => 10, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +49,6 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    # binding.pry
     @category = Category.new(params[:category])
 
     respond_to do |format|
