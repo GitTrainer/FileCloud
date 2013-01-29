@@ -1,16 +1,11 @@
 class CategoriesController < ApplicationController
-  
   before_filter :authenticate_user!
   # GET /categories
   # GET /categories.json
   def index
     # @categories = Category.all
-    @search =Category.search(params[:search])  
-<<<<<<< HEAD
+    @search =Category.search(params[:search])
     @categories = @search.paginate(:per_page => 2, :page => params[:page])
-=======
-    @categories = @search.paginate(:per_page => 10, :page => params[:page])
->>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
 
     respond_to do |format|
       format.html # index.html.erb
@@ -54,11 +49,7 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-<<<<<<< HEAD
-     # binding.pry
-=======
     # binding.pry
->>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
     @category = Category.new(params[:category])
 
     respond_to do |format|
@@ -66,11 +57,7 @@ class CategoriesController < ApplicationController
         format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
         format.json { render json: @category, status: :created, location: @category }
       else
-<<<<<<< HEAD
-         format.html { redirect_to categories_path, notice: 'Category errors.' }
-=======
         format.html { redirect_to categories_path, notice: 'Category errors.' }
->>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end

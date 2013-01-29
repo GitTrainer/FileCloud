@@ -11,44 +11,34 @@
 
 
 
-<div id="request-invite">
+    <div id="request-invite">
 
-    <%= simple_form_for(@folder) do |f| %>
-    <div class="form-inputs">
-      <%= f.error_notification %>
-    </div>
+      <%= simple_form_for(@folder) do |f| %>
+        <div class="form-inputs">
+          <%= f.error_notification %>
+        </div>
 
-<<<<<<< HEAD
-      <div class="form-inputs">
-        <%= f.label "Category name" %>
-      </div>
+        <div class="form-inputs">
+          <%= f.label "Category Name" %>
+        </div>
+        <div class="form-inputs">
+          <%= f.collection_select(:category_id,Category.all,:id,:name) %>
+        </div>
 
-      <div class="form-inputs">
-        <%= f.collection_select(:category_id,Category.all,:id,:name) %>
-      </div>
 
-=======
-    <div class="form-inputs">
-        <%= f.label "Category Name" %>
-      </div>
-      <div class="form-inputs">
-        <%= f.collection_select(:category_id,Category.all,:id,:name) %>
-      </div>
-     
->>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
-      <div class="form-inputs">
-        <%= f.input :name %>
-      </div>
+        <div class="form-inputs">
+          <%= f.input :name %>
+        </div>
 
-      <div class="form-inputs">
-        <%= f.input :description %>
-      </div>
+        <div class="form-inputs">
+          <%= f.input :description %>
+        </div>
 
-      <div class="form-actions1">
-        <%= f.button :submit, :class =>'btn-primary' %>
-      </div>
-    <% end %>
-  </div></div>
+        <div class="form-actions1">
+          <%= f.button :submit, :class =>'btn-primary' %>
+        </div>
+      <% end %>
+    </div></div>
 </div>
 <!-- ket thuc-->
 
@@ -62,17 +52,17 @@
     <th colspan="3" style="text-align:center">Action</th>
   </tr>
 
-<% @folders.each do |folder| %>
-  <tr>
-    <td><%= folder.category.name %></td>
-    <td><%= folder.name %></td>
-    <td><%= folder.description %></td>
+  <% @folders.each do |folder| %>
+    <tr>
+      <td><%= folder.category.name %></td>
+      <td><%= folder.name %></td>
+      <td><%= folder.description %></td>
 
-    <td><%= link_to 'Show', folder %></td>
-    <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
-    <td><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+      <td><%= link_to 'Show', folder %></td>
+      <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
+      <td><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
 
 </table>
 <%= will_paginate %>
