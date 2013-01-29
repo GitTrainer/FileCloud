@@ -1,3 +1,56 @@
 // Place all the styles related to the FileUpLoads controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#container_file_show{
+	overflow:hidden;
+	width:100%;
+	height:auto;
+	margin:0px 0px;
+	background-color:#e3d3ef;
+}
+
+#container_file_show p:first-child{
+	width: 100%;
+	height:30px;
+	background-color:#e3e3e3;
+	possition:relative;
+}
+#container_file_show p:first-child span:last-child{
+	padding: 3px 5px 0px 0px;
+	float:right;
+}
+#container_file_show p:first-child span:first-child{
+	padding: 3px 5px 0px 0px;
+	padding: 3px 0px 0px 5px;
+}
+#img_file{
+	width: 500px;
+	height: 500px;
+	margin:0 auto;
+	
+}
+#img_file img{
+	width:400px;
+	height:450px;
+}
+#otherfile{
+	margin-top:50px;
+	width:400px;
+	height:300px;
+	margin:0 auto;
+	background-color:#e3e3e3;
+	padding-top: 100px;
+	possition:relative;
+
+}
+#otherfile p:first-child p:last{
+	width: 300px;
+	height:100px;
+	margin:0 auto;
+	background-color:blue;
+	border:2px solid;
+	border-radius:25px;
+	padding:30px 0px 0px 70px;
+	color:white;
+	font-size: 16px;
+}

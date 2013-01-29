@@ -34,7 +34,7 @@
     <td><%= f.attach_content_type %></td>
     <td><%= f.attach_file_size %></td>
     <td><%= f.created_at %></td>
-    <td><%= link_to 'Download File',download_file_up_load_path(f.id)%></td>
+    <td><%= link_to 'Download File',file_up_load_path(f.id)%></td>
    
     <td><%= link_to 'Delete',f,method: :delete,data:{confirm: "Are you sure you want to delete this item?"}%></td>                                                        
   
