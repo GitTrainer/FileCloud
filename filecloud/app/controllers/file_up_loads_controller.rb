@@ -1,6 +1,6 @@
 class FileUpLoadsController < ApplicationController
 
-before_filter :correct_user_folder_fileupload,only:[:new,:download] 
+before_filter :correct_user_folder_fileupload,only:[:new] 
 def index
 	
 end  
@@ -26,6 +26,13 @@ end
   	end
 
   	def show
+      @fileupload=FileUpLoad.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+      if @fileupload
+        render 'show'
+      end
+        render 'shared/notify'
+      else
   	end
 
     def destroy
