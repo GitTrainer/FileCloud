@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
  
- before_filter :signed_in_user,only:[:new]
- before_filter :correct_user_folder,only:[:show,:edit,:destroy]
+  before_filter :signed_in_user,only:[:new]
+  before_filter :correct_user_folder,only:[:show,:edit,:destroy]
   def index
   	 @folders=current_user.folders
   end
