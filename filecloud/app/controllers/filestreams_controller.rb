@@ -50,7 +50,6 @@ class FilestreamsController < ApplicationController
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
-    #binding.pry
     respond_to do |format|
       if @upload.save
         format.html {
@@ -85,13 +84,6 @@ class FilestreamsController < ApplicationController
     end
   end
 
-  # DELETE /uploads/1
-  # DELETE /uploads/1.json
-  def destroy
-    @upload = Filestream.find(params[:id])
-    @upload.destroy
-  end
-
    def download
     @fileupload = Filestream.find(params[:id])
       if @fileupload.attach_content_type == "image/*"
@@ -106,6 +98,16 @@ class FilestreamsController < ApplicationController
 		  @upload.destroy
 			redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
 	 end
+
+	 def destroy
+   	 @delete_file = Filestream.find(params[:id])
+   	 @folder_id = @delete_file.folder_id
+     @delete_file.destroy
+     respond_to do |format|
+       format.html { redirect_to "/filestreams/?folder_id=" + folder_id.to_s }
+       format.json { head :no_content }
+     end
+   end
 
   private
 
