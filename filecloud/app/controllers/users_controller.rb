@@ -76,9 +76,11 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    binding.pry
     @user = User.find(params[:id])
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user])
+      binding.pry
         cookies.permanent[:remember_token] = @user.remember_token
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
