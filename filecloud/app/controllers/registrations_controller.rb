@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  before_filter :set_mailer_host
   # ovverride #create to respond to AJAX with a partial
   def create
     build_resource

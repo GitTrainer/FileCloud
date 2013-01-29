@@ -1,9 +1,13 @@
 <legend >Edit <%= resource_name.to_s.humanize %></legend>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :class => 'form-vertical' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
-  <%= f.label :avatar %>
-  <%= f.file_field :avatar  %>
+  <p>
+    <b> Avatar </b><br/></br>
+    <%= image_tag @user.pic.url(:thumb) %><br/>
+    <%= f.file_field :pic %>
+  </p>
+
   <%= f.input :name, :autofocus => true %>
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>

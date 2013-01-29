@@ -1,10 +1,13 @@
 class ApplicationController < ActionController::Base
-#  protect_from_forgery
-#
-#  rescue_from CanCan::AccessDenied do |exception|
-#    redirect_to root_path, :alert => exception.message
-#  end
+  #  protect_from_forgery
+  #
+  #  rescue_from CanCan::AccessDenied do |exception|
+  #    redirect_to root_path, :alert => exception.message
+  #  end
 
+  def set_mailer_host
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
   protect_from_forgery
 
   def has_role?(current_user, role)
