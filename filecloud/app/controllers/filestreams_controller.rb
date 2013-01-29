@@ -50,6 +50,7 @@ class FilestreamsController < ApplicationController
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
+    #binding.pry
     respond_to do |format|
       if @upload.save
         format.html {

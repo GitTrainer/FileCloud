@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
 
 	def show
 		@category = Category.find(params[:id])
-		@folders = Folder.where(:category_id => params[:id])
+		#@folders = Folder.where(:category_id => params[:id],:user_id => current_user.id)
     respond_to do |format|
       format.html { render action: "show"}
       format.js {render js: @category }
