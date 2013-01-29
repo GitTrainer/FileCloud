@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+<h1>User Information</h1>
+<p>
+  <b>Avatar:</b>
+<%= image_tag @current_user.avatar.url(:medium) %>
+</p>
+<p>
+  <b>Name:</b>
+  <%= @current_user.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @current_user.email %>
+</p>
+<p>
+	<b>List folders: </b><br/>
+
+	<% @current_user.folders.each do |folder|%>
+		<% if Folder.where(:user_id => current_user, :id => folder.id).exists? %>
+			<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+		<% else %>
+			<% folder.foldersharings.each do |f|%>
+				<% if Foldersharing.where(:shared_user_id => f.shared_user_id, :folder_id => f.folder_id).exists? %>
+					<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+</p>
+<% if current_user.id == params[:id].to_i %>
+<p>
+
+    <% @lists = Foldersharing.where(:shared_user_id => current_user) %>
+    <b>List folders are shared by other members : </b><br/>
+    <% @lists.each do |list|%>
+    	<a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></br>
+    <% end %>
+</p>
+<% end %>
+

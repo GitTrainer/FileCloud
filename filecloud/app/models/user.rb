@@ -7,9 +7,17 @@ class User < ActiveRecord::Base
   has_many :filesharings, foreign_key: "shared_user_id", class_name: "Filesharing", dependent: :destroy
   has_many :foldersharing, foreign_key: "shared_user_id", class_name: "Foldersharing", dependent: :destroy
   has_secure_password
-  validates :name, presence: true, length: { maximum: 50 }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :name, presence: true, length: { maximum: 50 } 
+  validates :password, :presence     => true,
+                     :confirmation => true,
+                     :length       => { :minimum => 6 },
+                     :if           => :password,
+                     :allow_blank => true
+  validates_confirmation_of :password
+
+  # validates :password, presence: true, length: { minimum: 6 }
+  # validates :password_confirmation, presence: true, :allow_blank => false
+  # validates_confirmation_of :password, :allow_blank => true
   # validates_presence_of :password
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence:   true,

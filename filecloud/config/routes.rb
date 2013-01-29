@@ -4,7 +4,8 @@ Filecloud::Application.routes.draw do
 
   resources :password_resets
   resources :users
-  root to: 'sessions#new'
+  root to: 'homes#home'
+
   match '/activate',to: 'users#activate'
 # :url  => "/assets/users/:id/:style/:basename.:extension"
   resources :sessions, only: [:new, :create, :destroy]
