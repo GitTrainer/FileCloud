@@ -18,6 +18,16 @@
       <%= f.error_notification %>
     </div>
 
+<<<<<<< HEAD
+      <div class="form-inputs">
+        <%= f.label "Category name" %>
+      </div>
+
+      <div class="form-inputs">
+        <%= f.collection_select(:category_id,Category.all,:id,:name) %>
+      </div>
+
+=======
     <div class="form-inputs">
         <%= f.label "Category Name" %>
       </div>
@@ -25,6 +35,7 @@
         <%= f.collection_select(:category_id,Category.all,:id,:name) %>
       </div>
      
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
       <div class="form-inputs">
         <%= f.input :name %>
       </div>
@@ -62,8 +73,9 @@
     <td><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-</table>
 
+</table>
+<%= will_paginate %>
 <br />
 
 

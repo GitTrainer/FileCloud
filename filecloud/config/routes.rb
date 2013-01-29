@@ -1,6 +1,18 @@
 Filecloud::Application.routes.draw do
 
   resources :uploads do 
+<<<<<<< HEAD
+    member do
+      get 'download'
+    end
+  end
+#  root :to => 'uploads#index'
+
+  resources :roles
+
+  resources :upload_files do
+=======
+>>>>>>> 35aa85ccb23d02f075503d57a924b35fab6d0fb9
     member do
       get 'download'
     end
