@@ -1,15 +1,17 @@
 class ConfirmationsController < Devise::PasswordsController
   # Remove the first skip_before_filter (:require_no_authentication) if you
   # don't want to enable logged users to access the confirmation page.
-  before_filter :set_mailer_host
   skip_before_filter :require_no_authentication
   skip_before_filter :authenticate_user!
 
   # POST /resource/confirmation
   def create
+
     self.resource = resource_class.send_confirmation_instructions(resource_params)
     if successfully_sent?(resource)
+#     binding.pry
       respond_with({}, :location => after_resending_confirmation_instructions_path_for(resource_name))
+      
     else
       respond_with(resource)
     end

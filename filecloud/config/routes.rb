@@ -5,7 +5,7 @@ Filecloud::Application.routes.draw do
       get 'download'
     end
   end
-#  root :to => 'uploads#index'
+  #  root :to => 'uploads#index'
 
   resources :roles
 
@@ -13,6 +13,9 @@ Filecloud::Application.routes.draw do
 
   resources :categories
   
+
+  get "users/password"
+
   authenticated :user do
     root :to => 'home#index'
   end
@@ -22,9 +25,8 @@ Filecloud::Application.routes.draw do
     match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
     match '/users/sign_out' => 'devise/sessions#destroy', :via => :delete, :as => :destroy
     match '/users/:id' => 'users#destroy', :via => :delete, :as => :destroy
-    match '/users/:id/edit' => 'users#update', :via => :put, :as => :update
+#    match '/users/password' => 'confirmations#create'
   end
-#map.connect '/:username/:id', :controller => 'submissions', :action => 'show'
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
 
@@ -35,7 +37,6 @@ Filecloud::Application.routes.draw do
   resources :users, :only => [:destroy,:show, :index] do
     get 'invite', :on => :member
   end
- 
 
 end
 

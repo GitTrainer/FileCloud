@@ -1,20 +1,22 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_attached_file :pic, :styles =>{ :medium => "500x300>", :thumb => "300x280>" }
-    
+
   has_attached_file :attach
   
-  validates :email, :presence => true
-  validates :name, :presence => true
-
   scope :admin, joins(:roles).where('roles.name = ?', 'admin')
   rolify
-  
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
     :recoverable, :rememberable, :trackable, :validatable
 
+  # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :opt_in,:avatar_file_name,:avatar_content_type, :avatar_file_size,:avatar_updated_at,:pic
-#  attr_accessible :role_ids, :as => :admin
+  #  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :role_ids, :as => :admin
+  #  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   # send mail after created
   after_create :add_user_to_mailchimp unless Rails.env.development?

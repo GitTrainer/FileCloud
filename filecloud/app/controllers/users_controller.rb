@@ -1,12 +1,20 @@
 class UsersController < ApplicationController
-  before_filter :set_mailer_host
   before_filter :authenticate_user!
-
+  #  before_filter :verify_admin
+  #
+  #  def verify_admin
+  #    :authenticate_user!
+  #    redirect_to root_url unless has_role?(current_user, 'admin')
+  #  end
+  #
+  #  def current_ability
+  #    @current_ability ||= AdminAbility.new(current_user)
+  #  end
 
   def index
     #    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @users = User.all
-    #    @chart = create_chart
+    @chart = create_chart
   end
   def password
     redirect_to('/')
@@ -39,9 +47,10 @@ class UsersController < ApplicationController
   # PUT /roles/1.json
   def update
     @user = User.find(params[:id])
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+        format.html { redirect_to roles_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,29 +75,17 @@ class UsersController < ApplicationController
     redirect_to :back, :only_path => true, :notice => "Sent invitation to #{users.count} users."
   end
 
-
   private
 
-  def store_file
-    File.open(file_storage_location, 'w') do |f|
-      f.write uploaded_file.read
+  def create_chart
+    users_by_day = User.group("DATE(created_at)").count
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('date')
+    data_table.new_column('number')
+    users_by_day.each do |day|
+      data_table.add_row([ Date.parse(day[0].to_s), day[1]])
     end
-  end
-
-  def delete_file
-    File.delete(file_storage_location)
-  end
-
-  def file_storage_location
-    File.join(Rails.root, 'public', 'uploads', filename)
-  end
-
-  def set_filename
-    self.filename = random_prefix + uploaded_file.original_filename
-  end
-
-  def random_prefix
-    Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)
+    @chart = GoogleVisualr::Interactive::AnnotatedTimeLine.new(data_table)
   end
 
 end
