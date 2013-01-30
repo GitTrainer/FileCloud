@@ -5,8 +5,6 @@ class FilestreamsController < ApplicationController
   before_filter :correct_user,   only: [:index]
 
   def index
-    @folder = Folder.paginate(page: params[:page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @folder_id = params[:folder_id]
     @uploads = Filestream.where(:folder_id => params[:folder_id])
     respond_to do |format|
@@ -19,9 +17,7 @@ class FilestreamsController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
-    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @upload = Filestream.find(params[:id])
-      respond_to do |format|
     @upload = Filestream.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
@@ -47,8 +43,6 @@ class FilestreamsController < ApplicationController
   def create
 
     @folder_id = params[:filestream][:folder_id]
-    @folder = Folder.paginate(page: params[:page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
