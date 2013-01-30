@@ -1,5 +1,5 @@
 class FileUpLoadsController < ApplicationController
-
+# before_filter :
 before_filter :correct_user_folder_fileupload,only:[:new] 
 def index
 	
@@ -47,7 +47,7 @@ end
        @fileupload=FileUpLoad.find(params[:id])
       if @fileupload.attach_content_type=="image/jpeg"
        send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
-     else
+      else
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
      end
     end
