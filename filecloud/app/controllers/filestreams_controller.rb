@@ -5,7 +5,8 @@ class FilestreamsController < ApplicationController
   before_filter :correct_user,   only: [:index]
 
   def index
-    @folder = Folder.all
+    @folder = Folder.paginate(page: params[:page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @folder_id = params[:folder_id]
     @uploads = Filestream.where(:folder_id => params[:folder_id])
     respond_to do |format|
@@ -18,10 +19,11 @@ class FilestreamsController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
-
-
+    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @upload = Filestream.find(params[:id])
       respond_to do |format|
+    @upload = Filestream.find(params[:id])
+    respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @upload }
     end
@@ -30,6 +32,8 @@ class FilestreamsController < ApplicationController
   # GET /uploads/new
   # GET /uploads/new.json
   def new
+     @folder = Folder.paginate(page: params[:page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @upload = Filestream.new
     respond_to do |format|
       format.html # new.html.erb
@@ -37,16 +41,14 @@ class FilestreamsController < ApplicationController
     end
   end
 
-  # GET /uploads/1/edit
-  def edit
-    @upload = Filestream.find(params[:id])
-  end
 
   # POST /uploads
   # POST /uploads.json
   def create
-    @folder = Folder.all
+
     @folder_id = params[:filestream][:folder_id]
+    @folder = Folder.paginate(page: params[:page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[:page], :per_page => 3)
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
@@ -56,11 +58,9 @@ class FilestreamsController < ApplicationController
           render :json => [@upload.to_jq_upload].to_json,
           :content_type => 'text/html',
           :layout => false
-
         }
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }
         format.json { render json: @uploads }
-
       else
         format.html { render action: "new" }
         format.json { render json: @upload.errors, status: :unprocessable_entity }
@@ -68,37 +68,21 @@ class FilestreamsController < ApplicationController
     end
   end
 
-  # PUT /uploads/1
-  # PUT /uploads/1.json
-  def update
-    @upload = Filestream.find(params[:id])
-
-    respond_to do |format|
-      if @upload.update_attributes(params[:upload])
-        format.html { redirect_to @upload, notice: 'Upload was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @upload.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
    def download
-    @fileupload = Filestream.find(params[:id])
-
-      if @fileupload.attach_content_type == "image/*"
-        send_file @fileupload.attach.path, :type =>    
-        @fileupload.attach_content_type,:disposition=>'inline'
-      else
-        send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
-      end
- end
+     @fileupload = Filestream.find(params[:id])
+     if @fileupload.attach_content_type == "image/*"
+       send_file @fileupload.attach.path, :type =>
+       @fileupload.attach_content_type,:disposition=>'inline'
+     else
+       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
+     end
+   end
 
 	 def delete_from_folder
-	 	  @upload = Filestream.find(params[:id])
-		  @upload.destroy
-			redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
+	 	 @upload = Filestream.find(params[:id])
+		 @upload.destroy
+		 redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
 	 end
 
 	 def destroy
@@ -126,6 +110,5 @@ class FilestreamsController < ApplicationController
 				redirect_to root_path
       end
     end
-
 
 end

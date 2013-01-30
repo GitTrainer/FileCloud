@@ -23,26 +23,29 @@
 
 <tr>
 <th>File Name</th>
+<th>Preview</th>
 <th>Download</th>
+
 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <th>Delete</th>
-<th>Priview</th>
 <%end%>
+
 </tr>
 <% @file.each do |filestream|%>
 <tr>
 <td><%= filestream.attach_file_name %></td>
-<td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
-<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
-<%end%>
-
 <% if filestream.attach_content_type.include? "image"%>
 	<td>
 		<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("priview.jpeg",:size => "30x30", alt: "Priview") %></a></span>
 	</td>
 
 <%end%>
+<td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
+<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
+<%end%>
+
+
 
 <% end %>
 </tr>

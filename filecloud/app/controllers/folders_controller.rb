@@ -16,6 +16,8 @@ class FoldersController < ApplicationController
    end
 
 	def index
+		@folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
 		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		if ( @new_folder.nil?)
@@ -29,13 +31,17 @@ class FoldersController < ApplicationController
 	  end
 
 	def new
-
+		@folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
   	@foldersharings = Foldersharing.all
 	  @new_folder = Folder.new
 	end
 
 	def create
-    	@foldersharings = Foldersharing.all
+    @foldersharings = Foldersharing.all
+		@folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
 		@folders = Folder.where(:user_id => current_user)
 		respond_to do |format|
@@ -63,16 +69,13 @@ class FoldersController < ApplicationController
 		end
 	end
 
-	class String
-	  def is_number?
-	    true if Float(self) rescue false
-  	end
-	end
-
 	def show
+
 		@folder = Folder.find(params[:id])
 		@uploads = Filestream.where(:folder_id => params[:id])
 		@file =@uploads.paginate(:page => params[:page], :per_page => 5)
+		@folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
 		@foldersharings = Foldersharing.all
 		@id = params[:id].to_i
 		respond_to do |format|
@@ -94,7 +97,7 @@ class FoldersController < ApplicationController
 	end
 
 	def update
-		   
+
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.find(params[:id])
 		@folders = Folder.where(:user_id => current_user)

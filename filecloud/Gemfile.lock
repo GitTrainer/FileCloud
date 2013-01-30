@@ -188,6 +188,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uploadify_rails3 (0.1.2)
     websocket (1.0.6)
     will_paginate (3.0.3)
     xpath (0.1.4)
@@ -220,4 +221,5 @@ DEPENDENCIES
   spork (>= 0.8.4)
   sqlite3
   uglifier (>= 1.0.3)
+  uploadify_rails3
   will_paginate (= 3.0.3)
