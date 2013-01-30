@@ -16,15 +16,12 @@ class FoldersController < ApplicationController
    end
 
 	def index
-		  binding.pry
-		  @folder = Folder.paginate(page: params[ :page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
 		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-      respond_to do |format|
+     	 respond_to do |format|
         format.html { render action: "index"}
         format.js {render js: @new_folder }
         format.js {render js:  @folders }
@@ -32,16 +29,13 @@ class FoldersController < ApplicationController
 	  end
 
 	def new
-		  @folder = Folder.paginate(page: params[ :page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+
   	@foldersharings = Foldersharing.all
 	  @new_folder = Folder.new
 	end
 
 	def create
-		  @folder = Folder.paginate(page: params[ :page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
-		@foldersharings = Foldersharing.all
+    	@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
 		@folders = Folder.where(:user_id => current_user)
 		respond_to do |format|
@@ -58,9 +52,8 @@ class FoldersController < ApplicationController
 	end
 
 	def edit
-		  @folder = Folder.paginate(page: params[ :page], :per_page => 3)
-    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
-		@foldersharings = Foldersharing.all
+	    @folder = Folder.paginate(page: params[ :page], :per_page => 3)
+  		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
 		respond_to do |format|
@@ -77,8 +70,9 @@ class FoldersController < ApplicationController
 	end
 
 	def show
-		@folder = Folder.paginate(page: params[ :page], :per_page => 3)
-        @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+		@folder = Folder.find(params[:id])
+		@uploads = Filestream.where(:folder_id => params[:id])
+		@file =@uploads.paginate(:page => params[:page], :per_page => 5)
 		@foldersharings = Foldersharing.all
 		@id = params[:id].to_i
 		respond_to do |format|
@@ -86,11 +80,12 @@ class FoldersController < ApplicationController
 				@folder = Folder.find(@id)
 				format.html { render action: "show"}
 				format.js {render js: @folder }
+				format.js {render js: @file }
 			else
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
 					@folder = Folder.find(params[:id])
-					format.html { render action: "show"}
-				  format.js {render js: @folder }
+					format.html
+				    format.js {render js: @folder}
 			 	else
 			 		format.html { redirect_to root_path }
 				end
@@ -99,8 +94,7 @@ class FoldersController < ApplicationController
 	end
 
 	def update
-	    @folder = Folder.paginate(page: params[ :page], :per_page => 3)
-	    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+		   
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.find(params[:id])
 		@folders = Folder.where(:user_id => current_user)

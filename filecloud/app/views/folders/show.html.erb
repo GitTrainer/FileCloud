@@ -29,7 +29,7 @@
 <th>Priview</th>
 <%end%>
 </tr>
-<% @folder.filestreams.each do |filestream|%>
+<% @file.each do |filestream|%>
 <tr>
 <td><%= filestream.attach_file_name %></td>
 <td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
@@ -47,8 +47,10 @@
 <% end %>
 </tr>
 </tr>
-</table>
 
+
+</table>
+<%= will_paginate @file %>
 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
 <P><a href="/folders/?user_id=<%=current_user.id.to_s%>">Go to Folders</a></p>

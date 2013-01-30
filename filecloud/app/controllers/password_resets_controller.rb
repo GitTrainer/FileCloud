@@ -1,16 +1,7 @@
 class PasswordResetsController < ApplicationController
   def new
   end
-#   def create
-#   	user=User.find_by_email(params[:email])
-#   	#binding.pry
-#     if user
-#       user.send_password_reset 
-#       binding.pry
-#   	  redirect_to 'sessions/new', :notice =>"Email send with PasswordReset"
 
-#   end
-# end
 def create
   
   @user = User.find_by_email(params[:email])
