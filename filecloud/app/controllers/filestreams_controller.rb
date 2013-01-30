@@ -5,7 +5,9 @@ class FilestreamsController < ApplicationController
   before_filter :correct_user,   only: [:index]
 
   def index
-   @folder = Folder.all
+    @folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+    @folder = Folder.all
     @folder_id = params[:folder_id]
     @uploads = Filestream.where(:folder_id => params[:folder_id])
     respond_to do |format|
@@ -18,8 +20,10 @@ class FilestreamsController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
-    @upload = Filestream.find(params[:id])
 
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
+    @upload = Filestream.find(params[:id])
+   
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @upload }
@@ -29,8 +33,9 @@ class FilestreamsController < ApplicationController
   # GET /uploads/new
   # GET /uploads/new.json
   def new
+     @folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
     @upload = Filestream.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @upload }
@@ -39,15 +44,19 @@ class FilestreamsController < ApplicationController
 
   # GET /uploads/1/edit
   def edit
+    # @upload = Filestream.paginate(page: params[ :page], :per_page => 3)
     @upload = Filestream.find(params[:id])
   end
 
   # POST /uploads
   # POST /uploads.json
   def create
+     @folder = Folder.paginate(page: params[ :page], :per_page => 3)
+    @filestream = Filestream.paginate(page: params[ :page], :per_page => 3)
     @folder = Folder.all
     @folder_id = params[:filestream][:folder_id]
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
+     @folder = Folder.paginate(page: params[ :page], :per_page => 3)
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
     respond_to do |format|
@@ -71,6 +80,7 @@ class FilestreamsController < ApplicationController
   # PUT /uploads/1
   # PUT /uploads/1.json
   def update
+    # @upload = Filestream.paginate(page: params[ :page], :per_page => 3)
     @upload = Filestream.find(params[:id])
 
     respond_to do |format|
@@ -86,8 +96,10 @@ class FilestreamsController < ApplicationController
 
    def download
     @fileupload = Filestream.find(params[:id])
+
       if @fileupload.attach_content_type == "image/*"
-        send_file @fileupload.attach.path, :type =>           	@fileupload.attach_content_type,:disposition=>'inline'
+        send_file @fileupload.attach.path, :type =>    
+        @fileupload.attach_content_type,:disposition=>'inline'
       else
         send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
       end

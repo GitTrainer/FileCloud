@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
   before_filter :set_mailer_host
   def index
+    
     @users = User.all
 
     respond_to do |format|
@@ -48,7 +49,7 @@ def create
       flash[:success] = "Welcome to the Sample App! Please in your mail activate account"
       render 'sessions/new'
     else
-      flash.now[:error]="errors"
+     
       render 'new'
     end
   end
