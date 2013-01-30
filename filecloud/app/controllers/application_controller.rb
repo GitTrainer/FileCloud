@@ -20,5 +20,8 @@ class ApplicationController < ActionController::Base
       redirect_to(root_path) unless current_user?(@user)
     end
 
-    
+    def correct_user_for_download
+    	@user = FileUpLoad.find(params[:id]).folder.user
+    	redirect_to(root_path) unless current_user?(@user)
+    end
 end
