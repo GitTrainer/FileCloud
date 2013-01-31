@@ -6,8 +6,7 @@ class UsersController < ApplicationController
   before_filter :admin_user, only: :destroy
   before_filter :set_mailer_host
   def index
-    @users = User.all
-
+    @users = User.paginate(:page => params[:page],:per_page => 10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -78,7 +77,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user])
         cookies.permanent[:remember_token] = @user.remember_token
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }

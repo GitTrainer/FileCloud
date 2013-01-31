@@ -14,17 +14,19 @@ class User < ActiveRecord::Base
   	
   	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at,:status,:avatar
     has_attached_file :avatar, :styles => { :medium => "400x600>", :thumb => "400x600>" }
-    validates :name,  presence: true, length: { maximum: 50, minimum: 5 }
+   
+    validates :name,  presence: true, length: { maximum: 50, minimum: 5 } 
     validates :avatar, :attachment_presence => true
     validates_with AttachmentPresenceValidator, :attributes => :avatar
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
-    validates :password, length: { maximum: 20, minimum: 5 }
-  	has_secure_password
-
+    validates :password, length: { maximum: 20, minimum: 5 },:if => :should_validate_password?
+  	
+    has_secure_password
   	before_save { |user| user.email = email.downcase }
   	before_save :create_remember_token
     has_many :folders,dependent: :destroy
+   
     def send_resset_password
       self.password_reset_sent_at=Time.zone.now
       @pass=SecureRandom.urlsafe_base64
@@ -34,7 +36,12 @@ class User < ActiveRecord::Base
     end
 
   	private
+
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
+    end
+    
+    def should_validate_password?
+      self.new_record? || self.password!=""
     end
 end
