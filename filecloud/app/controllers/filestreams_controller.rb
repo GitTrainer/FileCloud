@@ -17,11 +17,18 @@ class FilestreamsController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
-    @upload = Filestream.find(params[:id])
+    @folder_id = Filestream.find(params[:id]).folder_id
+    @user_id= Folder.find(@folder_id).user_id
+    
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @upload }
+    if current_user.id.to_s == @user_id.to_s || Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @folder_id).exists?
+      @upload = Filestream.find(params[:id])
+        format.html # show.html.erb
+        format.json { render json: @upload }
+    else
+      format.html { redirect_to root_path }
     end
+   end
   end
 
   # GET /uploads/new
@@ -46,8 +53,12 @@ class FilestreamsController < ApplicationController
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
 
+
+
+
+
+    respond_to do |format|
       if @upload.save
-      respond_to do |format|
         format.html {
           render :json => [@upload.to_jq_upload].to_json,
           :content_type => 'text/html',
@@ -55,16 +66,11 @@ class FilestreamsController < ApplicationController
         }
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }
         format.json { render json: @uploads }
-        end
       else
-#      	flash[:notice] = "abc"
-#        format.html { render action: "index"}
-#        format.json { render js: @upload.errors, status: :unprocessable_entity }
-				flash[:error] = "asdasd"
-				redirect_to ("/filestreams/?folder_id=" + @folder_id.to_s)
-
+        format.html { render action: "new" }
+        format.json { render json: @upload.errors, status: :unprocessable_entity }
       end
-
+    end
   end
 
 

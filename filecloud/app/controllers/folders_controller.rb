@@ -9,22 +9,25 @@ class FoldersController < ApplicationController
     end
   end
 
-  def correct_user
-      if Folder.where(:user_id=> current_user.id , :id => params[:id]).blank?
-         redirect_to root_path
-      end
-   end
-
-	def index
+  # def correct_user
+  #     if Folder.where(:user_id=> id , :id => params[:id]).blank?
+  #        redirect_to root_path
+  #     end
+  #  end
+     def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+   def index
 		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-     	 respond_to do |format|
-        format.html { render action: "index"}
-        format.js {render js: @new_folder }
-        format.js {render js:  @folders }
+	     	respond_to do |format|
+	        format.html { render action: "index"}
+	        format.js {render js: @new_folder }
+	        format.js {render js:  @folders }
       end
 	  end
 

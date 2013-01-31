@@ -3,7 +3,7 @@
   <% if (@upload.nil?)
 		    @upload = Filestream.new
 		  end %>
-  <%= form_for(@upload, :html => { :multipart => true, :id => "fileupload"}, :controller => 'filestreams', :action => ) do |f| %>
+  <%= form_for(@upload, :html => { :multipart => true, :id => "fileupload"}, :controller => 'filestreams', :action =>"create" ) do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 
     <div class="row fileupload-buttonbar">

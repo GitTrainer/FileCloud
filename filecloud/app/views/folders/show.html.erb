@@ -35,7 +35,7 @@
 			<td><%= filestream.attach_file_name %></td>
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
-					<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("priview.jpeg",:size => "30x30", alt: "Priview") %></a></span>
+					<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("priview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
 				</td>
 			<%else%>
 			<td></td>

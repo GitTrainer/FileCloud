@@ -16,7 +16,7 @@
   <% if !@user.id.nil?%>
     <p>
       <%= f.label :avatar%>
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar,:accept=> "image/*" %>
    </p>  
 <%end%>
 
