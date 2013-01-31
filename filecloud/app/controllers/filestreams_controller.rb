@@ -18,7 +18,6 @@ class FilestreamsController < ApplicationController
   # GET /uploads/1.json
   def show
     @upload = Filestream.find(params[:id])
-    @upload = Filestream.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @upload }
@@ -46,8 +45,9 @@ class FilestreamsController < ApplicationController
     @uploads = Filestream.where(:folder_id => params[:filestream][:folder_id])
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
-    respond_to do |format|
+
       if @upload.save
+      respond_to do |format|
         format.html {
           render :json => [@upload.to_jq_upload].to_json,
           :content_type => 'text/html',
@@ -55,11 +55,16 @@ class FilestreamsController < ApplicationController
         }
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }
         format.json { render json: @uploads }
+        end
       else
-        format.html { render action: "index" }
-        format.json { render json: @upload.errors, status: :unprocessable_entity }
+#      	flash[:notice] = "abc"
+#        format.html { render action: "index"}
+#        format.json { render js: @upload.errors, status: :unprocessable_entity }
+				flash[:error] = "asdasd"
+				redirect_to ("/filestreams/?folder_id=" + @folder_id.to_s)
+
       end
-    end
+
   end
 
 
