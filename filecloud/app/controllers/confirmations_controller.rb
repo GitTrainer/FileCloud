@@ -1,22 +1,17 @@
 class ConfirmationsController < Devise::PasswordsController
-  # Remove the first skip_before_filter (:require_no_authentication) if you
-  # don't want to enable logged users to access the confirmation page.
-  skip_before_filter :require_no_authentication
-  skip_before_filter :authenticate_user!
 
   # POST /resource/confirmation
   def create
-
-    self.resource = resource_class.send_confirmation_instructions(resource_params)
+    #       self.resource = resource_class.send_reset_password_instructions(params[resource_name])
+    self.resource = resource_class.send_confirmation_instructions(params[resource_name])
     if successfully_sent?(resource)
-#     binding.pry
-      respond_with({}, :location => after_resending_confirmation_instructions_path_for(resource_name))
-      
+      set_flash_message(:notice, :send_instructions) if is_navigational_format?
+      respond_with({}, :location => root_path)
     else
-      respond_with(resource)
+      respond_with_navigational(resource)
     end
   end
-  
+ 
   # PUT /resource/confirmation
   def update
     with_unconfirmed_confirmable do
