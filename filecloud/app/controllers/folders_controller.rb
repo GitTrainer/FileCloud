@@ -1,13 +1,13 @@
 class FoldersController < ApplicationController
  
   before_filter :signed_in_user,only:[:new]
-  before_filter :correct_user_folder,only:[:show,:edit,:destroy]
+  before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update]
+  
   def index
   	 @folders=current_user.folders
   end
 
   def show
-    # binding.pry
   	@folder=Folder.find(params[:id])
     @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page => 5)
     respond_to do |format|
@@ -15,15 +15,13 @@ class FoldersController < ApplicationController
        format.js {render js: @files }
     end
   end
-    
-
+  
   def new
   	@folder=Folder.new
   	@categorys=Category.all
   end
 
   def create
-
   	@folder=Folder.new(params[:folder])
     if @folder.save
     	 redirect_to folders_path
@@ -51,11 +49,10 @@ class FoldersController < ApplicationController
   def destroy
     Folder.find(params[:id]).destroy
     redirect_to folders_path
-end
-def correct_user_folder
-        @current_folder=Folder.find(params[:id])
-       if @current_folder.user.id.to_s!=current_user.id.to_s
-          redirect_to current_user  
-       end
+  end
+  
+  def correct_user_folder
+      @user=Folder.find(params[:id]).user
+      redirect_to(root_path) unless current_user?(@user)
     end
-end
+  end

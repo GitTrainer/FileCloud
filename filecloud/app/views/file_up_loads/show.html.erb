@@ -9,17 +9,16 @@
 				<%= image_tag @fileupload.attach.url %>
 			</div>
 	<%else%>
-		
-			<div id="otherfile">
+		<div id="otherfile">
 				
-					<%= link_to download_file_up_load_path(@fileupload.id) do %>
-					<p>
-						<span>Download (<%=@fileupload.attach_file_size%> byte)</span>
-						<span>File name: <%=@fileupload.attach_file_name%>	</span>
-					</p>
-					<%end%>
+			<%= link_to download_file_up_load_path(@fileupload.id) do %>
+				<p>
+					<span>Download (<%=@fileupload.attach_file_size%> byte)</span>
+					<span>File name: <%=@fileupload.attach_file_name%>	</span>
+				</p>
+			<%end%>
 				
-			</div>
+		</div>
 	<%end%>
 </div>
 

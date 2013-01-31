@@ -12,16 +12,21 @@ class ApplicationController < ActionController::Base
 	  	end
 	end
 
-	  def signed_in_user
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+	def signed_in_user
+      	redirect_to signin_url, notice: "Please sign in!" unless signed_in?
     end
-     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+    
+    def correct_user
+     	@user = User.find(params[:id])
+      	redirect_to(root_path) unless current_user?(@user)
     end
 
-    def correct_user_for_download
+    def correct_user_for_download_file
     	@user = FileUpLoad.find(params[:id]).folder.user
-    	redirect_to(root_path) unless current_user?(@user)
+    	if current_user
+       		redirect_to user_path(current_user), notice: "Not correct user!"  unless current_user?(@user)
+       	else
+       		redirect_to signin_url, notice: "Please sign in!"
+       	end
     end
 end
