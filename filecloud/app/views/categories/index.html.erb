@@ -19,6 +19,8 @@
         <%= f.input :description %>
       </div>
 
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+
       <div class="form-actions1">
         <%= f.button :submit, :class =>'btn-primary' %>
       </div>

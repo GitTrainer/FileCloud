@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_attached_file :pic, :styles =>{ :medium => "500x300>", :thumb => "300x280>" }
   has_many :uploads
   has_many :folders
+  has_many :categories
 
   has_attached_file :attach
   

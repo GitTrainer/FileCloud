@@ -3,19 +3,29 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     # @categories = Category.all
+
+    if current_user.has_role? :admin
+      @categories=Category.all
+    else
     @search =Category.search(params[:search])  
     @categories = @search.paginate(:per_page => 10, :page => params[:page])
 
+    @categories=Category.where(:user_id=>current_user.id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @categories }
     end
   end
+  end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
-    @category = Category.find(params[:id])
+     # binding.pry
+     #@category = Category.where(:user_id=>current_user.id)
+    # @category = Category.find_by_sql(["select * from categories c  join folders f on c.id=f.category_id where f.user_id=?",current_user.id])
+     @category = Category.find(params[:id])
+    
 
     respond_to do |format|
       format.html { render action: "show" } # show.html.erb
@@ -38,6 +48,7 @@ class CategoriesController < ApplicationController
   def edit
     @search = Category.search(params[:search])
     @categories = @search.paginate(:per_page => 10, :page => params[:page])
+    @categories=Category.where(:user_id=>current_user.id)
 
     @category = Category.find(params[:id])
     respond_to do |format|

@@ -1,6 +1,6 @@
 class Upload < ActiveRecord::Base
   attr_accessible :upload, :folder_id, :image, :user_id
-  has_attached_file :upload
+  has_attached_file :upload, :styles =>{ :original => "50x50>", :thumb => "100x180>" }
   belongs_to :folder
   belongs_to :user
 

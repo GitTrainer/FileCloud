@@ -22,7 +22,7 @@
         <%= f.label "Category Name" %>
       </div>
       <div class="form-inputs">
-        <%= f.collection_select(:category_id,Category.all,:id,:name) %>
+        <%= f.collection_select(:category_id,Category.where("user_id=?",current_user.id), :id,:name, {:prompt => true}) %>
       </div>
      
       <div class="form-inputs">
@@ -33,6 +33,8 @@
         <%= f.input :description %>
       </div>
 
+      <%= f.hidden_field :user_id, :value=>current_user.id %>
+      
       <div class="form-actions1">
         <%= f.button :submit, :class =>'btn-primary' %>
       </div>

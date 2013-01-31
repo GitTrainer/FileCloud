@@ -26,10 +26,12 @@
       <td><%= f.upload_content_type %></td>
       <td><%= f.upload_file_size %></td>
       
-      <td><%= image_tag f.upload.url(:original) %></td>
-      
+      <!-- <td><%= image_tag f.upload.url(:original) %></td> -->
+      <td><image src="<%= f.upload.url(:original) %>" width="100" hight="50"></td>
+
       <td><%= link_to 'Download',download_upload_path(f.id) %></td>
       <td><%= link_to 'Destroy', f, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
 
     </tr>
 
