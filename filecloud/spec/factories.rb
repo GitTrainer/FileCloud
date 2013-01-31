@@ -38,6 +38,8 @@ FactoryGirl.define do
 		name "Example Folder"
 		description "this Example Folder"
 		category
+		
+
 	end
 	factory :file_up_load do
 		attach_file_name "File Name"
