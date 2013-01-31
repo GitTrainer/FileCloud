@@ -1,4 +1,3 @@
-
 <div class="container">
   <h1>Upload file</h1>
   <%= form_for Filestream.new, :html => { :multipart => true, :id => "fileupload"} do |f| %>
@@ -7,11 +6,12 @@
     <div class="row fileupload-buttonbar">
       <div class="span16">
 
+				<%= render 'shared/error_messages', object: f.object %>
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
-          <%= f.file_field :attach %>
+          <%= f.file_field :attach, :name=>"filestream[attach]", :multiple=> true %>
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
@@ -53,11 +53,7 @@
 </div>
 <script>
   var fileUploadErrors = {
-  maxFileSize: 'File is too big',
-  minFileSize: 'File is too small',
-  acceptFileTypes: 'Filetype not allowed',
-  maxNumberOfFiles: 'Max number of files exceeded',
-  uploadedBytes: 'Uploaded bytes exceed file size',
+  maxFileSize: 'File should be less than 5MB',
   emptyResult: 'Empty file upload result'
   };
 </script>
@@ -69,12 +65,16 @@
     <td class="preview"><span class="fade"></span></td>
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+
     {% if (file.error) { %}
+
     <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
     {% } else if (o.files.valid && !i) { %}
+
     <td>
       <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
     </td>
+
     <td class="start">{% if (!o.options.autoUpload) { %}
       <button class="btn btn-primary">
         <i class="icon-upload icon-white"></i>
@@ -101,6 +101,7 @@
         <td></td>
         <td class="name"><span>{%=file.name%}</span></td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+
         <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } else { %}
         <td class="preview">{% if (file.thumbnail_url) { %}

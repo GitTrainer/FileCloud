@@ -56,7 +56,7 @@ class FilestreamsController < ApplicationController
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }
         format.json { render json: @uploads }
       else
-        format.html { render action: "new" }
+        format.html { render action: "index" }
         format.json { render json: @upload.errors, status: :unprocessable_entity }
       end
     end
