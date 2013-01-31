@@ -1,6 +1,6 @@
 <div class="container">
 <h1 style="color:blue">UpLoadFile <%=@folder.name %></h1>
-  <%= form_for @fileupload, :html => { :multipart => true, :id => "file_up_load_attach"  } do |f| %>
+  <%= form_for @fileupload,:html => { :multipart => true, :id => "file_up_load_attach"  } do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span7">
@@ -9,8 +9,7 @@
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
          <%= f.hidden_field :folder_id,:value=> @folder.id %>
-        
-         <%= f.file_field :attach %>
+         <%= f.file_field :attach,:multiple=>'multiple',:name=>"file_up_load[attach]" %>
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
@@ -39,7 +38,7 @@
     <!-- The table listing the files available for upload/download -->
     <table class="table table-striped" role="presentation"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
     </table>
-  <% end %>
+  <%end %>
 
 </div>
 <script>
@@ -113,8 +112,8 @@
       // Initialize the jQuery File Upload widget:
       $('#file_up_load_attach').fileupload();
       // 
-     
-
+      
+    
   });
 </script>
 <%=link_to 'Back',folder_path(@folder.id)%>

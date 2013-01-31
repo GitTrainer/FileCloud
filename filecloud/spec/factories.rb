@@ -50,6 +50,4 @@ FactoryGirl.define do
 		attach_file_size '254'
 		folder 
 	end
-
-
 end
