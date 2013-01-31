@@ -9,8 +9,18 @@ def uploadFile
   render :text => "File has been uploaded successfully!"
 end
 
+
+
+
   def index
+    # binding.pry
+    # if current_user.role? :admin
+
     @folders = Folder.all
+ #  else
+ # end
+
+ @folders = Folder.where(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb

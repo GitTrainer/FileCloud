@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_attached_file :pic, :styles =>{ :medium => "500x300>", :thumb => "300x280>" }
+  has_many :uploads
+  has_many :folders
 
   has_attached_file :attach
   
