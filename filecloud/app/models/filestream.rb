@@ -17,8 +17,8 @@ class Filestream < ActiveRecord::Base
     }
   end
   def size_validation
-    if attach.size > 10.megabytes
-      errors.add_to_base("File must be less than 10MB")
+    if attach.size > 5.megabytes
+      errors.add :base, ("File must be less than 5MB")
     end
   end
 
