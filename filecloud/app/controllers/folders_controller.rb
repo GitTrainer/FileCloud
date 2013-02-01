@@ -3,29 +3,26 @@ class FoldersController < ApplicationController
   before_filter :signed_in_user,only:[:new]
   before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update]
   
-  def index
+def index
   	 @folders=current_user.folders
-  end
+end
 
-  def show
-<<<<<<< HEAD
-   
-=======
->>>>>>> 748d55c255b3064bc867d9c8a4abf2f347bb3774
-  	@folder=Folder.find(params[:id])
-    @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page => 5)
+def show
+
+  @folder=Folder.find(params[:id])
+  @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page => 5)
       respond_to do |format|
         format.html
        format.js {render js: @files }
-    end
-  end
+      end
+end
   
-  def new
+def new
   	@folder=Folder.new
   	@categorys=Category.all
-  end
+end
 
-  def create
+def create
   	@folder=Folder.new(params[:folder])
     if @folder.save
     	 redirect_to folders_path
@@ -33,14 +30,14 @@ class FoldersController < ApplicationController
         @categorys=Category.all
         render :action=>'new' 
     end    
-  end
+end
 
-  def edit
+def edit
   	@folder=Folder.find(params[:id])
   	@categorys=Category.all
-  end
+end
 
-  def update
+def update
     @folder=Folder.find(params[:id])
     if @folder.update_attributes(params[:folder])
     	 redirect_to :action=>'show'
@@ -48,10 +45,10 @@ class FoldersController < ApplicationController
     	 @categorys=Category.all
     	 render :action=>'edit'
    end
-  end
+end
 
-  def destroy
-<<<<<<< HEAD
+def destroy
+
      Folder.find(params[:id]).destroy
      redirect_to folders_path
 end
@@ -60,14 +57,5 @@ def correct_user_folder
        if @current_folder.user.id.to_s!=current_user.id.to_s
           redirect_to current_user  
        end
-=======
-    Folder.find(params[:id]).destroy
-    redirect_to folders_path
-  end
-  
-  def correct_user_folder
-      @user=Folder.find(params[:id]).user
-      redirect_to(root_path) unless current_user?(@user)
->>>>>>> 748d55c255b3064bc867d9c8a4abf2f347bb3774
-    end
-  end
+end
+end

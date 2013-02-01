@@ -9,29 +9,27 @@ end
 
 def new
     @folder=Folder.find_by_id(params[:id])
-  	@fileupload=FileUpLoad.new
+    @fileupload=FileUpLoad.new
 end
 
-<<<<<<< HEAD
 def create
   @fileupload=FileUpLoad.new(params[:file_up_load])
-  if @fileupload.save
-=======
-  def create
-    @fileupload=FileUpLoad.new(params[:file_up_load])
-    if @fileupload.save
->>>>>>> 748d55c255b3064bc867d9c8a4abf2f347bb3774
-      respond_to do |format|
+  
+  binding.pry
+   if @fileupload.save
+       binding.pry
+       #redirect_to folder_path(@fileupload.folder_id)
+        # binding.pry
+       respond_to do |format|
         format.html { redirect_to folder_path(@fileupload.folder)}
-        format.js { render json: [@fileupload.folder.to_json] }
-      end
-<<<<<<< HEAD
+          format.js { render json: [@fileupload.folder.to_json] }
+        end
 
-  else
+     else
    
         render :action=>'new'  
-  end 
-end
+    end
+end 
 
 def show
   @fileupload=FileUpLoad.find(params[:id])
@@ -51,74 +49,28 @@ def destroy
     redirect_to folder_path(@folder_id) 
 end
 
-def download
-      @fileupload=FileUpLoad.find(params[:id])
-      if @fileupload.attach_content_type=="image/jpeg"
-         send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
-      else
-         send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
-     end
 
-end
-
-def correct_user_folder_fileupload
-      @current_folder=Folder.find(params[:id])
-      if @current_folder.user.id.to_s!=current_user.id.to_s
-        redirect_to current_user  
-      end
-end
-=======
-    else
-      render :action=>'new' 
-    end  
-  end
-
-	def show
-    @fileupload=FileUpLoad.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-    if @fileupload
-      render 'show'
-    end
-      render 'shared/notify'
-    else
-	end
-
-  def destroy
+def destroy
     @folder_id=FileUpLoad.find_by_id(params[:id]).folder_id
     FileUpLoad.find_by_id(params[:id]).destroy
     redirect_to folder_path(@folder_id) ,notice: "Successfull destroy"
-  end
+end
 
-  def download
-    # @fileupload=FileUpLoad.find(params[:id])
-    # binding.pry
-    # rescue ActiveRecord::RecordNotFound
-    #    binding.pry
-    # if @fileupload
-    #   binding.pry
-    #   if @fileupload.attach_content_type=="image/jpeg"
-    #     send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
-    #   else
-    #     send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
-    #   end
-    # else
-    #   binding.pry
-    #   render 'shared/notify'
-    # end
+def download
+   
     @fileupload=FileUpLoad.find(params[:id])
     if @fileupload.attach_content_type=="image/jpeg"
-      send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
+       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
     else
-      send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
+       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
      end
-  end
+end
 
-  def correct_user_folder_fileupload
-      @current_folder=Folder.find(params[:id])
-     if @current_folder.user.id.to_s!=current_user.id.to_s
+def correct_user_folder_fileupload
+    @current_folder=Folder.find(params[:id])
+    if @current_folder.user.id.to_s!=current_user.id.to_s
         redirect_to current_user
-     end
-  end
->>>>>>> 748d55c255b3064bc867d9c8a4abf2f347bb3774
+    end
+end
 
 end
