@@ -39,17 +39,17 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
-
+# binding.pry
     @upload = Upload.new(params[:upload])
 
     respond_to do |format|
       if @upload.save
-        # format.html {
-        #   render :json => [@upload.to_jq_upload].to_json,
+        format.html {
+          render :json => [@upload.to_jq_upload].to_json,
 
-        #   :content_type => 'text/html',
-        #   :layout => false
-        # }
+          :content_type => 'text/html',
+          :layout => false
+        }
         # format.html {redirect_to folder_path }
      
         format.json { render json: [@upload.to_jq_upload].to_json, status: :created, location: @upload }

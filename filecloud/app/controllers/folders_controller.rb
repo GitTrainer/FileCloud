@@ -5,6 +5,12 @@ class FoldersController < ApplicationController
 
   def index
      # binding.pry
+     # page
+
+     @search =Folder.search(params[:search])  
+    @folders = @search.paginate(:per_page => 2, :page => params[:page])
+     # page = Folder.paginate(:page => params[:page])
+     # Folder.paginate(:page => params[:page],:page => 2)
     if current_user.has_role? :admin
       @folders = Folder.all
     else
@@ -21,6 +27,13 @@ class FoldersController < ApplicationController
   # GET /folders/1
   # GET /folders/1.json
   def show
+    # binding.pry
+    # perform a paginated query:
+    @pages = Folder.paginate(:page => params[:page])
+
+    # user an explicit "per page" limit:
+    Folder.paginate(:page => params[:page],:page => 10)
+
     @folder = Folder.find(params[:id])
 
     respond_to do |format|

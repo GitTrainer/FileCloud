@@ -5,11 +5,14 @@ class CategoriesController < ApplicationController
   def index
     # @categories = Category.all
 
+  # @search =Category.search(params[:search])  
+  #   @categories = @search.paginate(:per_page => 2, :page => params[:page])
+
     if current_user.has_role? :admin
       @categories=Category.all
+
     else
-    @search =Category.search(params[:search])  
-    @categories = @search.paginate(:per_page => 10, :page => params[:page])
+    
 
     @categories=Category.where(:user_id=>current_user.id)
     respond_to do |format|
