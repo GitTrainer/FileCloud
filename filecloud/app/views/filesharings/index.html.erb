@@ -1,0 +1,49 @@
+<script type="text/javascript">
+ function selectAll(){
+    $("input:checkbox").each(function(){
+      $(this).attr('checked', true);
+    });
+
+    return false;
+  }
+
+  function deselectAll(){
+    $("input:checkbox").each(function(){
+      $(this).attr('checked', false);
+    });
+
+    return false;
+  }
+</script>
+<h1>Share file to members</h1>
+<div class="row">
+ <% if(@new_filesharing.nil?)
+       @new_filesharing= Filesharing.new
+     end %>
+     <h3>Choose members to share file</h3>
+     <a href="#" onclick="selectAll()">Select all -</a>
+ <a href="#" onclick="deselectAll()">Deselect all</a>
+<%= form_for(@new_filesharing ) do |f| %>
+                 <div class="span6">
+                 <%= render 'shared/error_messages', object: f.object %>
+				<table>
+				<%= f.hidden_field :file_id, :value => params[:file_id] %>
+
+             <% @users.each do |user|%>
+                      <div class="span4">
+                        <%
+                        select=false
+                        Filesharing.where(:shared_user_id => user.id, :file_id => params[:file_id]).each  do |pm|
+                            select=true
+                        end
+                      %>
+ 						 <%= check_box_tag 'activated[]', user.id,select -%>
+                       <%= user.name%>
+                      </div>
+                    <%end%>
+                  </div>
+				</table>
+                <div class="span1"></br><%= f.submit 'Share'%></div>
+                </div>
+                <%end%>
+                </div>

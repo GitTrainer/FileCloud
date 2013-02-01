@@ -2,6 +2,13 @@ require 'spec_helper'
 
 describe "Foldersharings" do
 
+  describe "when not signed in" do
+  	let(:folder){FactoryGirl.create(:folder)}
+		before { visit ("/foldersharings/?folder_id="+folder.id.to_s) }
+		it "should be go to signin path" do
+		   page.should have_content("please sign in")
+		end
+  end
 	describe "When signed in" do
 		before { visit signin_path }
 		let(:user){FactoryGirl.create(:user)}
@@ -13,7 +20,6 @@ describe "Foldersharings" do
 		describe "Index page of sharing folders to other members" do
 			let(:folder){FactoryGirl.create(:folder)}
   		let(:user){FactoryGirl.create(:user)}
-  		let(:foldersharing){FactoryGirl.create(:foldersharing)}
 			before { visit ("/foldersharings/?folder_id="+folder.id.to_s) }
 
 			it "should have share folders contents" do
@@ -42,7 +48,6 @@ describe "Foldersharings" do
 		describe "should share a selected members" do
 			let(:folder){FactoryGirl.create(:folder)}
   		let(:user){FactoryGirl.create(:user)}
-  		let(:foldersharing){FactoryGirl.create(:foldersharing)}
 			before do
 				visit ("/foldersharings/?folder_id="+folder.id.to_s)
 					check('activated_')
@@ -53,19 +58,18 @@ describe "Foldersharings" do
       end
 		end
 
-#		describe "should deselect all members when click Deselect all" do
-#			let(:user){FactoryGirl.create(:user)}
-#			before {
-#				visit ("/foldersharings/?folder_id="+folder.id.to_s)
-#				click_link('Deselect all')
-#			}
-#			it "Uncheck all members" do
-#				@users= User.find_by_sql(["select id,name from users where id != ?",user.id])
-#				@users.each do |u|
-#					uncheck('activated[]')
-#				end
-#			end
-#		end
-
+		describe "should disable to share member when click that member" do
+			let(:user){FactoryGirl.create(:user)}
+			let(:folder){FactoryGirl.create(:folder)}
+			before do
+				@foldersharing = Foldersharing.new(folder_id: folder.id,shared_user_id: user.id)
+    	  @foldersharing.save!
+				visit ("/foldersharings/?folder_id="+folder.id.to_s)
+				uncheck('activated[]')
+			end
+			it "Uncheck checked member" do
+				expect { click_button('Share') }.to change(Foldersharing, :count).by(-1)
+			end
+		end
 	end
 end

@@ -15,3 +15,27 @@
 //= require_tree .
 //= require bootstrap
 //= require jquery-fileupload
+//=require jquery-fileupload/vendor/jquery.ui.widget
+//=require jquery-fileupload/vendor/load-image
+//=require jquery-fileupload/vendor/canvas-to-blob
+//=require jquery-fileupload/vendor/tmpl
+//=require jquery-fileupload/jquery.iframe-transport
+//=require jquery-fileupload/jquery.fileupload
+//=require jquery-fileupload/jquery.fileupload-fp
+//=require jquery-fileupload/jquery.fileupload-ui
+//=require jquery-fileupload/locale
+
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+
+$(function listuser() {
+alert("aaaa");
+});
+
+
+
+  $('a[data-popup]').live('click', function(e) {
+     window.open($(this).href);
+     e.preventDefault();
+  });

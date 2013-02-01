@@ -12,10 +12,13 @@ class UserMailer < ActionMailer::Base
   mail(:to => user.email, :subject => "password reset")
   end
   def share_folder(activated_id)
-    @user_email = User.where(:id => activated_id).first.email  
+    @user_email = User.where(:id => activated_id).first.email
     mail(:to => @user_email, :subject => "You was shared folder.")
   end
-
+	 def share_file(activated_id)
+    @user_email = User.where(:id => activated_id).first.email
+    mail(:to => @user_email, :subject => "You was shared file.")
+  end
 
 
 

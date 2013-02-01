@@ -19,9 +19,17 @@ Filecloud::Application.routes.draw do
     get :search
   end
 end
-  resources :folders
+  resources :folders do
+  	member do
+  		get 'share_file'
+  	end
+  end
   resources :foldersharings
-  resources :filesharings
+  resources :filesharings do
+  	member do
+   		get 'share_file'
+    end
+  end
 
   resources :filestreams do
    member do

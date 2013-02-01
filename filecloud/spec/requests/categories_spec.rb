@@ -89,7 +89,6 @@ end
          end
   	end
 
-
    describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
 
