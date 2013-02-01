@@ -13,6 +13,7 @@ Filecloud::Application.routes.draw do
   match '/home',  to: 'static_pages#home'
   resources :categories
   resources :folders 
+  resources :file_up_loads
   resources :file_up_loads do
          member do
            get 'download'
