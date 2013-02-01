@@ -9,10 +9,10 @@ class FoldersController < ApplicationController
 
   def show
   	@folder=Folder.find(params[:id])
-    @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page => 5)
+    @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page =>1)
     respond_to do |format|
-        format.html
-       format.js {render js: @files }
+      format.html
+      format.js {render js: @files }
     end
   end
   
