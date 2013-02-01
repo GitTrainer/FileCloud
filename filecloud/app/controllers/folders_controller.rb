@@ -68,7 +68,7 @@ def create
         format.json { render json: @folder, status: :created, location: @folder }
       else
         
-        format.html { redirect_to folders_path, notice: 'Category errors' }
+        format.html { redirect_to folders_path, notice: 'Folder errors' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end
