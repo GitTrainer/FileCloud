@@ -7,10 +7,10 @@ class FoldersController < ApplicationController
   end
 
   def show
-    # binding.pry
+   
   	@folder=Folder.find(params[:id])
     @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page => 5)
-    respond_to do |format|
+      respond_to do |format|
         format.html
        format.js {render js: @files }
     end
@@ -41,19 +41,19 @@ class FoldersController < ApplicationController
   def update
     @folder=Folder.find(params[:id])
     if @folder.update_attributes(params[:folder])
-    	redirect_to :action=>'show'
+    	 redirect_to :action=>'show'
     else
-    	@categorys=Category.all
-    	render :action=>'edit'
+    	 @categorys=Category.all
+    	 render :action=>'edit'
    end
   end
 
   def destroy
-    Folder.find(params[:id]).destroy
-    redirect_to folders_path
+     Folder.find(params[:id]).destroy
+     redirect_to folders_path
 end
 def correct_user_folder
-        @current_folder=Folder.find(params[:id])
+          @current_folder=Folder.find(params[:id])
        if @current_folder.user.id.to_s!=current_user.id.to_s
           redirect_to current_user  
        end

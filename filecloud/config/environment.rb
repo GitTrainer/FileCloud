@@ -5,3 +5,4 @@ require File.expand_path('../application', __FILE__)
 Filecloud::Application.initialize!
 
 # this tells ActionMailer that you want to user smtp server
+require 'will_paginate'
