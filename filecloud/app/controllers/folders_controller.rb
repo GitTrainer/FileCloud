@@ -1,4 +1,5 @@
 class FoldersController < ApplicationController
+  before_filter :authenticate_user!
   # GET /folders
   # GET /folders.json
 
