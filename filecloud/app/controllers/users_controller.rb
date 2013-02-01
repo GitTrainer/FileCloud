@@ -6,9 +6,8 @@ class UsersController < ApplicationController
   before_filter :set_mailer_host
 
   def index
-     # @users = User.search(params[:search]).paginate(:per_page => 5, :page => params[:page])
       @users = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
-      # binding.pry
+    
     # respond_to do |format|
     #   format.html # index.html.erb
     #   format.json { render json: @users }
