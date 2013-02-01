@@ -19,18 +19,16 @@ describe "Authentication " do
 		end
 
 		describe "with admin" do
-
 			let(:user1){FactoryGirl.create(:user) }
 			let(:admin){FactoryGirl.create(:user_admin)}
 			FactoryGirl.create(:user3)
-
 			describe "delete" do
 				before do
 					sign_in admin
 					visit users_path
 				end
 				it "delete user" do
-					expect { click_link('delete') }.to change(User, :count).by(-1)
+				expect { click_link('delete') }.to change(User, :count).by(-1)
 				end
 			end
 		end
