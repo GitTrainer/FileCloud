@@ -3,17 +3,17 @@
 
 
 <%= form_tag users_path, :method => 'get', :id => "users_search" do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-  <div class="listUser">
-    <%= render 'users' %>
-  </div>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :name => nil %>
+	</p>
+	<div class="listUser">
+		<%= render 'users' %>
+	</div>
 <% end %>
 
 <br />
 <% if current_user.admin? %>
-  <%= link_to 'New User', new_user_path ,class: "btn btn-large btn-primary"%>
+	<%= link_to 'New User', new_user_path ,class: "btn btn-large btn-primary"%>
 <%end%>
 <%= will_paginate @users%>

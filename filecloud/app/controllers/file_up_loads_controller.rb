@@ -29,9 +29,9 @@ end
     rescue ActiveRecord::RecordNotFound
     if @fileupload
       render 'show'
-    end
-      render 'shared/notify'
     else
+      render 'shared/notify'
+    end
 	end
 
   def destroy
@@ -41,21 +41,6 @@ end
   end
 
   def download
-    # @fileupload=FileUpLoad.find(params[:id])
-    # binding.pry
-    # rescue ActiveRecord::RecordNotFound
-    #    binding.pry
-    # if @fileupload
-    #   binding.pry
-    #   if @fileupload.attach_content_type=="image/jpeg"
-    #     send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
-    #   else
-    #     send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
-    #   end
-    # else
-    #   binding.pry
-    #   render 'shared/notify'
-    # end
     @fileupload=FileUpLoad.find(params[:id])
     if @fileupload.attach_content_type=="image/jpeg"
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'

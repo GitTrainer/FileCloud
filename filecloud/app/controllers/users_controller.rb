@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+
   before_filter :signed_in_user, only: [:index]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
   before_filter :set_mailer_host
+
   def index
-    # @users = User.paginate(:page => params[:page],:per_page => 10)
-     @users = User.search(params[:search]).paginate(:per_page => 5, :page => params[:page])
+     # @users = User.search(params[:search]).paginate(:per_page => 5, :page => params[:page])
+      @users = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+      # binding.pry
     # respond_to do |format|
     #   format.html # index.html.erb
     #   format.json { render json: @users }
@@ -136,4 +137,5 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+  
 end

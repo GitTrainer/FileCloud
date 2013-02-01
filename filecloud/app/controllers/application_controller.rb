@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery
 	include SessionsHelper
-
+  helper_method :sort_column, :sort_direction
 	def set_mailer_host
 	    ActionMailer::Base.default_url_options[:host] = request.host_with_port
 	end
@@ -28,5 +28,13 @@ class ApplicationController < ActionController::Base
        	else
        		redirect_to signin_url, notice: "Please sign in!"
        	end
+    end
+
+    def sort_column
+      User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
