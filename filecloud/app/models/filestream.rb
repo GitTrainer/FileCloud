@@ -22,5 +22,15 @@ class Filestream < ActiveRecord::Base
     end
   end
 
+  scope :filter_by_date, lambda { |date|
+    date = date.split(",")[0]
+    where(:created_at =>
+      DateTime.strptime(date, '%m/%d/%Y')..DateTime.strptime(date, '%m/%d/%Y').end_of_day
+    )
+  }
+
+
+# t.strftime("Printed on %m/%d/%Y")
+  
 
 end

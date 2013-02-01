@@ -2,7 +2,7 @@ class FoldersController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :correct_user_index, only: [:index]
-
+  helper_method :sort_column, :sort_direction
   def correct_user_index
     if params[:user_id].to_s != current_user.id.to_s
       redirect_to root_path
@@ -19,10 +19,16 @@ class FoldersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     end
    def index
+
+
+   	# binding.pry
 		@foldersharings = Foldersharing.all
+		# @folders = Folder.search(params[:search])
 		@folders = Folder.where(:user_id => current_user)
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
+
+	 # @uploads = Filestream.where(:folder_id => params[:folder_id])
 		end
 	     	respond_to do |format|
 	        format.html { render action: "index"}
@@ -68,10 +74,22 @@ class FoldersController < ApplicationController
 	end
 
 	def show
-
+		  # @products = Product.order(sort_column + " " + sort_direction)
 		@folder = Folder.find(params[:id])
-		@uploads = Filestream.where(:folder_id => params[:id])
+		
+		# @uploads = Filestream.where(:folder_id => params[:id])
+		# @sort_file=@uploads.order(sort_column + " " + sort_direction)
+		# @file =@sort_file.paginate(:page => params[:page], :per_page => 5)
+
+		@sort_file=Filestream.order(sort_column + " " + sort_direction)
+		@uploads = @sort_file.where(:folder_id => params[:id])
+		
 		@file =@uploads.paginate(:page => params[:page], :per_page => 5)
+
+
+
+
+
 		@foldersharings = Foldersharing.all
 		@id = params[:id].to_i
 		respond_to do |format|
@@ -127,4 +145,13 @@ class FoldersController < ApplicationController
         redirect_to signin_url, notice: "Please sign in."
       end
     end
+
+  
+  def sort_column
+    Filestream.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 end

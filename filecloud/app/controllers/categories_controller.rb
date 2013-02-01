@@ -2,6 +2,9 @@ class CategoriesController < ApplicationController
   before_filter :signed_in_user
 
 	def index
+		# binding.pry
+		# search = Category.search(params[:search])
+		# binding.pry
 		if (@new_category.nil?)
 			@new_category = Category.new
 		end
@@ -12,6 +15,25 @@ class CategoriesController < ApplicationController
 		    format.js {render js: @categories }
 		  end
 	end
+
+
+		def search
+			binding.pry
+		  @categories = Category.search do
+		    keywords params[:query]
+		  end.results
+
+		  respond_to do |format|
+		    format.html { render :action => "index" }
+		    format.xml  { render :xml => @categories }
+		  end
+		end
+
+
+
+
+
+
 
 	def new
 	  @new_category = Category.new
@@ -35,8 +57,10 @@ class CategoriesController < ApplicationController
 	end
 
 	def show
+		# binding.pry
+		# @search = Category.search(params[:search])
 		@category = Category.find(params[:id])
-		#@folders = Folder.where(:category_id => params[:id],:user_id => current_user.id)
+		@folders = Folder.where(:category_id => params[:id],:user_id => current_user.id)
     respond_to do |format|
       format.html { render action: "show"}
       format.js {render js: @category }

@@ -10,7 +10,7 @@ class FilestreamsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
-       format.json {render json: @uploads}
+      format.json {render json: @uploads}
     end
   end
 
@@ -33,6 +33,7 @@ class FilestreamsController < ApplicationController
   # GET /uploads/new
   # GET /uploads/new.json
   def new
+
     @upload = Filestream.new
     respond_to do |format|
       format.html # new.html.erb
@@ -74,6 +75,7 @@ class FilestreamsController < ApplicationController
    end
 
 	 def delete_from_folder
+    
 	 	 @upload = Filestream.find(params[:id])
 		 @upload.destroy
 		 redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)

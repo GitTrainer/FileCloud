@@ -7,4 +7,15 @@ class Folder < ActiveRecord::Base
   belongs_to :user
   has_many :filestreams, class_name: "Filestream", foreign_key: "folder_id", dependent: :destroy
   has_many :foldersharings, class_name: "Foldersharing", foreign_key: "folder_id", dependent: :destroy
+
+
+
+def self.search(search)
+  if search
+    where('name LIKE ?', "%#{search}%")
+  else
+    scoped
+  end
+end
+  
 end

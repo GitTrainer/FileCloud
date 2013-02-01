@@ -24,3 +24,15 @@
 //=require jquery-fileupload/jquery.fileupload-fp
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
+
+
+$(function() {
+  $("#folders th a, #folders .pagination a").live("click", function() {
+    $.getScript(this.href);
+    return false;
+  });
+  $("#folders_search input").keyup(function() {
+    $.get($("#folders_search").attr("action"), $("#folders_search").serialize(), null, "script");
+    return false;
+  });
+});
