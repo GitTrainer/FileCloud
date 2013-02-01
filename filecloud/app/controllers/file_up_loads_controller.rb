@@ -8,14 +8,14 @@ def index
 end  
 
   def new
-    binding.pry
+  
     @folder=Folder.find_by_id(params[:id])
   	@fileupload=FileUpLoad.new
-    binding.pry
+    
   end
 
   def create
-    binding.pry
+
     @fileupload=FileUpLoad.new(params[:file_up_load])
     if @fileupload.save
       respond_to do |format|
@@ -58,5 +58,6 @@ end
         redirect_to current_user
      end
   end
+
 
 end
