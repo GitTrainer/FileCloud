@@ -1,6 +1,21 @@
 // Place all the styles related to the Folders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 .btn{
 	margin-top: 20px;
+}
+
+
+.tb-lst th .desc {
+  background-image: url(down_row.png);
+ }
+
+.tb-lst th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.tb-lst th .asc{
+  background-image: url(up_row.png);
 }

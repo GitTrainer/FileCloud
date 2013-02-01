@@ -129,6 +129,7 @@ class UsersController < ApplicationController
       redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
   private
+    
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
@@ -137,5 +138,12 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
-  
+
+    def sort_column
+        User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+      
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
 end

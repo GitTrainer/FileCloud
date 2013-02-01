@@ -9,7 +9,8 @@ class FoldersController < ApplicationController
 
   def show
   	@folder=Folder.find(params[:id])
-    @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page =>1)
+    # @files=@folder.file_up_loads.paginate(:page => params[:page],:per_page =>1)
+    @files = @folder.file_up_loads.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
     respond_to do |format|
       format.html
       format.js {render js: @files }
@@ -56,3 +57,14 @@ class FoldersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     end
   end
+
+private
+
+    def sort_column
+        FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
+    end
+      
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+

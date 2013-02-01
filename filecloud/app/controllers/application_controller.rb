@@ -29,12 +29,4 @@ class ApplicationController < ActionController::Base
        		redirect_to signin_url, notice: "Please sign in!"
        	end
     end
-
-    def sort_column
-      User.column_names.include?(params[:sort]) ? params[:sort] : "name"
-    end
-    
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
 end
