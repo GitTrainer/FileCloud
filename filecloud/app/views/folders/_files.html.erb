@@ -1,14 +1,14 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
 <div class="listUser">
 	<table class="tb-lst", border="1">
 	  <tr align="center">
-	   
 	    <th>File_Id</th>
-	    <th>File Name</th>
+	    <th><%= sortable "attach_file_name" %></th>
 	    <th>File Type</th>
-	    <th>File Size(Bytes)</th> 
-	    <th>Date Created</th>
-	    <th></th>
-	    <th></th>
+	    <th><%= sortable "attach_file_size" %></th>
+	    <th><%= sortable "created_at" %></th>
+	    <th colspan=2>Action</th>
 	  </tr>
 	<% @files.each do |f| %>
 	  <tr align="center">
@@ -16,7 +16,7 @@
 	    <td><%= f.attach_file_name %></td>
 	    <td><%= f.attach_content_type %></td>
 	    <td><%= f.attach_file_size %></td>
-	    <td><%= f.created_at %></td>
+	    <td><%= f.created_at.strftime("%m/%d/%Y") %></td>
 	    <td><%= link_to image_tag("download.png", alt: "download"),file_up_load_path(f.id)%></td>
 	    <td> <%= link_to image_tag("del.png", alt: "delete"), f, method: :delete,
                                     data: { confirm: "You sure?" } %></td>	  
@@ -24,4 +24,3 @@
 	  </tr>
 	</table>
 </div>
-

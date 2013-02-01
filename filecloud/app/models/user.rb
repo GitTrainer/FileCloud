@@ -35,6 +35,14 @@ class User < ActiveRecord::Base
       UserMailer.send_password(self).deliver
     end
 
+    def self.search(search)
+      if search
+        where('name LIKE ?', "%#{search}%")
+      else
+        scoped
+      end
+    end
+    
   	private
 
     def create_remember_token

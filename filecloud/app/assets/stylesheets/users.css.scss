@@ -226,3 +226,17 @@ h1{text-align:center}
 	width:200px;
 	height:200px;
 }
+
+
+.tblUsers th .desc {
+  background-image: url(down_row.png);
+ }
+
+.tblUsers th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.tblUsers th .asc{
+  background-image: url(up_row.png);
+}

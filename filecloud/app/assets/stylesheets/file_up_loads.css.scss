@@ -54,3 +54,18 @@
 	color:white;
 	font-size: 16px;
 }
+tb-lst
+
+.tb-lst th .desc {
+  background-image: url(down_row.png);
+ }
+
+.tblUsers t th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color:red;
+}
+.tblUsers .tb-lst th .asc{
+  background-image: url(up_row.png);
+}
