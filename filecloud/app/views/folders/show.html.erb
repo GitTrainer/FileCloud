@@ -51,20 +51,20 @@
 			<td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<%= form_for(Filesharing.new) do |f| %>
-			<%= f.hidden_field :file_id, :value => filestream.id %>
-			<td><a href="#myModal" role="button" class="btn btn-small" data-toggle="modal">Share...</a></td>
-			<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">List members</h3>
-  </div>
-  <div class="modal-body">
-    <p><%= render 'file_share' %></p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-   <%= f.submit 'Save changes', class: "btn btn-primary"%>
-  </div>
+			<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
+
+			<div id="myModal-<%=filestream.id	%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
+  			<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    			<h3 id="myModalLabel">List members</h3>
+  			</div>
+  		<div class="modal-body">
+    		<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
+  		</div>
+  		<div class="modal-footer">
+    		<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>&?user_id=<%= current_user.id%>'">Close</button>
+   			<%= f.submit 'Save changes', class: "btn btn-primary"%>
+  		</div>
 </div>
 <%end%>
 			<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>

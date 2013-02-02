@@ -25,17 +25,19 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
-
-$(function listuser() {
-alert("aaaa");
+$(document).on("click", ".open-addMembers", function () {
+     var myFileId = $(this).data('params[:file_id]');
+     $(".modal-body #fileId").val( myFileId );
+    $('#myModal').modal('show');
 });
 
-
-
-  $('a[data-popup]').live('click', function(e) {
-     window.open($(this).href);
-     e.preventDefault();
+$(function() {
+  $("#folders th a, #folders .pagination a").live("click", function() {
+    $.getScript(this.href);
+    return false;
   });
+  $("#folders_search input").keyup(function() {
+    $.get($("#folders_search").attr("action"), $("#folders_search").serialize(), null, "script");
+    return false;
+  });
+});

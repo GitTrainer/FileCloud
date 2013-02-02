@@ -19,6 +19,10 @@ class UserMailer < ActionMailer::Base
     @user_email = User.where(:id => activated_id).first.email
     mail(:to => @user_email, :subject => "You was shared file.")
   end
+  def not_share_file(uncheck)
+	  @user_email = User.where(:id => uncheck).first.email
+    mail(:to => @user_email, :subject => "Your share permission has been removed.")
+  end
 
 
 

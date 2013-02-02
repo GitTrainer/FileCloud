@@ -25,6 +25,11 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
+$(document).on("click", ".open-addMembers", function () {
+     var myFileId = $(this).data('params[:file_id]');
+     $(".modal-body #fileId").val( myFileId );
+    $('#myModal').modal('show');
+});
 
 $(function() {
   $("#folders th a, #folders .pagination a").live("click", function() {
