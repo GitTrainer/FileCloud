@@ -11,13 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128040618) do
+ActiveRecord::Schema.define(:version => 20130202020107) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "file_shares", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "file_up_load_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "file_up_loads", :force => true do |t|

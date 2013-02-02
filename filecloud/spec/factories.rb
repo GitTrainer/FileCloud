@@ -50,4 +50,9 @@ FactoryGirl.define do
 		attach_file_size '254'
 		folder 
 	end
+
+	factory :fileshare do 
+        user
+        file_up_load
+	end
 end
