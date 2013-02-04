@@ -19,3 +19,11 @@
 .tb-lst th .asc{
   background-image: url(up_row.png);
 }
+
+#paginate_files{
+	padding-top:40px;
+}
+
+.tb-lst tr:nth-child(2) td:nth-child(2) {
+  background-color:red !important;
+ }

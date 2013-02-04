@@ -40,7 +40,7 @@ describe "seperate link and screan file"  do
 	
 	describe "with signin" do
 		
-		before{sign_in user}
+		before{sign_in user1}
 
 		describe "login and download file's other user" do
 			before do 
@@ -54,6 +54,7 @@ describe "seperate link and screan file"  do
 			before {visit file_up_load_path(file1.id)}
 			it {should have_content("Not correct user!")}
 		end
+
 	end
 	
 end
