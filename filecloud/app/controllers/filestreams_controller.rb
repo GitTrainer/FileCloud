@@ -20,7 +20,7 @@ class FilestreamsController < ApplicationController
     @folder_id = Filestream.find(params[:id]).folder_id
     @user_id= Folder.find(@folder_id).user_id
     respond_to do |format|
-	    if current_user.id.to_s == @user_id.to_s || Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @folder_id).exists?
+	    if current_user.id.to_s == @user_id.to_s || Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @folder_id).exists? || Filesharing.where(:shared_user_id => current_user.id, :file_id => params[:id]).exists?
   	    @upload = Filestream.find(params[:id])
         format.html # show.html.erb
         format.json { render json: @upload }
@@ -75,7 +75,7 @@ class FilestreamsController < ApplicationController
    end
 
 	 def delete_from_folder
-    
+
 	 	 @upload = Filestream.find(params[:id])
 		 @upload.destroy
 		 redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
