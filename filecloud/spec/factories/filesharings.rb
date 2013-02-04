@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :filesharing do
+    file_id 1
+    shared_user_id 1
   end
 end

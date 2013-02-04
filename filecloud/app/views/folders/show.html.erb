@@ -43,7 +43,7 @@
 			<td><%= filestream.created_at.strftime("%m/%d/%Y") %></td>
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
-					<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("priview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
+					<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
 				</td>
 			<%else%>
 			<td></td>
