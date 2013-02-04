@@ -1,9 +1,9 @@
 <h1>Folders management</h1>
 <%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
   <p class="span2">
-    
-    <label style="float:left;">Name </label>
 
+    <label style="float:left;">Name </label>
+				<%= hidden_field_tag :user_id, params[:user_id] %>
         <%= text_field_tag :search, params[:search], class: "tf-search" %>
     <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
   </p>
@@ -40,8 +40,6 @@
                 </tr>
                 <%if !@search_folder.nil? %>
                 <% @search_folder.each do |folder|%>
-
-                 
                 <tr>
 		              <td><%= folder.name %> </td>
 		              <td><%= folder.description %></td>
@@ -65,6 +63,6 @@ input.tf-search{
 }
 p.span2{
     width: 400px;
-  
+
 }
 </style>

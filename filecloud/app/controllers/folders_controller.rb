@@ -1,15 +1,7 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user,   only: [:edit]
-  # before_filter :correct_user_index, only: [:index]
+  before_filter :correct_user,   only: [:index, :edit]
   helper_method :sort_column, :sort_direction
-
-   def correct_user_index
-     if params[:user_id].to_s != current_user.id.to_s
-       redirect_to root_path
-     end
-   end
-
 
    def correct_user
      if params[:user_id].to_s != current_user.id.to_s
@@ -18,19 +10,19 @@ class FoldersController < ApplicationController
    end
 
    def index
-   	
 		@foldersharings = Foldersharing.all
-		@folders = Folder.where(:user_id => current_user)
-		@search_folder=@folders.search(params[:search])
+#		@folders = Folder.where(:user_id => current_user)
+		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-		
      	respond_to do |format|
 	        format.html { render action: "index"}
-	        # format.js {render js: @new_folder }
-	        # format.js {render js:  @folders }
-	        # format.js {render js:  @search_folder }
+	         format.js {render js: @foldersharings}
+	         format.js {render js: @new_folder }
+#	         format.js {render js: @folders }
+	         format.js {render js: @search_folder }
+
       	end
 	end
 
@@ -58,14 +50,14 @@ class FoldersController < ApplicationController
 	end
 
 	def edit
-
+	@search_folder = Folder.where(:user_id => current_user).search(params[:search])
   		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
 		respond_to do |format|
 			format.html { render action: "index"}
 			format.js {render js: @new_folder}
-			format.js {render js: @folders }
+			format.js {render js: @search_folder }
 		end
 	end
 

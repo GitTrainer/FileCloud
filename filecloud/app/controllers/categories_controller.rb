@@ -1,8 +1,5 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
-
-
-
     def index
     	# Sunspot.search(Post) do
  		@search=Category.search do
@@ -10,7 +7,7 @@ class CategoriesController < ApplicationController
     		# s.keywords params[:search]
     	end
     	@categories=@search.results
-    	
+
   #  		@categories = Category.all
   #  		if ( @new_category.nil?)
 	 #  		@new_category = Category.new
