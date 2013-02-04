@@ -1,22 +1,18 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
     def index
-    	# Sunspot.search(Post) do
- 		@search=Category.search do
-    		fulltext params[:search]
-    		# s.keywords params[:search]
-    	end
-    	@categories=@search.results
+    
 
-  #  		@categories = Category.all
-  #  		if ( @new_category.nil?)
-	 #  		@new_category = Category.new
-		# end
-  #         	respond_to do |format|
-	 #            format.html { render action: "index"}
-	 #            format.js {render js: @categories }
-	 #            format.js {render js: @search }
-  #           end
+   		@search = Category.search(params[:search])
+   		
+   	
+   		if ( @new_category.nil?)
+	  		@new_category = Category.new
+		end
+          	respond_to do |format|
+	            format.html { render action: "index"}
+	            format.js {render js: @search }
+            end
 	end
 
 
@@ -53,12 +49,12 @@ class CategoriesController < ApplicationController
 	end
 
 	def edit
-		@categories = Category.all
-		@new_category = Category.find(params[:id])
+		@search = Category.search(params[:search])
+   		@new_category = Category.find(params[:id])
 		respond_to do |format|
 		  format.html { render action: "index"}
 		  format.js {render js: @new_category}
-		  format.js {render js: @categories }
+		  format.js {render js: @search }
 		end
 	end
 

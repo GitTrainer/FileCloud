@@ -3,7 +3,7 @@
 <%= form_tag categories_path, :method => :get do %>
   <p class="span2">
 	
-    <label style="float:left;">Name </label>
+    <label style="float:left;">Category Name </label>
 
     	<%= text_field_tag :search, params[:search], class: "tf-search" %>
     <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
@@ -25,7 +25,7 @@
 					<%= render 'categories',st: @new_category , f: f%>
 					<div class="span4">
 						</br>
-							<%= f.submit%>
+							<%= f.submit  class: "btn  btn-primary"%>
 						</div>
 		  </div>
 		<%end%>
@@ -45,8 +45,9 @@
 				  <%end%>
 				  -->
 			</tr>
-		  <% @categories.each do |category|%>
-				<%if !@categories.nil? %>
+		  <%if !@search.nil? %>
+		  <% @search.each do |category|%>
+		
 					<tr>
 						<td><%= category.name %> </td>
 						<td><%= category.description %></td>
