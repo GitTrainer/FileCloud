@@ -1,10 +1,11 @@
 require 'spec_helper'
-
+require 'factory_girl'
+require 'factory_girl_rails'
 describe "SortPages" do
-	subject {page}
+	
 	let (:user) {FactoryGirl.create(:user)}
     let(:category){FactoryGirl.create(:category)}
-	# let(:folder){FactoryGirl.create(:folder)}
+	let(:folder){FactoryGirl.create(:folder)}
  	
 	
 	
@@ -15,10 +16,10 @@ describe "SortPages" do
     	  sign_in user
     	  visit '/folders/'+folder.id.to_s+'&?user_id='+user.id.to_s
     	  visit '/filestreams/?folder_id='+folder.id.to_s
-    	  page.attach_file('filestreams_attach', "#{Rails.root}"+"/spec/up_arrrow.gif")
+    	  attach_file('filestreams', "#{Rails.root}"+"/spec/up_arrrow.gif")
     	  click_button 'Start'
     	  visit '/filestreams/?folder_id='+folder.id.to_s
-    	  page.attach_file('filestreams_attach', "#{Rails.root}"+"/spec/down_arrrow.gif")
+    	  attach_file('filestreams', "#{Rails.root}"+"/spec/down_arrrow.gif")
     	  click_button 'Start'
 
     	
@@ -42,6 +43,9 @@ describe "SortPages" do
         	end
 		        it {should have_selector('#tablefolder tr:nth-child(4) td:nth-child(4)',text:"up_arrow.gif")}
 		        it {should have_selector('#tablefolder tr:nth-child(5) td:nth-child(4)',text:"down_arrow.gif")}
+    	end
+    	describe "sort size desc" do
+    		let{filestream1}
     	end
 
     	

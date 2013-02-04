@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user,   only: [:edit]
-  before_filter :correct_user_index, only: [:index]
+  # before_filter :correct_user_index, only: [:index]
   helper_method :sort_column, :sort_direction
 
    def correct_user_index
@@ -18,17 +18,21 @@ class FoldersController < ApplicationController
    end
 
    def index
+   	
 		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
+		@search_folder=@folders.search(params[:search])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-	     	respond_to do |format|
+		
+     	respond_to do |format|
 	        format.html { render action: "index"}
-	        format.js {render js: @new_folder }
-	        format.js {render js:  @folders }
-      end
-	  end
+	        # format.js {render js: @new_folder }
+	        # format.js {render js:  @folders }
+	        # format.js {render js:  @search_folder }
+      	end
+	end
 
 	def new
   	@foldersharings = Foldersharing.all

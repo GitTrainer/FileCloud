@@ -10,5 +10,13 @@ FactoryGirl.define do
 	end
 	end
 
+	# factory :filestream do
+	# 	filename "MyString"
+	# 	attach_file_name "chieu.jpeg"
+	# 	attach_content_type "image/jpeg"
+	# 	attach_file_size "151516"
+	# 	folder
+	# end
+
 
 end

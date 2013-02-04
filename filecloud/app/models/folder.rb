@@ -9,11 +9,18 @@ class Folder < ActiveRecord::Base
   has_many :foldersharings, class_name: "Foldersharing", foreign_key: "folder_id", dependent: :destroy
 
 
+# def self.search(search)
+#   if search
+#     where('name LIKE ?', "%#{search}%")
+#   else
+#     scoped
+#   end
+# end
 def self.search(search)
   if search
-    where('name LIKE ?', "%#{search}%")
+    find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
   else
-    scoped
+    find(:all)
   end
 end
 

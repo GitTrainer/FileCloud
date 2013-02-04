@@ -31,13 +31,9 @@ $(document).on("click", ".open-addMembers", function () {
     $('#myModal').modal('show');
 });
 
-$(function() {
-  $("#folders th a, #folders .pagination a").live("click", function() {
-    $.getScript(this.href);
-    return false;
-  });
-  $("#folders_search input").keyup(function() {
-    $.get($("#folders_search").attr("action"), $("#folders_search").serialize(), null, "script");
+
+  $("#search_folder input").keyup(function() {
+    $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
   });
 });

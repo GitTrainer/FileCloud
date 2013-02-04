@@ -1,5 +1,5 @@
 <h1>Folders management</h1>
-<%= form_tag folders_path, :method => 'get', :id => "folders_search" do %>
+<%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
   <p class="span2">
     
     <label style="float:left;">Name </label>
@@ -32,14 +32,16 @@
         <table class="table table-hover">
         		<br/>
                 <tr>
-                 <th>Name</th>
-                <th>Description </th>
-                <th>Show details</th>
-                <th> Edit </th>
-                 <th>Delete </th>
+                    <th>Name</th>
+                    <th>Description </th>
+                    <th>Show details</th>
+                    <th> Edit </th>
+                    <th>Delete </th>
                 </tr>
-                <% @folders.each do |folder|%>
-                 <%if !@folders.nil? %>
+                <%if !@search_folder.nil? %>
+                <% @search_folder.each do |folder|%>
+
+                 
                 <tr>
 		              <td><%= folder.name %> </td>
 		              <td><%= folder.description %></td>
@@ -53,6 +55,7 @@
         </table>
 </div>
 </div>
+
 <style type="text/css">
 input.tf-search{
     width: 200px;
@@ -62,6 +65,6 @@ input.tf-search{
 }
 p.span2{
     width: 400px;
-    margin-left: 700px;
+  
 }
 </style>

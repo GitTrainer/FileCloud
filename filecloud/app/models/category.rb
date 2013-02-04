@@ -9,9 +9,10 @@ class Category < ActiveRecord::Base
 searchable :auto_index => true, :auto_remove => true do 
     text :name ,:boost => 5
     
+    
   
   end
-  def to_s
-    self.name
-  end
+  # def to_s
+  #   self.name
+  # end
 end

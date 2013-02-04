@@ -12,6 +12,7 @@ class FilesharingsController < ApplicationController
 	end
 
 	def create
+		# binding.pry
 		@folder_id = Filestream.find(params[:filesharing][:file_id]).folder_id
 		@file_id = params[:filesharing][:file_id]
 #		list_users_shared = Filesharing.find_by_sql(["select shared_user_id from filesharings where file_id = ?", @file_id])

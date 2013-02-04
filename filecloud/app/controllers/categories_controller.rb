@@ -4,10 +4,13 @@ class CategoriesController < ApplicationController
 
 
     def index
+    	# Sunspot.search(Post) do
  		@search=Category.search do
     		fulltext params[:search]
+    		# s.keywords params[:search]
     	end
     	@categories=@search.results
+    	
   #  		@categories = Category.all
   #  		if ( @new_category.nil?)
 	 #  		@new_category = Category.new
@@ -19,7 +22,6 @@ class CategoriesController < ApplicationController
   #           end
 	end
 
-   
 
 	def new
 	  @new_category = Category.new

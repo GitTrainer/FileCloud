@@ -30,6 +30,13 @@ FactoryGirl.define do
 	    created_at "01/30/2013"
 	end
 
-
+  factory :filestreams , class: Filestream do
+    filename "MyString"
+    folder_id 2
+    attach_file_name "chieu.jpeg"
+    attach_content_type "image/jpeg"
+    attach_file_size "151516"
+    folder
+  end
 
 end
