@@ -10,6 +10,12 @@ class FoldersController < ApplicationController
 
   def index
     redirect_to Folder.root
+    if current_user.member_of_admins? 
+      @folder = Folder.all
+    else
+      @folder = Folder.where(:user_id => current_user.id)
+
+    end
   end
 
   # Note: @folder is set in require_existing_folder
