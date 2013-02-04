@@ -2,7 +2,7 @@ class FileUpLoadsController < ApplicationController
 
 before_filter :signed_in_user ,only: [:new]
 before_filter :correct_user_for_download_file ,only: [:download,:show,:destroy]
-
+before_filter :correct_user_folder_fileupload,only:[:new]
 def index
 	
 end  

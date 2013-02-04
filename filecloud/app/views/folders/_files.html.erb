@@ -13,7 +13,7 @@
 	<% @files.each do |f| %>
 	  <tr align="center">
 	    <td><%= f.id %></td>
-	    <td><%= f.attach_file_name %></td>
+	    <td><%= link_to f.attach_file_name,file_up_load_path(f.id) %></td>
 	    <td><%= f.attach_content_type %></td>
 	    <td><%= f.attach_file_size %></td>
 	    <td><%= f.created_at.strftime("%m/%d/%Y") %></td>

@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   	before_save { |user| user.email = email.downcase }
   	before_save :create_remember_token
     has_many :folders,dependent: :destroy
+    has_many :file_shares
    
     def send_resset_password
       self.password_reset_sent_at=Time.zone.now
