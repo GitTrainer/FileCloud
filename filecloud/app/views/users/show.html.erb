@@ -31,21 +31,44 @@
 <% if signed_in? %>
 <% if current_user.id == params[:id].to_i %>
 <p>
-
-    <% @lists = Foldersharing.where(:shared_user_id => current_user) %>
+    <% listFolders = Foldersharing.where(:shared_user_id => current_user) %>
     <b>List folders are shared by other members : </b><br/>
-    <% @lists.each do |list|%>
+    <% listFolders.each do |list|%>
     	<a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></br>
     <% end %>
+    <br/>
+    <b>List files are shared by others members:</b>
+
+    <table class="table table-hover">
+    	<tr>
+				<th>File name</th>
+				<th>View file (image only)</th>
+				<th>Download</th>
+			</tr>
+		 	  <% listFiles = Filesharing.where(:shared_user_id => current_user) %>
+		    <% listFiles.each do |file|%>
+				  <td><%= Filestream.find(file.file_id).attach_file_name %></td>
+				  <% if Filestream.find(file.file_id).attach_content_type.include? "image"%>
+				    <td>
+					    <span><a href="/filestreams/<%=file.file_id.to_s%>"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
+				    </td>
+					<%else%>
+						<td></td>
+					<%end%>
+				<td><%= link_to 'Download', download_filestream_path(file.file_id) %></td>
+			<tr>
+			</tr>
+			<% end %>
+    </table>
 </p>
-<% end %><% end %>
-<% if signed_in? %>
-<% if current_user.id == params[:id].to_i %>
-<br/><br/><br/><br/>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<% end %><% end %>
-<%= link_to 'Back', users_path %>
-<% if signed_in? %>
-<% if current_user.id == params[:id].to_i %>
-| <a href="/folders/?user_id=<%= @user.id%>">Create folder</a>
-<% end %><% end %>
+		<% end %><% end %>
+		<% if signed_in? %>
+		<% if current_user.id == params[:id].to_i %>
+		<br/><br/><br/><br/>
+		<%= link_to 'Edit', edit_user_path(@user) %> |
+		<% end %><% end %>
+		<%= link_to 'Back', users_path %>
+		<% if signed_in? %>
+		<% if current_user.id == params[:id].to_i %>
+		| <a href="/folders/?user_id=<%= @user.id%>">Create folder</a>
+		<% end %><% end %>
