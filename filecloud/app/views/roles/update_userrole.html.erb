@@ -1,7 +1,0 @@
-<%= form_for(@roles) do |f| %>
-  <div id="update_role" class="modal" style="display:'block':'none';">
-
-    <%= f.collection_select :id, Role.all{},:id, :name, { prompt: true}%>
-
-  </div>
-<%  end%>
