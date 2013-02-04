@@ -15,7 +15,7 @@
 <% if current_user.member_of_admins? -%>
   <span class="folder_menu" id="permissions_link"><span><%= image_tag('permissions.png', :alt => t(:permissions)) %> <%= link_to t(:permissions), '#', :class => 'permissions_link' %></span></span>
 <% end -%>
-  <span class="folder_menu" id="clipboard_link"><span><%= image_tag('clipboard.png', :alt => t(:clipboard)) %> <%= link_to t(:clipboard), '#', :class => 'clipboard_link' %></span></span>
+  
 </p>
 <div id="files_and_folders">
   <table>
@@ -49,10 +49,7 @@
       <% if current_user.can_delete(folder) -%>
         <%= link_to image_tag('delete.png', :alt => t(:delete_item)), folder, :method => :delete, :data => { :confirm => t(:are_you_sure) }, :title => t(:delete_item) %>&nbsp;
       <% end -%>
-        <%= link_to image_tag('clipboard_add.png', :alt => t(:add_to_clipboard)),
-          { :controller => :clipboard, :action => :create, :id => folder.id, :type => 'folder', :folder_id => @folder, :authenticity_token => form_authenticity_token },
-          :method => :post, :title => t(:add_to_clipboard)
-        %>
+       
       </td>
     </tr>
     <% end -%>
@@ -71,10 +68,10 @@
       <% if current_user.can_delete(file.folder) -%>
         <%= link_to image_tag('delete.png', :alt => t(:delete_item)), file_path(file), :method => :delete, :data => { :confirm => t(:are_you_sure) }, :title => t(:delete_item) %>&nbsp;
       <% end -%>
-        <%= link_to image_tag('clipboard_add.png', :alt => t(:add_to_clipboard)),
+        <%#= link_to image_tag('clipboard_add.png', :alt => t(:add_to_clipboard)),
           { :controller => :clipboard, :action => :create, :id => file.id, :type => 'file', :folder_id => @folder, :authenticity_token => form_authenticity_token },
           :method => :post, :title => t(:add_to_clipboard)
-        %>&nbsp;
+        %>#&nbsp;
         <%= link_to image_tag('share.png', :alt => t(:share)), new_file_share_link_path(file), :title => t(:share) %>
       </td>
     </tr>

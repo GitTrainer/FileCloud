@@ -4,7 +4,7 @@
 <%= form_for @file, :url => { :action => 'update' } do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :name %>:<br/>
+    <%= f.label :name %>
     <%= f.text_field :attachment_file_name %>
   </p>
   <p>

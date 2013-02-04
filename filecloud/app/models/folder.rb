@@ -3,10 +3,11 @@ class Folder < ActiveRecord::Base
 
   has_many :user_files, :dependent => :destroy, :order => 'attachment_file_name'
   has_many :permissions, :dependent => :destroy
-  belongs_to :category 
+  belongs_to :categories
+  belongs_to :users
 
   attr_accessor :is_copied_folder
-  attr_accessible :name, :category_id
+  attr_accessible :name, :category_id, :user_id
 
   validates_uniqueness_of :name, :scope => :parent_id
   validates_presence_of :name

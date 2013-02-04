@@ -1,11 +1,17 @@
 <%= f.error_messages %>
 <p>
   <%= f.label 'Choose category' %>
-  <%= f.collection_select(:category_id,Category.all,:id,:name)%>
+  <% if current_user.member_of_admins? -%>
+    <%= f.collection_select(:category_id,Category.all,:id,:name)%>
+  <% else %>
+    <%= f.collection_select(:category_id,Category.where(:user_id => current_user.id),:id,:name)%>
+  <% end %>
+
 </p>
 <p>
   <%= f.label :name %>
   <%= f.text_field :name, { :class => 'text_input' } %>
+   <%= f.hidden_field :user_id, :value => current_user.id %>
 </p>
 
 <p>

@@ -46,7 +46,7 @@ class CategoriesController < ApplicationController
   def edit
     @search = Category.search(params[:search])
     @categories = @search.paginate(:per_page => 10, :page => params[:page])
-    @categories=Category.where(:user_id=>current_user.id)
+    @categories = Category.where(:user_id =>current_user.id)
 
     @category = Category.find(params[:id])
     respond_to do |format|

@@ -4,16 +4,16 @@
 <%= form_for [@file, @share_link], :url => { :action => 'create' } do |f| %>
   <%= f.error_messages :header_message => t(:share_link_could_not_be_sent) %>
   <p>
-    <%= t :you_are_about_to_share_the_following_file %>:<br>
+    <%= t :you_are_about_to_share_the_following_file %>
     <span class="shared_file">
       <%= image_tag(file_icon(@file.extension)) %>
       <%= link_to @file.attachment_file_name, @folder %>
     </span>
   </p>
   <p>
-    <%= f.label :emails, t(:emails_to_share_with) %>:
-    <span class="comma_seperated">(<%= t :comma_seperated %>)</span><br>
-    <%= f.text_area :emails, :class => 'emails_to_share_with' %><br>
+    <%= f.label :emails, t(:emails_to_share_with) %>
+    <span class="comma_seperated">(<%= t :comma_seperated %>)</span>
+    <%= f.text_area :emails, :class => 'emails_to_share_with' %>
     <span class="char_counter">
       <%= t :number_of_charachters %>:
       <span id="counter">
@@ -23,7 +23,7 @@
     </span>
   </p>
   <p>
-    <%= f.label t(:link_expires) %>:<br>
+    <%= f.label t(:link_expires) %>
     <%= f.select :link_expires_at, options_for_select([
         [t(:tomorrow), 1.day.from_now.end_of_day],
         [t(:three_days_from_now), 3.day.from_now.end_of_day],
