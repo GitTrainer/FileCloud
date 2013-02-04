@@ -52,8 +52,7 @@ describe "Foldersharings" do
 				visit ("/foldersharings/?folder_id="+folder.id.to_s)
 					check('activated_')
 			end
-
-			it "should not create a category" do
+			it "should share selected member" do
          expect { click_button('Share') }.to change(Foldersharing, :count).by(1)
       end
 		end

@@ -58,7 +58,7 @@ class FoldersController < ApplicationController
 	end
 
 	def edit
-		
+
   		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
@@ -104,9 +104,8 @@ class FoldersController < ApplicationController
 		    format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
 		    format.js { render js: @new_folder }
 		  else
-		    format.html {  render action: "index"}
-		    format.js {render js: @new_folder.errors, status: :unprocessable_entity}
-		    format.js {render js: @folders }
+		  	flash[:error] = "Please fill all fields correctly"
+		    format.html {  redirect_to "/folders/" + params[:id] + "/edit/?user_id=" + params[:folder][:user_id]}
 		  end
 		end
 	end
