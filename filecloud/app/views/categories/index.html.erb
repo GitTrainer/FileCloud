@@ -1,12 +1,16 @@
 <h1>Categories management</h1>
 
-<%= form_tag search_categories_path, :method => :get do %>
-<p>
-  <%= text_field_tag :query, params[:query] %> <%= submit_tag "Search!" %>
-</p>
+<%= form_tag categories_path, :method => :get do %>
+  <p class="span2">
+	
+    <label style="float:left;">Name </label>
+
+    	<%= text_field_tag :search, params[:search], class: "tf-search" %>
+    <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
+  </p>
 <% end %>
 
-
+<br></br><br></br>
 
 	<div class="row">
 		<%
@@ -60,3 +64,16 @@
 		<a href="/folders/?user_id=<%=current_user.id%>">Create folder</a>
 	</div>
 </div>
+
+<style type="text/css">
+input.tf-search{
+	width: 200px;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+p.span2{
+	width: 400px;
+	margin-left: 700px;
+}
+</style>

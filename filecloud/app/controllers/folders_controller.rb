@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit]
   before_filter :correct_user_index, only: [:index]
   helper_method :sort_column, :sort_direction
 
@@ -12,8 +12,9 @@ class FoldersController < ApplicationController
 
 
    def correct_user
-     @user = User.find(params[:id])
-     redirect_to(root_path) unless current_user?(@user)
+     if params[:user_id].to_s != current_user.id.to_s
+       redirect_to root_path
+     end
    end
 
    def index
@@ -53,7 +54,8 @@ class FoldersController < ApplicationController
 	end
 
 	def edit
-  	@foldersharings = Foldersharing.all
+		
+  		@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
 		respond_to do |format|

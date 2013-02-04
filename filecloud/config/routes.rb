@@ -14,11 +14,11 @@ Filecloud::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   resources :categories
-  resources :categories do
-  collection do
-    get :search
-  end
-end
+#   resources :categories do
+#   collection do
+#     get :search
+#   end
+# end
   resources :folders do
   	member do
   		get 'share_file'

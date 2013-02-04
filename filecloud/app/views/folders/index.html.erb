@@ -1,5 +1,15 @@
 <h1>Folders management</h1>
+<%= form_tag folders_path, :method => 'get', :id => "folders_search" do %>
+  <p class="span2">
+    
+    <label style="float:left;">Name </label>
 
+        <%= text_field_tag :search, params[:search], class: "tf-search" %>
+    <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
+  </p>
+<% end %>
+
+<br></br><br></br>
 
 <div class="row">
  <% if(@new_folder.nil?)
@@ -43,3 +53,15 @@
         </table>
 </div>
 </div>
+<style type="text/css">
+input.tf-search{
+    width: 200px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+p.span2{
+    width: 400px;
+    margin-left: 700px;
+}
+</style>

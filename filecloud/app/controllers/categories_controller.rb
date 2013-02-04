@@ -1,39 +1,25 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
 
-	def index
-		# binding.pry
-		# search = Category.search(params[:search])
-		# binding.pry
-		if (@new_category.nil?)
-			@new_category = Category.new
-		end
-		  @categories = Category.all
-		  respond_to do |format|
-		    format.html { render action: "index"}
-		    format.js {render js: @new_category }
-		    format.js {render js: @categories }
-		  end
+
+
+    def index
+ 		@search=Category.search do
+    		fulltext params[:search]
+    	end
+    	@categories=@search.results
+  #  		@categories = Category.all
+  #  		if ( @new_category.nil?)
+	 #  		@new_category = Category.new
+		# end
+  #         	respond_to do |format|
+	 #            format.html { render action: "index"}
+	 #            format.js {render js: @categories }
+	 #            format.js {render js: @search }
+  #           end
 	end
 
-
-		def search
-			binding.pry
-		  @categories = Category.search do
-		    keywords params[:query]
-		  end.results
-
-		  respond_to do |format|
-		    format.html { render :action => "index" }
-		    format.xml  { render :xml => @categories }
-		  end
-		end
-
-
-
-
-
-
+   
 
 	def new
 	  @new_category = Category.new
@@ -44,7 +30,7 @@ class CategoriesController < ApplicationController
 		@categories = Category.all
 		respond_to do |format|
 		  if @new_category.save
-     	  @new_category = nil
+        	  @new_category = nil
      	  format.html { redirect_to "/categories"}
           format.js {render js: @new_category }
           format.js {render js: @categories }
@@ -61,7 +47,7 @@ class CategoriesController < ApplicationController
 		# @search = Category.search(params[:search])
 		@category = Category.find(params[:id])
 		@folders = Folder.where(:category_id => params[:id],:user_id => current_user.id)
-    respond_to do |format|
+   	  respond_to do |format|
       format.html { render action: "show"}
       format.js {render js: @category }
     end
@@ -78,11 +64,13 @@ class CategoriesController < ApplicationController
 	end
 
 	def update
+
 		@new_category = Category.find(params[:id])
 		@categories = Category.all
+
 		  respond_to do |format|
 		    if @new_category.update_attributes(params[:category])
-				  @new_category = nil
+			  @new_category = nil
           format.html { redirect_to "/categories"}
           format.js { render js: @new_category }
 		    else
