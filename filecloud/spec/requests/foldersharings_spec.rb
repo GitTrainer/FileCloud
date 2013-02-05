@@ -9,7 +9,7 @@ describe "Foldersharings" do
 		   page.should have_content("please sign in")
 		end
   end
-	describe "When signed in" do
+	describe "When signed in with owner user" do
 		before { visit signin_path }
 		let(:user){FactoryGirl.create(:user)}
 			before do
@@ -71,4 +71,24 @@ describe "Foldersharings" do
 			end
 		end
 	end
+
+	describe "When access folder not belong to user" do
+		before { visit signin_path }
+		let(:testfolder){FactoryGirl.create(:testfolder)}
+		let(:newuser){FactoryGirl.create(:newuser)}
+		before do
+			fill_in "Email", :with => newuser.email
+			fill_in "Password", :with => newuser.password
+			click_button "Sign in"
+		end
+		describe "page will be go to root path" do
+			before { visit ("/foldersharings/?folder_id=" + testfolder.id.to_s)}
+			it "will be navigate to root path" do
+				current_path.should == "/"
+			end
+
+		end
+
+	end
+
 end

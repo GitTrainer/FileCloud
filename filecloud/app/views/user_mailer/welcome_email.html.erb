@@ -7,8 +7,8 @@
     Congratulations, you are now a part of Poly Herd,
 your username is: <%= @user.name %>.
 
-ma : <%= @user.login %>.
- Please activation: 
+Login activation code: <%= @user.login %>.
+ Please activation:
       <%= url_for(:action => 'activate', :controller => 'users', :only_path => false,:id=>@user.id,:active_code =>@user.login) %>
 Thanks for joining and have a great day!
   </body>

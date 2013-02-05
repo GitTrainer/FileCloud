@@ -38,7 +38,7 @@ class FilesharingsController < ApplicationController
 #      	  end
       	  @file_share = Filesharing.new(:file_id => @file_id, :shared_user_id => activated_id)
 		      @file_share.save!
-		      UserMailer.share_file(activated_id).deliver
+		      UserMailer.share_file(activated_id,@file_id).deliver
 		 	  end
 
 		 	  redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)

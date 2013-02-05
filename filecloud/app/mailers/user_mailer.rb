@@ -11,18 +11,18 @@ class UserMailer < ActionMailer::Base
    @user = user
   mail(:to => user.email, :subject => "password reset")
   end
-  def share_folder(activated_id)
+  def share_folder(activated_id, folder_id)
     @user_email = User.where(:id => activated_id).first.email
+    @folder_id = folder_id
+    @user_id = activated_id
     mail(:to => @user_email, :subject => "You was shared folder.")
   end
-	 def share_file(activated_id)
+	 def share_file(activated_id,file_id)
     @user_email = User.where(:id => activated_id).first.email
+		@file_id = file_id
     mail(:to => @user_email, :subject => "You was shared file.")
   end
-  def not_share_file(uncheck)
-	  @user_email = User.where(:id => uncheck).first.email
-    mail(:to => @user_email, :subject => "Your share permission has been removed.")
-  end
+
 
 
 

@@ -1,7 +1,8 @@
 <html>
 	<head></head>
 	<body>
-	Congratulations, you are now a part of Poly Herd,
-	Visit your website
+	You was shared a folder <br/>
+	Visit your profile or checkout link below: <br/>
+	<%= url_for(:action => 'show', :controller => 'folders', :only_path => false,:id => @folder_id, :user_id => @user_id) %>
 	</body>
 </html>

@@ -10,13 +10,12 @@ FactoryGirl.define do
 	end
 	end
 
-	# factory :filestream do
-	# 	filename "MyString"
-	# 	attach_file_name "chieu.jpeg"
-	# 	attach_content_type "image/jpeg"
-	# 	attach_file_size "151516"
-	# 	folder
-	# end
-
+	factory :newuser, class: User do
+			name "Hoang Mai Nhi"
+			email "mainhi@gmail.com"
+			password "123456"
+			password_confirmation "123456"
+			status true
+	end
 
 end

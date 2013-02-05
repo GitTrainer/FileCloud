@@ -33,7 +33,7 @@ before_filter :signed_in_user
 		   activated_ids.each do |activated_id|
 		   	 @folder_share = Foldersharing.new(:folder_id => params[:foldersharing][:folder_id], :shared_user_id => activated_id)
 		     @folder_share.save!
-      	 UserMailer.share_folder(activated_id).deliver
+      	 UserMailer.share_folder(activated_id, @folder_id).deliver
 		 	 end
 		 	 redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)
 		 else
