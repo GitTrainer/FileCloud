@@ -139,9 +139,8 @@ class UsersController < ApplicationController
     end
 
     def sort_column
-        User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+        FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "name"
     end
-      
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
