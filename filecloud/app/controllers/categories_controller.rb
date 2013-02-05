@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
       @categories = Category.all
     else
 
-      @categories= Category.where(:user_id=>current_user.id)
+      @categories= Category.where(:user_id => current_user.id)
 
       respond_to do |format|
         format.html # index.html.erb
@@ -46,7 +46,7 @@ class CategoriesController < ApplicationController
   def edit
     @search = Category.search(params[:search])
     @categories = @search.paginate(:per_page => 10, :page => params[:page])
-    @categories = Category.where(:user_id =>current_user.id)
+    @categories = Category.where(:user_id => current_user.id)
 
     @category = Category.find(params[:id])
     respond_to do |format|
@@ -59,7 +59,7 @@ class CategoriesController < ApplicationController
   def create
     # binding.pry
     @category = Category.new(params[:category])
-
+    @category.user_id = current_user.id
     respond_to do |format|
       if @category.save
         format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
@@ -77,7 +77,9 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     respond_to do |format|
+
       if @category.update_attributes(params[:category])
+      
         format.html { redirect_to categories_path, notice: 'Category was successfully updated.' }
         format.json { head :no_content }
       else

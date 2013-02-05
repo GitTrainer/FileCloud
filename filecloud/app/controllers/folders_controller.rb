@@ -12,6 +12,7 @@ class FoldersController < ApplicationController
     redirect_to Folder.root
     if current_user.member_of_admins? 
       @folder = Folder.all
+      
     else
       @folder = Folder.where(:user_id => current_user.id)
 

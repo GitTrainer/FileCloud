@@ -11,6 +11,7 @@ class Folder < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => :parent_id
   validates_presence_of :name
+  validates :category_id, :presence => true
 
   before_save :check_for_parent
   after_create :create_permissions, :unless => :is_copied_folder
