@@ -9,34 +9,32 @@ FactoryGirl.define do
     attach_content_type "image/jpeg"
   end
 
-  factory :filestream1 do
-    filename "MyString"
-    folder_id 4
-    attach_file_name "anh5.JPG"
-    attach_file_size "5835193"
-    attach_content_type "image/jpeg"
-    created_at "01/29/2013"
-  end
+#  factory :filestream1, class: Filestream do
+#    filename "MyString"
+#    folder_id 4
+#    attach_file_name "anh5.JPG"
+#    attach_file_size "5835193"
+#    attach_content_type "image/jpeg"
+#    created_at "01/29/2013"
+#  end
 
 
+#	factory :filestream2, class: Filestream do
+#		filename "MyString"
+#		folder_id 4
+#		attach_file_name "chieu.jpg"
+#		attach_file_size "151516"
+#		attach_content_type "image/jpeg"
+#		created_at "01/30/2013"
+#	end
 
-
-	factory :filestream2 do
-	    filename "MyString"
-	    folder_id 4
-	    attach_file_name "chieu.jpg"
-	    attach_file_size "151516"
-	    attach_content_type "image/jpeg"
-	    created_at "01/30/2013"
-	end
-
-  factory :filestreams , class: Filestream do
-    filename "MyString"
-    folder_id 2
-    attach_file_name "chieu.jpeg"
-    attach_content_type "image/jpeg"
-    attach_file_size "151516"
-    folder
-  end
+#  factory :filestreams , class: Filestream do
+#    filename "MyString"
+#    folder_id 2
+#    attach_file_name "chieu.jpeg"
+#    attach_content_type "image/jpeg"
+#    attach_file_size "151516"
+#    folder
+#  end
 
 end

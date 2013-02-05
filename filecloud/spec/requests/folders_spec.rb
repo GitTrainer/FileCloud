@@ -71,21 +71,6 @@ describe "Folders page" do
 					end
 				end
 
-				describe "Share file" do
-				  let(:folder){FactoryGirl.create(:folder)}
-			    let(:user){FactoryGirl.create(:user)}
-			    let(:filestream){FactoryGirl.create(:filestream)}
-		      before do
-		       visit  ("/folders/" + folder.id.to_s + "&?user_id=" + folder.user_id.to_s)
-		       check('activated[]')
-		      end
-		      it "should share to selected member " do
-						expect { click_button('Save changes') }.to change(Filesharing, :count).by(1)
-					end
-				end
-
-
-
 			describe "Edit page" do
 				let(:folder){FactoryGirl.create(:folder)}
 				let(:user){FactoryGirl.create(:user)}
