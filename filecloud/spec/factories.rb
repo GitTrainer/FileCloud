@@ -47,7 +47,7 @@ FactoryGirl.define do
 	factory :file_up_load do
 		attach_file_name "File Name"
 		attach_content_type "image/jpeg"
-		attach_file_size '254'
+		attach_file_size "234"
 		folder 
 	end
 
