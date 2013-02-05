@@ -16,7 +16,7 @@ def create
 	    @file_share.user_id = user.id
          
            if @file_share.save
-           	   
+           	  UserMailer.send_email_notify_sharefile(user,file_up_load).deliver
               flash[:sucess]="Share success"
               
            else

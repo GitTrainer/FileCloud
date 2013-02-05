@@ -4,19 +4,54 @@
 		  <h4>
 			  <b style="color:blue">Name:</b>
 			  <%= @user.name %>
-		 </h4>
-		<h4>	
-		  <b style="color:blue">Email:</b>  
-		  <%= @user.email %>
-		</h4>
+		  </h4>
+		  <h4>	
+		      <b style="color:blue">Email:</b>  
+		      <%= @user.email %>
+		  </h4>
 	</div>
+
 	<div id="avatar_show">
-		<%= image_tag @user.avatar.url(:medium) %>
+		<%= image_tag @user.avatar.url,:size => "50x50" %>
 	</div>
+
+	<div class="clear"></div>
+
+	<div id="tbl_show_user">
+		
+			<h4 style="color:blue">List files have shared from another memeber:</h4>
+	         <div class="listUser">
+	             <table>
+	                 <tr>
+	                    <th>File Name</th>
+	                    <th>File Type</th>
+	                    <th>File Size (kb)</th>
+	                    <th>Date Create</th>
+	                    <th>Owner</th>
+	                    <th>Action</th>
+	                 </tr>
+
+	                <% @user.file_shares.each do |file_share| %>
+	                 <tr align="center">
+	                 	<%#binding.pry%>
+	                    <td><%=file_share.file_up_load.attach_file_name%></td>
+	                    <td><%= file_share.file_up_load.attach_content_type %></td>
+	                    <td><%= file_share.file_up_load.attach_file_size %></td>
+	                    <td><%= file_share.file_up_load.created_at.strftime("%m/%d/%Y")%></td>
+	                    <td><%= file_share.file_up_load.folder.user.name%></td>
+	                    <td><%= link_to image_tag("download.png", alt: "download"),file_up_load_path(file_share.file_up_load.id)%></td>
+	                 </tr>
+	                <% end %>
+	             </table>
+	          </div>
+	</div>
+</div>	
+ 
 	<div id="link_show">
 		<%= link_to 'Edit', edit_user_path %> |
 		<%= link_to 'Back', users_path %>
 	</div>
 	<div class="clear"> 
 	</div>
-</div>
+
+
