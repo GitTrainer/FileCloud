@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20120411081345) do
     t.string   "name"
     t.integer  "parent_id"
     t.integer  "category_id"
-    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

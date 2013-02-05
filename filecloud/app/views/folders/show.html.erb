@@ -8,14 +8,14 @@
 </p>
 <% end -%>
 <p>
-<% if current_user.can_create(@folder) -%>
+<%# if current_user.can_create(@folder) -%>
   <span class="folder_menu"><%= image_tag('folder_add.png', :alt => t(:create_a_new_folder)) %> <%= link_to t(:create_a_new_folder), new_folder_folder_path(@folder) %></span>
   <span class="folder_menu"><%= image_tag('file_add.png', :alt => t(:upload_a_file)) %> <%= link_to t(:upload_a_file), new_folder_file_path(@folder) %></span>
-<% end -%>
+<%# end -%>
 <% if current_user.member_of_admins? -%>
   <span class="folder_menu" id="permissions_link"><span><%= image_tag('permissions.png', :alt => t(:permissions)) %> <%= link_to t(:permissions), '#', :class => 'permissions_link' %></span></span>
 <% end -%>
-  
+ 
 </p>
 <div id="files_and_folders">
   <table>
@@ -24,7 +24,7 @@
       <th><%= t :name %></th>
       <th><%= t :size %></th>
       <th><%= t :date_modified %></th>
-      <th></th>
+      <th>Action</th>
     </tr>
   <% unless @folder.is_root? -%>
     <tr class="<%= cycle('even','odd') %>">
@@ -49,7 +49,7 @@
       <% if current_user.can_delete(folder) -%>
         <%= link_to image_tag('delete.png', :alt => t(:delete_item)), folder, :method => :delete, :data => { :confirm => t(:are_you_sure) }, :title => t(:delete_item) %>&nbsp;
       <% end -%>
-       
+        
       </td>
     </tr>
     <% end -%>

@@ -9,14 +9,12 @@ class FoldersController < ApplicationController
   before_filter :require_delete_permission, :only => :destroy
 
   def index
-    redirect_to Folder.root
-    if current_user.member_of_admins? 
-      @folder = Folder.all
+    if Folder.root.nil?
+      @folder = Folder.new(:name => 'Root folder')
+      @folder.save
       
-    else
-      @folder = Folder.where(:user_id => current_user.id)
-
     end
+   redirect_to Folder.root
   end
 
   # Note: @folder is set in require_existing_folder

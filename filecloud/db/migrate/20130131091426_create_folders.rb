@@ -5,7 +5,6 @@ class CreateFolders < ActiveRecord::Migration
       t.references :user
       t.references :parent
       t.integer :category_id
-      t.integer :user_id
       t.timestamps
     end
   end
