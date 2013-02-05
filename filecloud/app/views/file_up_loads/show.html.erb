@@ -8,11 +8,25 @@
             <h3 id="myModalLabel">Share file <%=@fileupload.attach_file_name%></h3>
         </div>
         <div class="modal-body">
-           <p>
-              <%= form_tag :controller=>'file_shares',:acttion=>'create',:id_file_up_load=>@fileupload.id,:method => 'post' do %>
-                  <%=label_tag 'email','Email Address :'%>
-                  <%= text_field_tag 'email',params[:email]%>
-           </p>
+        	<div>
+        		<h4 style="color:blue">Who has access</h4>
+        		<ul>
+        		   <%@fileupload.file_shares.each do |file_share|%>
+                     <%= image_tag file_share.user.avatar.url,:size => "40x40" %>
+                     <%=file_share.user.name+"   "%><%=file_share.user.email%>
+                     <hr>
+                     
+        		   <%end%>
+        	    </ul>
+        	</div>	
+        	<div>
+                <h4 style="color:blue">Add people:</h4>
+                <p>
+                    <%= form_tag :controller=>'file_shares',:acttion=>'create',:id_file_up_load=>@fileupload.id,:method => 'post' do %>
+                    <%=label_tag 'email','Enter email address:'%>
+                    <%= text_field_tag 'email',params[:email]%>
+                </p>
+            </div>    
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

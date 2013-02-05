@@ -6,7 +6,7 @@ class FileUpLoad < ActiveRecord::Base
 
   belongs_to :folder 
   has_attached_file :attach
-  has_many :file_shares
+  has_many :file_shares,dependent: :destroy
   
 
 

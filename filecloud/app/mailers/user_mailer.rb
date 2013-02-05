@@ -11,4 +11,11 @@ class UserMailer < ActionMailer::Base
   	@user = user
     mail(:to => @user.email, :subject => "You have Forgot password")#replaced user.mail to dangkhanhjava
   end
+
+  def send_email_notify_sharefile(user,file_up_load)
+   @user=user
+   @file_up_load=file_up_load
+   @url="http://localhost:3000/signin"
+   mail(:to=>@user.email,:subject=>"#{@file_up_load.attach_file_name} (#{@user.email})")
+  end
 end
