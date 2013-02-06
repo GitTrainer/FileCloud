@@ -7,6 +7,7 @@ FactoryGirl.define do
     attach_file_name "bench_with_sea_view_sunset-wallpaper-1366x768.jpg"
     attach_file_size "515184"
     attach_content_type "image/jpeg"
+    download_count "0"
   end
 
 
