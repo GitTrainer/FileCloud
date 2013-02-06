@@ -18,4 +18,4 @@
 <% if current_user.admin? %>
 	<%= link_to 'New User', new_user_path ,class: "btn btn-large btn-primary"%>
 <%end%>
-<%= will_paginate @users%>
+<%= will_paginate %>

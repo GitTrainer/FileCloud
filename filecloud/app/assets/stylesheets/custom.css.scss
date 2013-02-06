@@ -129,3 +129,19 @@ footer ul li {
   font-weight:bold;
   font-style:italic;
 }
+.pagination em 
+{
+  -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: white;
+    border-color: #DDDDDD;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 38px;
+    padding: 0 14px;
+    text-decoration: none;
+}

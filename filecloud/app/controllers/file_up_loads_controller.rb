@@ -40,11 +40,14 @@ end
   def destroy
     @folder_id=FileUpLoad.find_by_id(params[:id]).folder_id
     FileUpLoad.find_by_id(params[:id]).destroy
-    redirect_to folder_path(@folder_id) ,notice: "Successfull destroy"
+    redirect_to :back,notice: "Successfull destroy"
   end
 
   def download
     @fileupload=FileUpLoad.find(params[:id])
+    temp=@fileupload.count_download
+    temp+=1
+    @fileupload.update_attribute(:count_download,temp)
     if @fileupload.attach_content_type=="image/jpeg"
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type,:disposition=>'inline'
     else
@@ -52,12 +55,10 @@ end
      end
   end
 
-  def correct_user_folder_fileupload
+  def correct_user_folder_fileupload  
       @current_folder=Folder.find(params[:id])
      if @current_folder.user.id.to_s!=current_user.id.to_s
         redirect_to current_user
      end
   end
-
-
 end

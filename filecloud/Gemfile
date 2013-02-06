@@ -55,6 +55,7 @@ gem 'bootstrap-sass', '2.1'
 gem 'pry-rails', :group => :development
 gem 'pry', :group => :development
 gem 'will_paginate', '~> 3.0.0'
+gem 'bootstrap-will_paginate', '0.0.6'
  group :test do
     gem 'factory_girl_rails', '4.1.0'
      gem 'email_spec'
@@ -62,9 +63,10 @@ gem 'will_paginate', '~> 3.0.0'
  end
  gem 'pry-debugger'
  gem 'shoulda-matchers', :require => false
-  gem 'launchy'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+gem 'launchy'
+gem 'better_errors'
+gem 'binding_of_caller'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
