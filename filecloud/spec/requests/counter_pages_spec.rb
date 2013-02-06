@@ -3,11 +3,13 @@ require 'factory_girl'
 require 'factory_girl_rails'
 describe "CounterPages" do
   let (:user) {FactoryGirl.create(:user, :name => "vandung")}
-  let(:category) {FactoryGirl.create(:category, :name =>"MyString", :description => "MyString")}
+  	
 	let(:folder){FactoryGirl.create(:folder)}
   let(:filestream){FactoryGirl.create(:filestream)}
 	before do
   		sign_in user
+  		@category = Category.new(:name => "Category", :description => "Description")
+  		@category.save!
 	end
 		describe "Counter download" do
 
@@ -27,8 +29,9 @@ describe "CounterPages" do
 			  describe "click Download" do
 				  before do
 				    visit '/folders/'+@file.folder_id.to_s+'&?user_id='+user.id.to_s
-				    expect {click_link "Download"}
+				    click_link "Download"
 				  end
+				    it { should_not have_content('0') }
 			     	# click_link 'Download'.to change(Filestream,:count).by(1)
 						# expect {click_link 'Download'}.to change(Filestream.download_count,:count).by(1)
 					it { page.should change(Filestream.download_count, :count).by(1) }

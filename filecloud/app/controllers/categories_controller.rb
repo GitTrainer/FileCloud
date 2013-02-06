@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
 	end
 
 	def create
-	  @new_category = Category.new(params[:category])
+	  	@new_category = Category.new(params[:category])
 		@categories = Category.all
 		respond_to do |format|
 		  if @new_category.save
