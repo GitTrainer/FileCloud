@@ -1,6 +1,6 @@
 <% provide(:title, @fileupload.attach_file_name)%>
 
-<a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">+Share</a>
+<a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" margin-bottom: "20px">+Share</a>
   <!-- Modal -->
   <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
@@ -10,19 +10,28 @@
         <div class="modal-body">
         	<div>
         		<h4 style="color:blue">Who has access</h4>
+                  <%= form_tag :controller=>'file_shares',:acttion=>'create',:id_file_up_load=>@fileupload.id,:method => 'post' do %>
         		<ul>
+                 <table width:"100%" >
         		   <%@fileupload.file_shares.each do |file_share|%>
-                     <%= image_tag file_share.user.avatar.url,:size => "40x40" %>
-                     <%=file_share.user.name+"   "%><%=file_share.user.email%>
-                     <hr>
-                     
+                   <tr >
+
+                    <td> <%= image_tag file_share.user.avatar.url,:size => "40x40" %></td>
+                    <td> <%=file_share.user.name+"   "%></td>
+                    <td><%=file_share.user.email%></td>
+                    <td style="color:red"> delete<%= check_box_tag 'activated[]',file_share.user.id,false%></td>
+                    </tr>
+                   
+               
         		   <%end%>
+                  
+                  </table> 
         	    </ul>
         	</div>	
         	<div>
                 <h4 style="color:blue">Add people:</h4>
                 <p>
-                    <%= form_tag :controller=>'file_shares',:acttion=>'create',:id_file_up_load=>@fileupload.id,:method => 'post' do %>
+                  
                     <%=label_tag 'email','Enter email address:'%>
                     <%= text_field_tag 'email',params[:email]%>
                 </p>
@@ -30,7 +39,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button id="sharefile" class="btn btn-primary">Share File</button>
+            <button id="sharefile" class="btn btn-primary">Share & Save</button>
         </div>
         <%end%>
    </div>
