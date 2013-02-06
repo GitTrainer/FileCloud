@@ -7,4 +7,10 @@ FactoryGirl.define do
     category_id 1
     user_id 5
   end
+  factory :testfolder, class: Folder do
+    name "Testfolder"
+    description "testfolder"
+    category_id 1
+    user_id 3
+  end
 end

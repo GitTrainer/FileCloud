@@ -11,7 +11,7 @@
     $("input:checkbox").each(function(){
       $(this).attr('checked', false);
     });
-  
+
     return false;
   }
 </script>
@@ -38,7 +38,7 @@
                         end
                       %>
  						 <%= check_box_tag 'activated[]', user.id,select -%>
-                       <%= user.name%>
+                       <%= user.name %> (<%= user.email %>)
                       </div>
                     <%end%>
                   </div>

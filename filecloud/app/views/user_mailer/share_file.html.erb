@@ -1,7 +1,9 @@
 <html>
 	<head></head>
 	<body>
-	You was shared a file.
+		You was shared a file. <br/>
+		Click link below to check out this file <br/>
+		<%= url_for(:action => 'show', :controller => 'filestreams', :only_path => false, :id => @file_id) %>
 	</body>
 
 </html>
