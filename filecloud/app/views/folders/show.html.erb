@@ -1,9 +1,7 @@
 <h1>Folder details</h1>
 <div class="row">
 <div class="span9" id="div" title="title example">
-
 	<table class="table table-hover">
-
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
@@ -11,7 +9,6 @@
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<th>Upload</th>
 			<%end%>
-
 		</tr>
 		<tr>
 			<td><%= @folder.name %></td>
@@ -20,27 +17,22 @@
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
 			<%end%>
-
 		<tr>
-
 			<th><%= sortable "attach_file_name", "File Name"%></th>
 			<th><%= sortable "attach_file_size", "File Size"%></th>
 			<th><%= sortable "created_at", "Created Date"%></th>
-
 			<th>Preview</th>
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-			<th>Share file</th>
-			<th>Delete</th>
+				<th>Share file</th>
+				<th>Delete</th>
 			<%end%>
-
 		</tr>
 <% @file.each do |filestream|%>
 		<tr>
 			<td><%= filestream.attach_file_name %></td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
-
 			<td><%= filestream.created_at.strftime("%m/%d/%Y") %></td>
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
@@ -49,29 +41,27 @@
 			<%else%>
 			<td></td>
 			<%end%>
-
 		<td><%= link_to 'Download', download_filestream_path(filestream.id)%></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
 
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-			<%= form_for(Filesharing.new) do |f| %>
-			<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
+				<%= form_for(Filesharing.new) do |f| %>
+					<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
 
-			<div id="myModal-<%=filestream.id	%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
-  			<div class="modal-header">
-
-    			<h3 id="myModalLabel">List members</h3>
-  			</div>
-  		<div class="modal-body">
-    		<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
-  		</div>
-  		<div class="modal-footer">
-    		<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>&?user_id=<%= current_user.id%>'">Close</button>
-   			<%= f.submit 'Save changes', class: "btn btn-primary"%>
-  		</div>
-</div>
-<%end%>
-			<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
+						<div id="myModal-<%=filestream.id	%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
+  						<div class="modal-header">
+    						<h3 id="myModalLabel">List members</h3>
+  						</div>
+  						<div class="modal-body">
+    						<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
+  						</div>
+  						<div class="modal-footer">
+    						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>&?user_id=<%= current_user.id%>'">Close</button>
+   							<%= f.submit 'Save changes', class: "btn btn-primary"%>
+  						</div>
+						</div>
+				<%end%>
+				<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
 			<%end%>
 			<% end %>
 		</tr>
@@ -85,7 +75,3 @@
 <%end%>
 </div>
 </div>
-
-
-
-
