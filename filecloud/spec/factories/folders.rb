@@ -5,7 +5,7 @@ FactoryGirl.define do
     name "MyString"
     description "MyString"
     category_id 1
-    user_id 5
+    user_id 2
   end
   factory :testfolder, class: Folder do
     name "Testfolder"

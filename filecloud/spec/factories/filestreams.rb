@@ -1,9 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :filestream do
+  factory :filestream, class: Filestream do
     filename "MyString"
-    folder_id 4
+    folder_id 1
     attach_file_name "bench_with_sea_view_sunset-wallpaper-1366x768.jpg"
     attach_file_size "515184"
     attach_content_type "image/jpeg"

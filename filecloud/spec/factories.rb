@@ -18,4 +18,12 @@ FactoryGirl.define do
 			status true
 	end
 
+	factory :fakeuser, class: User do
+			name "Test User"
+			email "testuser@gmail.com"
+			password "123456"
+			password_confirmation "123456"
+			status true
+	end
+
 end

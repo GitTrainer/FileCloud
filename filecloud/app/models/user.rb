@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token, :password_reset_sent_at, :admin, :avatar
+  attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token,
+   :password_reset_sent_at, :admin, :created_at, :updated_at, :password_digest, :remember_token,
+   :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at
   has_many :folders
   has_attached_file :avatar, :styles => { :medium => "240x150>", :thumb => "100x100>" }
   before_save { |user| user.email = email.downcase }
@@ -7,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :filesharings, foreign_key: "shared_user_id", class_name: "Filesharing", dependent: :destroy
   has_many :foldersharing, foreign_key: "shared_user_id", class_name: "Foldersharing", dependent: :destroy
   has_secure_password
-  validates :name, presence: true, length: { maximum: 50 } 
+  validates :name, presence: true, length: { maximum: 50 }
   validates :password,
             :presence => true,
             :confirmation => true,
