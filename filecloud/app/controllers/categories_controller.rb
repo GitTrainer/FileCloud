@@ -1,21 +1,21 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
-    def index
-    	@search = Category.search(params[:search])
-   		if ( @new_category.nil?)
-	  		@new_category = Category.new
+  def index
+    @search = Category.search(params[:search])
+   	if ( @new_category.nil?)
+	  		 @new_category = Category.new
 		end
-          	respond_to do |format|
-	            format.html { render action: "index"}
-	            format.js {render js: @search }
-            end
+        respond_to do |format|
+	        format.html { render action: "index"}
+	        format.js {render js: @search }
+        end
 	end
 	def new
 	  @new_category = Category.new
 	end
 
 	def create
-	  	@new_category = Category.new(params[:category])
+	  @new_category = Category.new(params[:category])
 		@categories = Category.all
 		respond_to do |format|
 		  if @new_category.save

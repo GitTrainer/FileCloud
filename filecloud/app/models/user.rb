@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :login, :name, :password, :password_confirmation,:status, :password_reset_token,
    :password_reset_sent_at, :admin, :created_at, :updated_at, :password_digest, :remember_token,
-   :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at
+   :avatar
   has_many :folders
   has_attached_file :avatar, :styles => { :medium => "240x150>", :thumb => "100x100>" }
   before_save { |user| user.email = email.downcase }
