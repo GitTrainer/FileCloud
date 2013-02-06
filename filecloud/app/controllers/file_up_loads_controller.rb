@@ -40,7 +40,7 @@ end
   def destroy
     @folder_id=FileUpLoad.find_by_id(params[:id]).folder_id
     FileUpLoad.find_by_id(params[:id]).destroy
-    redirect_to folder_path(@folder_id) ,notice: "Successfull destroy"
+    redirect_to :back,notice: "Successfull destroy"
   end
 
   def download
