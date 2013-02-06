@@ -37,3 +37,12 @@ $(document).on("click", ".open-addMembers", function () {
     return false;
   });
 });
+
+
+
+$('.table-hove').each(function() {
+    $(this).table-hove({
+        timeout: 0.1
+        url:     "folders/show.html.erb"
+    });
+});

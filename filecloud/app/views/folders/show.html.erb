@@ -1,6 +1,7 @@
 <h1>Folder details</h1>
 <div class="row">
-<div class="span9">
+<div class="span9" id="div" title="title example">
+
 	<table class="table table-hover">
 
 		<tr>
@@ -28,7 +29,7 @@
 
 			<th>Preview</th>
 			<th>Download</th>
-
+			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<th>Share file</th>
 			<th>Delete</th>
@@ -48,7 +49,10 @@
 			<%else%>
 			<td></td>
 			<%end%>
-			<td><%= link_to 'Download', download_filestream_path(filestream.id) %></td>
+
+		<td><%= link_to 'Download', download_filestream_path(filestream.id)%></td>
+		<td style="text-align: center;"> <%= filestream.download_count%></td>
+
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<%= form_for(Filesharing.new) do |f| %>
 			<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
@@ -81,3 +85,7 @@
 <%end%>
 </div>
 </div>
+
+
+
+

@@ -1,11 +1,7 @@
 class CategoriesController < ApplicationController
   before_filter :signed_in_user
     def index
-    
-
-   		@search = Category.search(params[:search])
-   		
-   	
+    	@search = Category.search(params[:search])
    		if ( @new_category.nil?)
 	  		@new_category = Category.new
 		end
@@ -14,8 +10,6 @@ class CategoriesController < ApplicationController
 	            format.js {render js: @search }
             end
 	end
-
-
 	def new
 	  @new_category = Category.new
 	end
@@ -36,7 +30,6 @@ class CategoriesController < ApplicationController
 	    end
     end
 	end
-
 	def show
 		# binding.pry
 		# @search = Category.search(params[:search])
@@ -47,7 +40,6 @@ class CategoriesController < ApplicationController
       format.js {render js: @category }
     end
 	end
-
 	def edit
 		@search = Category.search(params[:search])
    		@new_category = Category.find(params[:id])
@@ -57,7 +49,6 @@ class CategoriesController < ApplicationController
 		  format.js {render js: @search }
 		end
 	end
-
 	def update
 
 		@new_category = Category.find(params[:id])
@@ -65,7 +56,7 @@ class CategoriesController < ApplicationController
 
 		  respond_to do |format|
 		    if @new_category.update_attributes(params[:category])
-			  @new_category = nil
+			   @new_category = nil
           format.html { redirect_to "/categories"}
           format.js { render js: @new_category }
 		    else
@@ -75,7 +66,6 @@ class CategoriesController < ApplicationController
         end
       end
 	end
-
 	def destroy
 		@category = Category.find(params[:id])
 		@category.destroy
@@ -83,7 +73,6 @@ class CategoriesController < ApplicationController
 		  format.html { redirect_to "/categories"}
 		end
 	end
-
   private
     def signed_in_user
       unless signed_in?

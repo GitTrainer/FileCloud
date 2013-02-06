@@ -14,16 +14,16 @@ Filecloud::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   resources :categories
-#   resources :categories do
-#   collection do
-#     get :search
-#   end
-# end
+
   resources :folders do
   	member do
   		get 'share_file'
   	end
+  
   end
+  
+
+
   resources :foldersharings
   resources :filesharings do
   	member do
@@ -38,6 +38,7 @@ Filecloud::Application.routes.draw do
    member do
      get 'delete_from_folder'
    end
+
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

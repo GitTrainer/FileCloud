@@ -16,6 +16,7 @@ class Folder < ActiveRecord::Base
 #     scoped
 #   end
 # end
+
 def self.search(search)
   if search
     find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
@@ -23,5 +24,6 @@ def self.search(search)
     find(:all)
   end
 end
+
 
 end

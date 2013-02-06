@@ -6,9 +6,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
   before_filter :set_mailer_host
   def index
-    
     @users = User.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -84,10 +82,7 @@ def create
     @user=User.find(params[:id])
      if @user.login == params[:active_code]
       if @user.status != true
-
-
-        #binding.pry
-          if @user.update_attribute(:status, true)
+         if @user.update_attribute(:status, true)
             flash[:success] = "Welcome to the Sample App"
             render 'sessions/new'
 

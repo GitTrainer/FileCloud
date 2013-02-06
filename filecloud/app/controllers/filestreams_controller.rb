@@ -63,16 +63,18 @@ class FilestreamsController < ApplicationController
     end
   end
 
-
-   def download
+  def download
      @fileupload = Filestream.find(params[:id])
+     download_count=@fileupload.download_count
+     @fileupload.update_attribute(:download_count, download_count+1) 
      if @fileupload.attach_content_type == "image/*"
        send_file @fileupload.attach.path, :type =>
        @fileupload.attach_content_type,:disposition=>'inline'
      else
        send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
      end
-   end
+     # redirect_to "/folders/"+@fileupload.folder_id.to_s+"&?user_id="+current_user.id.to_s
+  end
 
 	 def delete_from_folder
 

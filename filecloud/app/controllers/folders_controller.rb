@@ -11,7 +11,6 @@ class FoldersController < ApplicationController
 
    def index
 		@foldersharings = Foldersharing.all
-#		@folders = Folder.where(:user_id => current_user)
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
@@ -20,9 +19,7 @@ class FoldersController < ApplicationController
 	        format.html { render action: "index"}
 	         format.js {render js: @foldersharings}
 	         format.js {render js: @new_folder }
-#	         format.js {render js: @folders }
 	         format.js {render js: @search_folder }
-
       	end
 	end
 
@@ -38,7 +35,7 @@ class FoldersController < ApplicationController
 		@folders = Folder.where(:user_id => current_user)
 		respond_to do |format|
 		  if @new_folder.save
-			  @new_folder = nil
+			 @new_folder = nil
 				format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
 		    format.js {render js: @new_folder }
 		    format.js {render js: @folders }
@@ -50,8 +47,8 @@ class FoldersController < ApplicationController
 	end
 
 	def edit
-	@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-  		@foldersharings = Foldersharing.all
+		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
+  	@foldersharings = Foldersharing.all
 		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
 		respond_to do |format|
@@ -111,7 +108,6 @@ class FoldersController < ApplicationController
 		  format.html { redirect_to "/folders/?user_id=" + @user_id.to_s }
     end
 	end
-
   private
     def signed_in_user
       unless signed_in?
@@ -119,13 +115,10 @@ class FoldersController < ApplicationController
         redirect_to signin_url, notice: "Please sign in."
       end
     end
-
-
-  def sort_column
-    Filestream.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+	def sort_column
+	    Filestream.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
+	end
+	def sort_direction
+	    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+	end
 end

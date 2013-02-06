@@ -44,8 +44,25 @@ describe "SortPages" do
 		        it {should have_selector('#tablefolder tr:nth-child(4) td:nth-child(4)',text:"up_arrow.gif")}
 		        it {should have_selector('#tablefolder tr:nth-child(5) td:nth-child(4)',text:"down_arrow.gif")}
     	end
-    	describe "sort size desc" do
-    		let{filestream1}
+    	describe "sort size" do
+    		let(filestream1) {Filestream.find(1)}
+    		let (filestream2) {Filestream.find(2)}
+    		describe "sort size desc" do
+    			before do
+    				visit '/folders/'+folder.id+'&?direction=desc&sort=attach_file_size&user_id='+user.id.to_s
+    			end
+    			 it {should have_selector('#tablefolder tr:nth-child(5) td:nth-child(4)',text:filestream1.attach_file_size.to_s)}
+    			 it {should have_selector('#tablefolder tr:nth-child(4) td:nth-child(5)',text:filestream2.attach_file_size.to_s)}
+    		end
+    		describe "sort size asc" do
+    			before { visit '/folders/'+folder.id+'&?direction=asc&sort=attach_file_size&user_id='+user.id.to_s}
+    			it {should have_selector('#tablefolder tr:nth-child(4) td:nth-child(5)',text:filestream2.attach_file_size.to_s)}}
+    			it {should have_selector('#tablefolder tr:nth-child(5) td:nth-child(4)',text:filestream1.attach_file_size.to_s)}
+    		end
+
+
+
+
     	end
 
     	

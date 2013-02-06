@@ -17,10 +17,6 @@ FactoryGirl.define do
     attach_content_type "image/jpeg"
     created_at "01/29/2013"
   end
-
-
-
-
 	factory :filestream2 do
 	    filename "MyString"
 	    folder_id 4

@@ -13,9 +13,8 @@
   <b>Email:</b>
   <%= @user.email %>
 </p>
-<p>
+<p>                              
 	<b>List folders: </b><br/>
-
 	<% @user.folders.each do |folder|%>
 		<% if Folder.where(:user_id => current_user, :id => folder.id).exists? %>
 			<a href="/folders/<%=folder.id%>&?user_id=<%=@user.id%>"><%= folder.name%></a><br/>
