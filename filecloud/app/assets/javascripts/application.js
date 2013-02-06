@@ -46,3 +46,8 @@ $('.table-hove').each(function() {
         url:     "folders/show.html.erb"
     });
 });
+
+
+function changeproject(folder_id,user_id){
+  window.location.href = url+"/?templateid=" +$("#templateid").val()
+}

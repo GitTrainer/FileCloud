@@ -53,6 +53,7 @@
     						<h3 id="myModalLabel">List members</h3>
   						</div>
   						<div class="modal-body">
+  							<%= f.hidden_field :folder_id, :value => params[:id]%>
     						<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
   						</div>
   						<div class="modal-footer">
