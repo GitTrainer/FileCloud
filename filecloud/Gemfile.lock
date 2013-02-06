@@ -38,6 +38,8 @@ GEM
       erubis (>= 2.7.0)
     binding_of_caller (0.6.8)
     bootstrap-sass (2.1.0.0)
+    bootstrap-will_paginate (0.0.6)
+      will_paginate
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -227,6 +229,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (= 2.1)
+  bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
   email_spec
