@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
   before_filter :set_mailer_host
+
   def index
     @users = User.all
     respond_to do |format|
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -36,18 +36,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-def create
-    
+	def create
     @user = User.new(params[:user])
     @code = SecureRandom.urlsafe_base64
     @user.login=@code
     if @user.save
-      
       UserMailer.welcome_email(@user).deliver
       flash[:success] = "Welcome to the Sample App! Please in your mail activate account"
       render 'sessions/new'
     else
-     
       render 'new'
     end
   end
@@ -70,7 +67,6 @@ def create
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
@@ -78,31 +74,26 @@ def create
   end
 
   def activate
-
     @user=User.find(params[:id])
-     if @user.login == params[:active_code]
+    if @user.login == params[:active_code]
       if @user.status != true
-         if @user.update_attribute(:status, true)
-            flash[:success] = "Welcome to the Sample App"
-            render 'sessions/new'
-
-          else
-            flash[:success] = "Please activate in your mail"
-            render 'sessions/new'
-          end
+        if @user.update_attribute(:status, true)
+      	  flash[:success] = "Welcome to the Sample App"
+          render 'sessions/new'
         else
-          signed_in_user
+          flash[:success] = "Please activate in your mail"
+          render 'sessions/new'
         end
-    else
-      flash[:success] = "errors"
+      else
+        signed_in_user
+      end
+   	else
+      flash[:error] = "Error!!!"
       render 'sessions/new'
     end
   end
 
-
-
   private
-
     def signed_in_user
       unless signed_in?
         store_location
@@ -114,9 +105,7 @@ def create
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
-     def admin_user
+    def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
-
-
 end

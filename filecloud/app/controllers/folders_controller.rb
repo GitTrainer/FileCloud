@@ -15,12 +15,12 @@ class FoldersController < ApplicationController
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-     	respond_to do |format|
-	        format.html { render action: "index"}
-	         format.js {render js: @foldersharings}
-	         format.js {render js: @new_folder }
-	         format.js {render js: @search_folder }
-      	end
+   	respond_to do |format|
+      format.html { render action: "index"}
+      format.js {render js: @foldersharings}
+      format.js {render js: @new_folder }
+      format.js {render js: @search_folder }
+    end
 	end
 
 	def new
