@@ -25,4 +25,9 @@ $(function() {
 		$.get($("#users_search").attr("action"), $("#users_search").serialize(), null, "script");
 		return false;
 	});
+
+	$("#search_file_form input").keyup(function() {
+		$.get($("#search_file_form").attr("action"), $("#search_file_form").serialize(), null, "script");
+		return false;
+	});
 });

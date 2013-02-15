@@ -14,13 +14,17 @@
   <b ><%= link_to 'Delete Folder',@folder, method: :delete, data:{confirm:"Are you user you want to delete this item?"}%>
 </div>
 
+<div id="div_search_file_form">
+      <%= render 'search_file_form' %>
+</div>
+
 <div id="paginate_files">
-    <%= render 'files' %>
-    <div class="btn">
-      <%=link_to 'Back',folders_path %>
-    </div>
-    <div class="btn"> 
-      <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
-    </div>
-<%= will_paginate @files%>
+  <%= render 'files' %>
+  <div class="btn">
+    <%=link_to 'Back',folders_path %>
+  </div>
+  <div class="btn"> 
+    <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
+  </div>
+  <%= will_paginate @files%>
 </div>
