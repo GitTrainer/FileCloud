@@ -36,8 +36,20 @@
 			<td><%= filestream.created_at.strftime("%m/%d/%Y") %></td>
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
-					<span><a href="/filestreams/<%=filestream.id%>"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
+					<span><a href="#previewModal-<%=filestream.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
 				</td>
+				<div id="previewModal-<%=filestream.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="previewModalLabel"><%=filestream.attach_file_name%></h3>
+					</div>
+					<div class="modal-body">
+						<%= image_tag filestream.attach.url %>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/filestreams/<%=filestream.id%>/download'">Download</button>
+					</div>
+				</div>
 			<%else%>
 			<td></td>
 			<%end%>

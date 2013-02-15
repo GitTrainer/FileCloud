@@ -1,17 +1,14 @@
-
 <h5>Choose member to share file</h5>
-<% list_users = User.find_by_sql(["select * from users where users.id != ?",current_user.id.to_s])%>
-<% list_users.each do |user|%>
-<%
-	if Filesharing.where("shared_user_id = ? AND file_id = ?", user.id.to_s, file_id.to_s).exists?
-  		select = true
-  else
-  		select = false
-  end
- %>
-<%= hidden_field_tag('seen[]', user.id) -%>
-<%= check_box_tag 'activated[]', user.id,select, id: file_id  -%>
-<%= user.name%> (<%= user.email%>)
-<%= f.hidden_field :file_id, :value => file_id %>
-<br/>
-<%end%>
+	<% list_users = User.find_by_sql(["select * from users where users.id != ?",current_user.id.to_s]) %>
+	<% list_users.each do |user|
+		if Filesharing.where("shared_user_id = ? AND file_id = ?", user.id.to_s, file_id.to_s).exists?
+			select = true
+		else
+			select = false
+		end %>
+		<%= hidden_field_tag('seen[]', user.id) -%>
+		<%= check_box_tag 'activated[]', user.id,select, id: file_id  -%>
+		<%= user.name %> (<%= user.email%>)
+		<%= f.hidden_field :file_id, :value => file_id %>
+		<br/>
+	<%end%>
