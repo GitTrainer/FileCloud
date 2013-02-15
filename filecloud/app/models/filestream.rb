@@ -9,6 +9,7 @@ class Filestream < ActiveRecord::Base
   validate :size_validation
   def to_jq_upload
     {
+    	"id"   => read_attribute(:id),
       "name" => read_attribute(:attach_file_name),
       "size" => read_attribute(:attach_file_size),
       "url" => attach.url(:original),
@@ -31,6 +32,6 @@ class Filestream < ActiveRecord::Base
 
 
 # t.strftime("Printed on %m/%d/%Y")
-  
+
 
 end
