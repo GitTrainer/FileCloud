@@ -43,11 +43,11 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h3 id="previewModalLabel"><%=filestream.attach_file_name%></h3>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" height= "auto" width="auto">
 						<%= image_tag filestream.attach.url %>
 					</div>
 					<div class="modal-footer">
-						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/filestreams/<%=filestream.id%>/download'">Download</button>
+						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
 					</div>
 				</div>
 			<%else%>
@@ -60,7 +60,7 @@
 				<%= form_for(Filesharing.new) do |f| %>
 					<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
 
-						<div id="myModal-<%=filestream.id	%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
+						<div id="myModal-<%=filestream.id	%>"  class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
   						<div class="modal-header">
     						<h3 id="myModalLabel">List members</h3>
   						</div>
@@ -84,7 +84,16 @@
  <%= hidden_field_tag :page, :value => params[:page] %>
 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 <p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
-<P><a href="/folders/?user_id=<%=current_user.id.to_s%>">Go to Folders</a></p>
+<P><a href="/folders">Go to Folders</a></p>
 <%end%>
 </div>
 </div>
+<script>
+   $.modal(data,
+    {
+      minWidth: 400,
+      onShow: function(dialog){
+        dialog.container.css({"height":"auto","width":"auto"});
+      }
+    });
+</script>

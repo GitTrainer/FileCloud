@@ -1,13 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user,   only: [:index, :edit]
   helper_method :sort_column, :sort_direction
-
-   def correct_user
-     if params[:user_id].to_s != current_user.id.to_s
-       redirect_to root_path
-     end
-   end
 
    def index
 		@foldersharings = Foldersharing.all
@@ -32,16 +25,18 @@ class FoldersController < ApplicationController
     @foldersharings = Foldersharing.all
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
-		@folders = Folder.where(:user_id => current_user)
 		respond_to do |format|
 		  if @new_folder.save
-			 @new_folder = nil
-				format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
+			  @new_folder = nil
+  			@search_folder = Folder.where(:user_id => current_user).search(params[:search])
+				format.html { redirect_to "/folders/" }
 		    format.js {render js: @new_folder }
-		    format.js {render js: @folders }
+		    format.js {render js: @search_folder }
 		  else
-		  	flash[:error] = "Please fill all fields correctly"
-		    format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
+			  @search_folder = Folder.where(:user_id => current_user).search(params[:search])
+			  format.html { render :action => 'index' }
+			  format.js {render js: @new_folder.errors, status: :unprocessable_entity}
+		    format.js {render js: @search_folder }
 		  end
 		end
 	end
@@ -90,11 +85,15 @@ class FoldersController < ApplicationController
 		respond_to do |format|
 			if @new_folder.update_attributes(params[:folder])
 				@new_folder = nil
-		    format.html { redirect_to "/folders/?user_id=" + params[:folder][:user_id]}
+				@search_folder = Folder.where(:user_id => current_user).search(params[:search])
+		    format.html {render :action => 'index'}
 		    format.js { render js: @new_folder }
+		    format.js { render js: @search_folder }
 		  else
-		  	flash[:error] = "Please fill all fields correctly"
-		    format.html {  redirect_to "/folders/" + params[:id] + "/edit/?user_id=" + params[:folder][:user_id]}
+				@search_folder = Folder.where(:user_id => current_user).search(params[:search])
+		    format.html {render :action => 'index'}
+		    format.js {render js: @new_folder.errors, status: :unprocessable_entity }
+		    format.js { render js: @search_folder }
 		  end
 		end
 	end
@@ -105,7 +104,7 @@ class FoldersController < ApplicationController
 		@folder = Folder.find(params[:id])
 		@folder.destroy
 		respond_to do |format|
-		  format.html { redirect_to "/folders/?user_id=" + @user_id.to_s }
+		  format.html { redirect_to "/folders"}
     end
 	end
   private
