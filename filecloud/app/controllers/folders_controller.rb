@@ -16,7 +16,7 @@ class FoldersController < ApplicationController
 			@new_folder = Folder.new
 		end
      	respond_to do |format|
-	        format.html { render action: "index"}
+	         format.html { render action: "index"}
 	         format.js {render js: @foldersharings}
 	         format.js {render js: @new_folder }
 	         format.js {render js: @search_folder }
@@ -45,7 +45,6 @@ class FoldersController < ApplicationController
 		  end
 		end
 	end
-
 	def edit
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
   	@foldersharings = Foldersharing.all

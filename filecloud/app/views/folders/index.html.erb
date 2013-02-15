@@ -18,7 +18,7 @@
 <%= form_for(@new_folder ) do |f| %>
                  <div class="span6">
                 <h2>New Folder</h2>
-                 <%= render 'shared/error_messages', object: f.object %>
+                <%= render 'shared/error_messages', object: f.object %>
                 <%= render 'folder',st: @new_folder , f: f%>
 
                 <div class="span1" ></br><%= f.submit class: "btn  btn-primary"%></div>

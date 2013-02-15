@@ -41,8 +41,13 @@
 			<%else%>
 			<td></td>
 			<%end%>
-		<td><%= link_to 'Download', download_filestream_path(filestream.id)%></td>
+			<!--<%= link_to 'Download', download_filestream_path(filestream.id)%>-->
+		<td><button type="button" onClick="location.href='/filestreams/<%= filestream.id%>/download'">Download</button></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
+
+
+
+
 
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<%= form_for(Filesharing.new) do |f| %>
