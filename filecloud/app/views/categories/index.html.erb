@@ -2,7 +2,7 @@
 
 <%= form_tag categories_path, :method => :get do %>
   <p class="span2">
-	
+
     <label style="float:left;">Category Name </label>
 
     	<%= text_field_tag :search, params[:search], class: "tf-search" %>
@@ -39,25 +39,14 @@
 				<th>Description </th>
 				<th>Show Details</th>
 				<th> Edit </th>
-				<!-- If use admin function
-				<% if current_user.admin?%>
-				 <th>Delete </th>
-				  <%end%>
-				  -->
 			</tr>
 		  <%if !@search.nil? %>
-		  <% @search.each do |category|%>
-		
+		  	<% @search.each do |category|%>
 					<tr>
 						<td><%= category.name %> </td>
 						<td><%= category.description %></td>
 						<td><a href="/categories/<%=category.id%>">Show</a></td>
 						<td><%= link_to 'Edit', edit_category_path(category) %></td>
-						<!-- If use admin function
-					 <% if current_user.admin?%>
-						<td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
-						   <%end%>
-						   -->
 					</tr>
 		    <% end %>
 		  <% end %>
@@ -75,6 +64,6 @@ input.tf-search{
 }
 p.span2{
 	width: 400px;
-	
+
 }
 </style>

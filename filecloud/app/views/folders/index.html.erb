@@ -1,12 +1,14 @@
 <h1>Folders management</h1>
-<%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
+<%= form_tag folders_path, :method => 'get' do %>
   <p class="span2">
 
     <label style="float:left;">Folder Name </label>
 				<%= hidden_field_tag :user_id, params[:user_id] %>
         <%= text_field_tag :search, params[:search], class: "tf-search" %>
     <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
+
   </p>
+
 <% end %>
 
 <br></br><br></br>

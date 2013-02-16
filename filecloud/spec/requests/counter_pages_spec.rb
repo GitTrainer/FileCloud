@@ -18,24 +18,24 @@ describe "CounterPages" do
     	 @file.save!
     	end
 
-	    describe "count download" do
-  			describe "cout download" do
-			    before do
-			    	visit '/folders/'+@file.folder_id.to_s+'&?user_id='+user.id.to_s
-			    end
-			    it {save_and_open_page}
-			    it { should_not have_content('Count Download') }
-			  end
-			  describe "click Download" do
-				  before do
-				    visit '/folders/'+@file.folder_id.to_s+'&?user_id='+user.id.to_s
-				    click_link "Download"
+		    describe "count download" do
+	  			describe "cout download" do
+				    before do
+				    	visit '/folders/'+@file.folder_id.to_s+'&?user_id='+user.id.to_s
+				    end
+				    it {save_and_open_page}
+				    it { should_not have_content('Count Download') }
 				  end
-				    it { should_not have_content('0') }
-			     	# click_link 'Download'.to change(Filestream,:count).by(1)
-						# expect {click_link 'Download'}.to change(Filestream.download_count,:count).by(1)
-					it { page.should change(Filestream.download_count, :count).by(1) }
+				  describe "click Download" do
+					  before do
+					    visit '/folders/'+@file.folder_id.to_s+'&?user_id='+user.id.to_s
+					    click_link "Download"
+					  end
+					    it { should_not have_content('0') }
+				     	# click_link 'Download'.to change(Filestream,:count).by(1)
+							# expect {click_link 'Download'}.to change(Filestream.download_count,:count).by(1)
+						it { page.should change(Filestream.download_count, :count).by(1) }
+					end
 				end
-			end
 	end
 end

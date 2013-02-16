@@ -25,29 +25,31 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
-$(document).on("click", ".open-addMembers", function () {
-     var myFileId = $(this).data('params[:file_id]');
-     $(".modal-body #fileId").val( myFileId );
-    $('#myModal').modal('show');
-});
-
+ 
+$(function() {
+    
+    $("#folders").live("click", function() {
+    $.getScript(this.href);
+    return false;
+  });
 
   $("#search_folder input").keyup(function() {
     $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
   });
+      //   $(document).on("click", ".open-addMembers", function () {
+      //      var myFileId = $(this).data('params[:file_id]');
+      //      $(".modal-body #fileId").val( myFileId );
+      //     $('#myModal').modal('show');
+      // });
+      // $('.table-hove').each(function() {
+      //     $(this).table-hove({
+      //         timeout: 0.1
+      //         url:     "folders/show.html.erb"
+      //     });
+      // });
+      // function changeproject(folder_id,user_id){
+      //   window.location.href = url+"/?templateid=" +$("#templateid").val()
+      // }
+
 });
-
-
-
-$('.table-hove').each(function() {
-    $(this).table-hove({
-        timeout: 0.1
-        url:     "folders/show.html.erb"
-    });
-});
-
-
-function changeproject(folder_id,user_id){
-  window.location.href = url+"/?templateid=" +$("#templateid").val()
-}

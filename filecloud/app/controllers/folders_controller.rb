@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user,   only: [:index, :edit]
+  before_filter :correct_user,   only: [:index, :edit, :show]
   helper_method :sort_column, :sort_direction
 
    def correct_user
@@ -12,15 +12,20 @@ class FoldersController < ApplicationController
    def index
 		@foldersharings = Foldersharing.all
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
+		# @folder_paginate=@search_folder.paginate(:per_page => 5, :page => params[:page])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
+
      	respond_to do |format|
 	         format.html { render action: "index"}
 	         format.js {render js: @foldersharings}
 	         format.js {render js: @new_folder }
 	         format.js {render js: @search_folder }
       	end
+
+
+
 	end
 
 	def new
@@ -58,18 +63,25 @@ class FoldersController < ApplicationController
 	end
 
 	def show
+		# binding.pry
 		@folder = Folder.find(params[:id])
-		@sort_file=Filestream.order(sort_column + " " + sort_direction)
-		@uploads = @sort_file.where(:folder_id => params[:id])
-		@file =@uploads.paginate(:page => params[:page], :per_page => 5)
+		# @search = Filestream.search(params[:search])
+		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+		# binding.pry
+		# @search_files=@sort_file.
+		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
+		# @search_files=@uploads.search(params[:search])
+		# @file =@uploads.paginate(:per_page => 5, :page => params[:page])
 		@foldersharings = Foldersharing.all
+		# binding.pry
 		@id = params[:id].to_i
 		respond_to do |format|
 			if current_user.id.to_s == params[:user_id].to_s
 				@folder = Folder.find(@id)
 				format.html { render action: "show"}
 				format.js {render js: @folder }
-				format.js {render js: @file }
+				# format.js {render js: @file }
+				# format.js {render js: @uploads }
 			else
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
 					@folder = Folder.find(params[:id])
