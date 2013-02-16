@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
 
-  before_filter :correct_user,   only: [:index, :edit, :show]
+  before_filter :correct_user,   only: [:index, :edit]
 
   helper_method :sort_column, :sort_direction
 
