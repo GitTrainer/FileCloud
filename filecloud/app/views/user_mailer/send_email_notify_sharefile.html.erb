@@ -7,7 +7,9 @@
     <p>
       <h2>I've shared an item with you.</h2>
       <h3> 
-      <%=link_to @file_up_load.attach_file_name,@url%>
+     
+       <a href="<%= file_share_url(@file_share.id)%>"><%=@file_up_load.attach_file_name%><a>
+    
       </h3>
     </p>
   </body>

@@ -4,7 +4,6 @@ Filecloud::Application.routes.draw do
  
 
   resources :users
-  resources :file_shares
   root to: 'sessions#new'
   resources :reset_passwords
   match '/activate',to: 'users#activate'
@@ -17,24 +16,16 @@ Filecloud::Application.routes.draw do
   resources :categories
   resources :folders 
   resources :file_up_loads do
-         member do
+      member do
            get 'download'
-         end
+      end
     end
+  resources :file_shares do
+   member do
+     get 'download_file_shared'
+   end  
+  end
 
-  #resources :folders do
-  #resources :file_up_loads
-#end
-
-  #get "folders/index"
-
-  #get "categorys/new"
-
-  #get "categorys/index"
-
-  #match "folders" => "folders#show"
-
-  #match "folders" => "folders#new"
 
 
   # The priority is based upon order of creation:

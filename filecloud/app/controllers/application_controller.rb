@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
     def correct_user_for_download_file
     	@user = FileUpLoad.find(params[:id]).folder.user
+      
     	if current_user
        		redirect_to user_path(current_user), notice: "Not correct user!"  unless current_user?(@user)
        	else
