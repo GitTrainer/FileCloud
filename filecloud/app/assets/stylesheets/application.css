@@ -16,6 +16,7 @@
 *= require_self
 *= require jquery.fileupload-ui
 
+
 .table-hover th .current {
   padding-right: 12px;
   background-repeat: no-repeat;

@@ -17,18 +17,20 @@ class CategoriesController < ApplicationController
 	end
 
 	def create
+
 	  @new_category = Category.new(params[:category])
-		@categories = Category.all
 		respond_to do |format|
 		  if @new_category.save
         @new_category = nil
-     	  format.html { redirect_to "/categories"}
+        @search = Category.search(params[:search])
+     	  format.html { render action: "index"}
         format.js {render js: @new_category }
-        format.js {render js: @categories }
+        format.js {render js: @search }
       else
+				@search = Category.search(params[:search])
         format.html { render action: "index"}
         format.js {render js: @new_category.errors, status: :unprocessable_entity}
-        format.js {render js: @categories }
+        format.js {render js: @search }
 	    end
     end
 	end
@@ -54,16 +56,18 @@ class CategoriesController < ApplicationController
 
 	def update
 		@new_category = Category.find(params[:id])
-		@categories = Category.all
 	  respond_to do |format|
 	    if @new_category.update_attributes(params[:category])
 			  @new_category = nil
-        format.html { redirect_to "/categories"}
+			  @search = Category.search(params[:search])
+        format.html {  render action: "index"}
         format.js { render js: @new_category }
+        format.js { render js: @search }
 		  else
+		  	@search = Category.search(params[:search])
         format.html {  render action: "index"}
         format.js {render js: @new_category.errors, status: :unprocessable_entity}
-        format.js {render js: @categories }
+        format.js { render js: @search }
       end
     end
 	end
@@ -72,7 +76,7 @@ class CategoriesController < ApplicationController
 		@category = Category.find(params[:id])
 		@category.destroy
 		respond_to do |format|
-		  format.html { redirect_to "/categories"}
+		   format.html {  render action: "index"}
 		end
 	end
 
