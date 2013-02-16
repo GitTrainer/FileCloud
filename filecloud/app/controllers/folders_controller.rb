@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
 
-  before_filter :correct_user,   only: [:index, :edit, :show]
+#  before_filter :correct_user,   only: [:show]
 
   helper_method :sort_column, :sort_direction
 
@@ -19,8 +19,6 @@ class FoldersController < ApplicationController
 	         format.js {render js: @new_folder }
 	         format.js {render js: @search_folder }
       	end
-
-
 
 	end
 
