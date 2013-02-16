@@ -17,6 +17,16 @@ describe "Order" do
         click_button 'Start'
     end
 
+    describe "search file by name" do
+        before do
+            visit "/folders/#{folder.id}?direction=asc&sort=attach_file_name"
+            fill_in "search",with: "down_row"
+            click_button 'Search'
+        end
+        it {should have_content("down_row.png")}
+        it {should have_selector('.tb-lst tr:nth-child(2) td:nth-child(2)',text:"down_row.png")}
+    end
+
 	describe "sort by name desc" do
     	before do
      		visit "/folders/#{folder.id}?direction=desc&sort=attach_file_name"

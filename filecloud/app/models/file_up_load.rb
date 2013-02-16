@@ -8,6 +8,11 @@ class FileUpLoad < ActiveRecord::Base
   has_attached_file :attach
   has_many :file_shares,dependent: :destroy
   
-
-
+	def self.search(search)
+	  if search
+	    where('attach_file_name LIKE ?', "%#{search}%")
+	  else
+	    scoped
+	  end
+	end
 end

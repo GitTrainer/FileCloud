@@ -9,11 +9,11 @@ class FoldersController < ApplicationController
 
   def show
   	@folder=Folder.find(params[:id])
-    @files = @folder.file_up_loads.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
-    respond_to do |format|
-      format.html
-      format.js {render js: @files }
-    end
+    @files = @folder.file_up_loads.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    # respond_to do |format|
+    #   format.html
+    #   format.js {render js: @files }
+    # end
   end
   
   def new
