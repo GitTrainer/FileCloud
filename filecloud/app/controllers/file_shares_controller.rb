@@ -21,16 +21,22 @@ def create
 		@file_share =FileShare.new
 	    user = User.find_by_email(email)
 	    if !user.nil?
-           @file_share.file_up_load_id=file_up_load.id
-	       @file_share.user_id = user.id
+            
+            if current_user!=user
+                @file_share.file_up_load_id=file_up_load.id
+	            @file_share.user_id = user.id
          
-            if @file_share.save
-           	     UserMailer.send_email_notify_sharefile(user,file_up_load,@file_share).deliver
-                 flash[:sucess]="Share success"
+                if @file_share.save
+           	        UserMailer.send_email_notify_sharefile(user,file_up_load,@file_share).deliver
+                    flash[:sucess]="You has shared to "+user.name+" a item."
               
+                else
+    	            flash[:error]="Sorry,Share erors"
+                end
+
             else
-    	      flash[:error]="Sorry,Share erors"
-            end
+                flash[:notify]="Sorry,You shuold not to share a file to yourself."
+            end    
         end
     end    
     redirect_to  file_up_load_path(file_up_load.id)
