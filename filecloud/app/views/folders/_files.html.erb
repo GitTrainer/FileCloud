@@ -26,3 +26,10 @@
 	  </tr>
 	</table>
 </div>
+ <div class="btn">
+    <%=link_to 'Back',folders_path %>
+  </div>
+  <div class="btn"> 
+    <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
+ </div>
+ <%= will_paginate @files%>
