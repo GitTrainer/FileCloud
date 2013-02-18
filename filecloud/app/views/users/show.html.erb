@@ -48,9 +48,39 @@
 		    <% listFiles.each do |file|%>
 				  <td><%= Filestream.find(file.file_id).attach_file_name %></td>
 				  <% if Filestream.find(file.file_id).attach_content_type.include? "image"%>
-				    <td>
-					    <span><a href="/filestreams/<%=file.file_id.to_s%>"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
-				    </td>
+				   <td>
+					<span><a href="#previewModal-<%=file.file_id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
+				</td>
+				<div id="previewModal-<%=file.file_id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="previewModalLabel"><%=Filestream.find(file.file_id).attach_file_name%></h3>
+					</div>
+					<div id="myCarousel" class="carousel slide">
+					  	<ol class="carousel-indicators">
+					  		
+					  		 
+					<li data-target="#previewModal" data-slide-to="0" class="active">
+<div class="modal-body">
+						
+							<%= image_tag Filestream.find(file.file_id).attach.url %>
+						</div></li>
+					
+					
+				</ol>
+				 <div class="carousel-inner">
+<div class="active item">…</div>
+<div class="item">…</div>
+<div class="item">…</div>
+</div>
+
+
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=file.file_id%>/download'"><i class="icon-download icon-white"></i>Download</button>
+					</div>
+				</div>
+
 					<%else%>
 						<td></td>
 					<%end%>

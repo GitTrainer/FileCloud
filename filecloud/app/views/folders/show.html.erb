@@ -21,7 +21,6 @@
 				<%= hidden_field_tag :user_id, params[:user_id] %>
 				<%= hidden_field_tag :folder_id, params[:id] %>
 				        <%= text_field_tag :search, params[:search], class: "tf-search" %>
-
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p><div id="folders"><%= render 'search' %></div>
 <% end %>
