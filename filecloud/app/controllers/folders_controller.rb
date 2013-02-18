@@ -63,7 +63,7 @@ class FoldersController < ApplicationController
 		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
 		# binding.pry
 		# @search_files=@sort_file.
-		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
+		@uploads = @sort_file.where(:folder_id => params[:id].to_s).search(params[:search])
 		# @search_files=@uploads.search(params[:search])
 		# @file =@uploads.paginate(:per_page => 5, :page => params[:page])
 		@foldersharings = Foldersharing.all
@@ -73,9 +73,9 @@ class FoldersController < ApplicationController
 			if current_user.id.to_s == params[:user_id].to_s
 				@folder = Folder.find(@id)
 				format.html { render action: "show"}
-				format.js {render js: @folder }
+				# format.js {render js: @folder }
 				# format.js {render js: @file }
-				# format.js {render js: @uploads }
+				format.js {render js: @uploads }
 			else
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
 					@folder = Folder.find(params[:id])
