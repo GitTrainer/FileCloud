@@ -19,9 +19,10 @@ Filecloud::Application.routes.draw do
   	member do
   		get 'share_file'
   	end
-  
+
+
   end
-  
+
 
 
   resources :foldersharings
@@ -32,14 +33,17 @@ Filecloud::Application.routes.draw do
   end
 
   resources :filestreams do
-   member do
-     get 'download'
-   end
-   member do
-     get 'delete_from_folder'
-   end
+    member do
+      get 'download'
+    end
+    member do
+      get 'delete_from_folder'
+    end
+    collection do
+      get 'multiple_delete'
+    end
 
-  end
+   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,3 +1,18 @@
+<script type="text/javascript">
+ function selectAll(){
+    $("input:checkbox").each(function(){
+      $(this).attr('checked', true);
+    });
+    return false;
+  }
+  function deselectAll(){
+    $("input:checkbox").each(function(){
+      $(this).attr('checked', false);
+    });
+
+    return false;
+  }
+</script>
 <h1>Folder details</h1>
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
   <p class="span2">
@@ -12,8 +27,9 @@
 <% end %>
 
 <br></br><br></br>
+<%= form_tag (:controller => 'filestreams', :action => 'multiple_delete' ) do%>
 <div class="row">
-<div class="span9" id="div" title="title example">
+<div class="span13" id="div" title="title example">
 	<table class="table table-hover">
 		<tr>
 			<th>Name</th>
@@ -38,8 +54,12 @@
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-				<th>Share file</th>
-				<th>Delete</th>
+				<th colspan="2">Action</th>
+				<th> <a href="#" onclick="selectAll()">Select all -</a>
+ 					<a href="#" onclick="deselectAll()">Deselect all</a>
+ 					<button type="button" class="btn btn-small btn-danger delete" onClick="location.href='/filestreams/multiple_delete'">
+          <i class="icon-trash icon-white"></i>
+          <span>Delete</span></button></th>
 			<%end%>
 		</tr>
 <% @uploads.each do |filestream|%>
@@ -60,27 +80,22 @@
 
 					  <div id="myCarousel" class="carousel slide">
 					  	<ol class="carousel-indicators">
-					  		
-					  		 
+
+
 					<li data-target="#previewModal" data-slide-to="0" class="active">
 <div class="modal-body">
-						
+
 							<%= image_tag filestream.attach.url %>
 						</div></li>
-					
-					
+
+
 				</ol>
 				 <div class="carousel-inner">
 <div class="active item">…</div>
 <div class="item">…</div>
 <div class="item">…</div>
 </div>
-
-
 				</div>
-
-	
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
 					</div>
@@ -113,16 +128,19 @@
 				<%end%>
 				<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
 
+				<td><%= check_box_tag 'check[]', filestream.id -%></td>
+				<%binding%>
 			<%end%>
 			<% end %>
 		</tr>
 		</tr>
 	</table>
-<%= will_paginate @uploads %>
+	<%= will_paginate @uploads %>
  <%= hidden_field_tag :page, :value => params[:page] %>
-<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
-<P><a href="/folders">Go to Folders</a></p>
+	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+		<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
+		<P><a href="/folders">Go to Folders</a></p>
+	<%end%>
 <%end%>
 </div>
 </div>
@@ -149,4 +167,3 @@ p.span2{
       }
     });
 </script>
-

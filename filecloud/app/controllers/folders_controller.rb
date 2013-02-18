@@ -1,9 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :signed_in_user
 
-
-
-
   helper_method :sort_column, :sort_direction
 
    def index
@@ -120,6 +117,11 @@ class FoldersController < ApplicationController
 		  format.html { redirect_to "/folders"}
     end
 	end
+
+	def multiple_delete
+		binding.pry
+	end
+
   private
     def signed_in_user
       unless signed_in?
