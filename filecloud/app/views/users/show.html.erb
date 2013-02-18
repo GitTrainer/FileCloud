@@ -18,16 +18,11 @@
   <%= @user.email %>
 </p>
 <p>
+
 	<b>List folders: </b><br/>
 	<% @user.folders.each do |folder|%>
 		<% if Folder.where(:user_id => current_user, :id => folder.id).exists? %>
 			<a href="/folders/<%=folder.id%>"><%= folder.name%></a><br/>
-		<% else %>
-			<% folder.foldersharings.each do |f|%>
-				<% if Foldersharing.where(:shared_user_id => f.shared_user_id, :folder_id => f.folder_id).exists? %>
-					<a href="/folders/<%=folder.id%>"><%= folder.name%></a><br/>
-				<% end %>
-			<% end %>
 		<% end %>
 	<% end %>
 </p>
@@ -111,7 +106,7 @@
 		<% end %><% end %>
 		<% if signed_in? %>
 		<% if current_user.id == params[:id].to_i %>
-		<br/><br/><br/><br/>
+
 		<%= link_to 'Edit', edit_user_path(@user) %> |
 		<% end %><% end %>
 		<%= link_to 'Back', users_path %>
