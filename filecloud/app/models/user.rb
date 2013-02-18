@@ -13,7 +13,7 @@
 class User < ActiveRecord::Base
   	
   	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at,:status,:avatar
-    has_attached_file :avatar, :styles => { :medium => "400x600>", :thumb => "400x600>" }
+    has_attached_file :avatar, :styles => { :medium => "400x600>", :thumb => "400x600>" },:default_url => "/assets/rails.jpeg"
    
     validates :name,  presence: true, length: { maximum: 50, minimum: 5 } 
     # validates :avatar, :attachment_presence => true
