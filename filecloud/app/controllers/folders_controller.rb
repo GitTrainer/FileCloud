@@ -117,6 +117,7 @@ class FoldersController < ApplicationController
 		  format.html { redirect_to "/folders"}
     end
 	end
+
   private
     def signed_in_user
       unless signed_in?
