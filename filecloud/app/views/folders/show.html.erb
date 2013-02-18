@@ -24,7 +24,7 @@
   </p><div id="folders"><%= render 'search' %></div>
 <% end %>
 <br></br><br></br>
-<%= form_tag (:controller => 'filestreams', :action => 'multiple_delete' ) do%>
+<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
 <div class="row">
 <div class="span13" id="div" title="title example">
 	<table class="table table-hover">
@@ -54,9 +54,7 @@
 				<th colspan="2">Action</th>
 				<th> <a href="#" onclick="selectAll()">Select all -</a>
  					<a href="#" onclick="deselectAll()">Deselect all</a>
- 					<button type="button" class="btn btn-small btn-danger delete" onClick="location.href='/filestreams/multiple_delete'">
-          <i class="icon-trash icon-white"></i>
-          <span>Delete</span></button></th>
+ 					<%= submit_tag "Delete" %>
 			<%end%>
 		</tr>
 <% @uploads.each do |filestream|%>
@@ -123,9 +121,7 @@
 						</div>
 				<%end%>
 				<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
-
 				<td><%= check_box_tag 'check[]', filestream.id -%></td>
-				<%binding%>
 			<%end%>
 			<% end %>
 		</tr>

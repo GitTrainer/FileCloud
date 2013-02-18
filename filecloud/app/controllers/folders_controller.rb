@@ -118,10 +118,6 @@ class FoldersController < ApplicationController
     end
 	end
 
-	def multiple_delete
-		binding.pry
-	end
-
   private
     def signed_in_user
       unless signed_in?

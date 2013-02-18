@@ -83,7 +83,16 @@ class FilestreamsController < ApplicationController
    end
 
    def multiple_delete
-   	binding.pry
+   	 folder_id = params[:filesharing][:folder_id].to_i
+   	 check_ids = params[:check]
+   	 if !check_ids.nil?
+				check_ids.each do |check|
+					del = Filestream.find(check)
+					del.destroy
+				end
+   	 else
+   	 end
+   	 redirect_to ("/folders/" + params[:filesharing][:folder_id] + "?user_id=" + current_user.id.to_s)
    end
 
   private

@@ -1,5 +1,4 @@
 <h1>Folders management</h1>
-
 <%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Folder Name </label>
@@ -22,44 +21,6 @@
   		<div class="span1" ></br><%= f.submit class: "btn  btn-primary"%></div>
   	</div>
   <%end%>
- <% if(@new_folder.nil?)
-       @new_folder= Folder.new
-     end %>
-<%= form_for(@new_folder ) do |f| %>
-                 <div class="span6">
-                <h2>New Folder</h2>
-                <%= render 'shared/error_messages', object: f.object %>
-                <%= render 'folder',st: @new_folder , f: f%>
-
-                <div class="span1" ></br><%= f.submit class: "btn  btn-primary"%></div>
-                </div>
-                <%end%>
-                </div>
-                 <div class="span8">
-          <table class="table table-hover">
-        		<br/>
-                <tr>
-                    <th>Name</th>
-                    <th>Description </th>
-                    <th>Show details</th>
-                    <th> Edit </th>
-                    <th>Delete </th>
-                </tr>
-                <%if !@search_folder.nil? %>
-                <% @search_folder.each do |folder|%>
-                <tr>
-		              <td><%= folder.name %> </td>
-		              <td><%= folder.description %></td>
-		              <td><a href="/folders/<%=folder.id%>&?user_id=<%=folder.user_id%>">Show</a></td>
-		              <td><a href="/folders/<%=folder.id%>/edit">Edit</a></td>
-		              <td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
-                </tr>
-                <% end %>
-                <% end %>
-
-        </table>
-
-</div>
 
 	<div class="span8">
 		<table class="table table-hover">
