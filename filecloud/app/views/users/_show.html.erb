@@ -35,17 +35,31 @@
 <p>
 	<% @lists = Foldersharing.where(:shared_user_id => current_user) %>
 	<b>List folders are shared by other members : </b><br/>
-	<% @lists.each do |list|%>
-		<a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></br>
+	<table class="table table-hover">
+
+		<tr>
+			<th>Folder name</th>
+			<th>Share by</th>
+			<th>Time</th>
+		</tr>
+		<% @lists.each do |list|%>
+		<tr>
+		<td><a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></td>
+		<td><%=User.find(Folder.find(list.folder_id).user_id).name%> (<%=User.find(Folder.find(list.folder_id).user_id).email%>)</td>
+		<td><%= Foldersharing.find(list.id).created_at %></td>
+		</tr>
 	<% end %>
-	<br/>
-	<b>List files are shared by others members:</b>
+		</table>
+</p>	<br/>
+<p><b>List files are shared by others members: </b><br/>
 
 	<table class="table table-hover">
 		<tr>
 			<th>File name</th>
 			<th>View file (image only)</th>
 			<th>Download</th>
+			<th>Share by</th>
+			<th>Time</th>
 		</tr>
 	 	  <% listFiles = Filesharing.where(:shared_user_id => current_user) %>
 		  <% listFiles.each do |file|%>
@@ -61,15 +75,15 @@
 					</div>
 					<div id="myCarousel" class="carousel slide">
 					  	<ol class="carousel-indicators">
-					  		
-					  		 
+
+
 					<li data-target="#previewModal" data-slide-to="0" class="active">
 <div class="modal-body">
-						
+
 							<%= image_tag Filestream.find(file.file_id).attach.url %>
 						</div></li>
-					
-					
+
+
 				</ol>
 				 <div class="carousel-inner">
 <div class="active item">…</div>
@@ -87,6 +101,8 @@
 					<td></td>
 				<%end%>
 			<td><%= link_to 'Download', download_filestream_path(file.file_id) %></td>
+			<td><%= User.find(Folder.find(Filestream.find(file.file_id).folder_id).user_id).name %> (<%= User.find(Folder.find(Filestream.find(file.file_id).folder_id).user_id).email %>)</td>
+				<td><%= Filesharing.find_by_file_id(file.file_id).created_at %></td>
 		<tr>
 		</tr>
 		<% end %>
