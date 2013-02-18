@@ -5,7 +5,7 @@
   <% if @current_user.avatar.url.include? "missing.png" %>
    <%= image_tag("default_avatar.gif")  %>
   <%else%>
-    <%= image_tag @user.avatar.url(:medium) %>
+    <%= image_tag @current_user.avatar.url(:medium) %>
   <%end%>
 </p>
   <b>Name:</b>
