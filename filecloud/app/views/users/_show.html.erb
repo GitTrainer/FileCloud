@@ -2,9 +2,12 @@
 <h1>User Information</h1>
 <p>
   <b>Avatar:</b>
-<%= image_tag @current_user.avatar.url(:medium) %>
+  <% if @current_user.avatar.url.include? "missing.png" %>
+   <%= image_tag("default_avatar.gif")  %>
+  <%else%>
+    <%= image_tag @user.avatar.url(:medium) %>
+  <%end%>
 </p>
-<p>
   <b>Name:</b>
   <%= @current_user.name %>
 </p>

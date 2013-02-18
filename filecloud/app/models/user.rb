@@ -31,4 +31,15 @@ class User < ActiveRecord::Base
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end
+
+
+
+
+    def self.search(search)
+      if search
+        find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+      else
+        find(:all)
+      end
+    end
 end

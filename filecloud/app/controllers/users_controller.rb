@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_filter :set_mailer_host
 
   def index
-    @users = User.all
+    @users = User.search(params[:search])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
