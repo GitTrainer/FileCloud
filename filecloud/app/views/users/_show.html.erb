@@ -21,11 +21,11 @@
 
 	<% @current_user.folders.each do |folder|%>
 		<% if Folder.where(:user_id => current_user, :id => folder.id).exists? %>
-			<a href="/folders/<%=folder.id%>&?user_id=<%=@current_user.id%>"><%= folder.name%></a><br/>
+			<a href="/folders/<%=folder.id%>"><%= folder.name%></a><br/>
 		<% else %>
 			<% folder.foldersharings.each do |f|%>
 				<% if Foldersharing.where(:shared_user_id => f.shared_user_id, :folder_id => f.folder_id).exists? %>
-					<a href="/folders/<%=folder.id%>&?user_id=<%=@current_user.id%>"><%= folder.name%></a><br/>
+					<a href="/folders/<%=folder.id%>"><%= folder.name%></a><br/>
 				<% end %>
 			<% end %>
 		<% end %>
@@ -44,7 +44,7 @@
 		</tr>
 		<% @lists.each do |list|%>
 		<tr>
-		<td><a href="/folders/<%=list.folder_id%>&?user_id=<%=current_user.id%>"><%= Folder.find(list.folder_id).name %></a></td>
+		<td><a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a></td>
 		<td><%=User.find(Folder.find(list.folder_id).user_id).name%> (<%=User.find(Folder.find(list.folder_id).user_id).email%>)</td>
 		<td><%= Foldersharing.find(list.id).created_at %></td>
 		</tr>
