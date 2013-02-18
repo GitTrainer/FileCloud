@@ -69,7 +69,7 @@ class FilestreamsController < ApplicationController
 	 def delete_from_folder
 	 	 @upload = Filestream.find(params[:id])
 		 @upload.destroy
-		 redirect_to ("/folders/"+@upload.folder_id.to_s+"&?user_id="+current_user.id.to_s)
+		 redirect_to ("/folders/"+@upload.folder_id.to_s)
 	 end
 
 	 def destroy
@@ -91,7 +91,7 @@ class FilestreamsController < ApplicationController
 				end
    	 else
    	 end
-   	 redirect_to ("/folders/" + params[:fID] + "&?user_id=" + current_user.id.to_s)
+   	 redirect_to ("/folders/" + params[:fID])
    end
 
   private

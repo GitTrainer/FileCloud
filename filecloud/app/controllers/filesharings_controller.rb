@@ -27,16 +27,16 @@ class FilesharingsController < ApplicationController
 		      UserMailer.share_file(activated_id,@file_id).deliver
 		 	  end
 		 	  flash[:success] = "Share file successfully"
-		 	  redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)
+		 	  redirect_to ("/folders/"+ @folder_id.to_s)
 		  else
 		 	  Filesharing.delete_all(["file_id = ?", @file_id])
 		 	  flash[:success] = "Successfully share file to no member"
-		    redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)
+		    redirect_to ("/folders/"+ @folder_id.to_s)
 		  end
 		else
 			@id = params[:filesharing][:folder_id].to_i
 			flash[:notice] = "No member to share"
-			redirect_to "/folders/#{@id}?&user_id=#{current_user.id}"
+			redirect_to "/folders/#{@id}"
 	  end
 	end
 end

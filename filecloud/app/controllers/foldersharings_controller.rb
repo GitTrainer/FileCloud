@@ -35,10 +35,10 @@ before_filter :signed_in_user
 		     @folder_share.save!
       	 UserMailer.share_folder(activated_id, @folder_id).deliver
 		 	 end
-		 	 redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)
+		 	 redirect_to ("/folders/"+ @folder_id.to_s)
 		 else
 		 	 Foldersharing.delete_all(["folder_id = ?", @folder_id])
-		   redirect_to ("/folders/"+ @folder_id.to_s+"?&user_id="+current_user.id.to_s)
+		   redirect_to ("/folders/"+ @folder_id.to_s)
 		 end
 	end
 end
