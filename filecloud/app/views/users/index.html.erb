@@ -1,13 +1,28 @@
 <h1>Listing users</h1>
 
 
-<%= form_tag users_path, :method => 'get', :id =>"search_folder" do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+<%= form_tag users_path, :method => 'get',:id => "search_folder" do %>
+  <p class="span2">
+    <label style="float:left;">Users Name </label>
+			
+				        <%= text_field_tag :search, params[:search], class: "tf-search" %>
+    <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
+<br></br><br></br>
 
 <div id="abc">
 <%= render 'users'%>
 </div>
+<style type="text/css">
+input.tf-search{
+    width: 200px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+p.span2{
+    width: 400px;
+
+}
+</style>

@@ -12,7 +12,7 @@
 
 
 <h1>Folder details</h1>
-<div class="ui-widget">
+
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Files Name </label>
@@ -22,7 +22,7 @@
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
-</div>
+
 	<br></br><br></br>
 	<div class="row">
 
@@ -64,20 +64,7 @@
 			<%end%>
 		</tr>
 <% @uploads.each do |filestream|%>
- <script>
-$(function() {
-var availableTags = [
 
-<% listfiles = Filestream.find_by_sql(["select * from filestreams where filestreams.id="]) %>
-
-
-filestream.attach_file_name
-];
-$( "#tags" ).autocomplete({
-source: availableTags
-});
-});
-</script>
 		<tr>
 			<td><%= filestream.attach_file_name %></td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
