@@ -7,7 +7,7 @@ class FilestreamsController < ApplicationController
     @folder_id = params[:folder_id]
     @uploads = Filestream.where(:folder_id => params[:folder_id])
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html
       format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
       format.json {render json: @uploads}
     end
