@@ -6,7 +6,6 @@ class FoldersController < ApplicationController
    def index
 		@foldersharings = Foldersharing.all
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-		# @folder_paginate=@search_folder.paginate(:per_page => 5, :page => params[:page])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
@@ -57,24 +56,17 @@ class FoldersController < ApplicationController
 	end
 
 	def show
-		# binding.pry
+
 		@folder = Folder.find(params[:id])
-		# @search = Filestream.search(params[:search])
 		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
-		# binding.pry
-		# @search_files=@sort_file.
 		@uploads = @sort_file.where(:folder_id => params[:id].to_s).search(params[:search])
-		# @search_files=@uploads.search(params[:search])
-		# @file =@uploads.paginate(:per_page => 5, :page => params[:page])
 		@foldersharings = Foldersharing.all
-		# binding.pry
+
 		@id = params[:id].to_i
 		respond_to do |format|
-			if current_user.id.to_s == params[:user_id].to_s
+			if Folder.where(:user_id => current_user.id, :id => @id).exists?
 				@folder = Folder.find(@id)
 				format.html { render action: "show"}
-				# format.js {render js: @folder }
-				# format.js {render js: @file }
 				format.js {render js: @uploads }
 			else
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?

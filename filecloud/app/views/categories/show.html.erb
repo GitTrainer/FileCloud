@@ -8,13 +8,13 @@
 			<td><%= @category.name %></td>
 			<td><%= @category.description %></td>
 		</tr>
-  </table>    
+  </table>
 	<b>
 		<p>List your own folders</p>
 	</b>
 	<% if !Folder.where(:category_id => params[:id],:user_id => current_user.id).nil? %>
 		<% Folder.where(:category_id => params[:id],:user_id => current_user.id).each do |a| %>
-			<a href="/folders/<%=a.id%>&?user_id=<%=a.user_id%>"><%= a.name %></a>
+			<a href="/folders/<%=a.id%>"><%= a.name %></a>
 			<br/>
   	<%end%>
 	<%end%>
@@ -23,7 +23,7 @@
 		<% if !Foldersharing.where(:folder_id => Folder.find_by_category_id(params[:id]).id, :shared_user_id => current_user.id).nil? %>
 			<% Foldersharing.where(:folder_id => Folder.find_by_category_id(params[:id]).id, :shared_user_id => current_user.id).each do |b| %>
 				<b><p>Folders are shared by other members</p></b>
-				<a href="/folders/<%=b.folder_id%>&?user_id=<%=b.shared_user_id%>"><%= Folder.where(:id => b.folder_id).first.name %></a>
+				<a href="/folders/<%=b.folder_id%>"><%= Folder.where(:id => b.folder_id).first.name %></a>
 				<br/>
 			<%end%>
 		<%end%>

@@ -16,19 +16,13 @@
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Files Name </label>
-				<%= hidden_field_tag :user_id, params[:user_id] %>
-				<%= hidden_field_tag :folder_id, params[:id] %>
-				        <%= text_field_tag :search, params[:search], class: "tf-search", id: "tags" %>
+    <%= text_field_tag :search, params[:search], class: "tf-search", id: "tags" %>
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
 </div>
 	<br></br><br></br>
 	<div class="row">
-
-
-
-<br></br><br></br>
 <%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
 	<%= hidden_field_tag :fID, @folder.id %>
 <div class="row">
@@ -64,20 +58,6 @@
 			<%end%>
 		</tr>
 <% @uploads.each do |filestream|%>
- <script>
-$(function() {
-var availableTags = [
-
-<% listfiles = Filestream.find_by_sql(["select * from filestreams where filestreams.id="]) %>
-
-
-filestream.attach_file_name
-];
-$( "#tags" ).autocomplete({
-source: availableTags
-});
-});
-</script>
 		<tr>
 			<td><%= filestream.attach_file_name %></td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
@@ -101,8 +81,6 @@ source: availableTags
 
 							<%= image_tag filestream.attach.url %>
 						</div></li>
-
-
 				</ol>
 				 <div class="carousel-inner">
 <div class="active item">…</div>
@@ -135,7 +113,7 @@ source: availableTags
     						<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
   						</div>
   						<div class="modal-footer">
-    						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>&?user_id=<%= current_user.id%>'">Close</button>
+    						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>'">Close</button>
    							<%= f.submit 'Save changes', class: "btn btn-primary"%>
   						</div>
 						</div>
@@ -183,4 +161,3 @@ p.span2{
       }
     });
 </script>
-
