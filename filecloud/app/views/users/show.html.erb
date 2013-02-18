@@ -101,3 +101,12 @@
 		<% if current_user.id == params[:id].to_i %>
 		| <a href="/folders">Create folder</a>
 		<% end %><% end %>
+<script>
+   $.modal(data,
+    {
+      minWidth: 400,
+      onShow: function(dialog){
+        dialog.container.css({"height":"auto","width":"auto"});
+      }
+    });
+</script>
