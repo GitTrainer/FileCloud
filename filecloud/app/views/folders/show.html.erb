@@ -26,21 +26,17 @@
 <%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
 	<%= hidden_field_tag :fID, @folder.id %>
 
+	<div id="searchajax">
+	<%= render 'show'%>
+	</div>
 
+		<%= will_paginate @uploads %>
 
-
-
-<div id="searchajax">
-<%= render 'show'%>
-</div>
-
-	<%= will_paginate @uploads %>
-
- <%= hidden_field_tag :page, :value => params[:page] %>
-	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-		<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
-		<P><a href="/folders">Go to Folders</a></p>
-	<%end%>
+	 <%= hidden_field_tag :page, :value => params[:page] %>
+		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+			<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
+			<P><a href="/folders">Go to Folders</a></p>
+		<%end%>
 <%end%>
 
 

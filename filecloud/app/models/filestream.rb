@@ -14,8 +14,7 @@ class Filestream < ActiveRecord::Base
       "size" => read_attribute(:attach_file_size),
       "url" => attach.url(:original),
       "delete_url" => filestream_path(self),
-      "delete_type" => "DELETE",
-      "error_message" => read_attribute(:errors)
+      "delete_type" => "DELETE"
     }
   end
   def size_validation
@@ -30,13 +29,7 @@ class Filestream < ActiveRecord::Base
       DateTime.strptime(date, '%m/%d/%Y')..DateTime.strptime(date, '%m/%d/%Y').end_of_day
     )
   }
-# def self.search(search)
-#   if search
-#     find(:all, :conditions => ['attach_file_name LIKE ?', "%#{search}%"])
-#   else
-#     find(:all)
-#   end
-# end
+
     def self.search(search)
       if search
         find(:all, :conditions => ['attach_file_name LIKE ?', "%#{search}%"])
@@ -44,7 +37,7 @@ class Filestream < ActiveRecord::Base
         find(:all)
       end
     end
-# t.strftime("Printed on %m/%d/%Y")
+
 
 
 end

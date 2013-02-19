@@ -26,10 +26,10 @@
 			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<th colspan="2">Action</th>
-				<th><input type="checkbox" onClick="call()" id="chk0">
-				<%= submit_tag "Delete", :confirm => "Are you sure?" %>
-
+				<th colspan="3"><input type="checkbox" onClick="call()" id="chk0">
+				<th><%= submit_tag "Delete", :confirm => "Are you sure?" %></th>
 			<%end%>
+			<th><%= submit_tag "Download"%></th>
 		</tr>
 <% @uploads.each do |filestream|%>
 
@@ -94,8 +94,9 @@
 						</div>
 				<%end%>
 				<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
-				<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
+
 			<%end%>
+<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
 			<% end %>
 		</tr>
 		</tr>

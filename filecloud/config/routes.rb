@@ -38,6 +38,9 @@ Filecloud::Application.routes.draw do
     member do
       get 'delete_from_folder'
     end
+    collection do
+    	get 'multiple_download'
+    end
 
    end
   # The priority is based upon order of creation:
