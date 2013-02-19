@@ -4,8 +4,9 @@
 <%= form_tag users_path, :method => 'get',:id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Users Name </label>
-			
-				        <%= text_field_tag :search, params[:search], class: "tf-search" %>
+			           
+				        
+                <input id="search" class="tf-search" type="text" name="search" data-provide="typeahead">
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
@@ -25,4 +26,5 @@ p.span2{
     width: 400px;
 
 }
+
 </style>

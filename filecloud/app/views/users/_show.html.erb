@@ -40,7 +40,7 @@
 		<tr>
 		<td><a href="/folders/<%=list.folder_id%>"><%= Folder.find(list.folder_id).name %></a></td>
 		<td><%=User.find(Folder.find(list.folder_id).user_id).name%> (<%=User.find(Folder.find(list.folder_id).user_id).email%>)</td>
-		<td><%= Foldersharing.find(list.id).created_at %></td>
+		<td><%= Foldersharing.find(list.id).created_at.strftime("%m/%d/%Y") %></td>
 		</tr>
 	<% end %>
 		</table>
@@ -96,7 +96,7 @@
 				<%end%>
 			<td><%= link_to 'Download', download_filestream_path(file.file_id) %></td>
 			<td><%= User.find(Folder.find(Filestream.find(file.file_id).folder_id).user_id).name %> (<%= User.find(Folder.find(Filestream.find(file.file_id).folder_id).user_id).email %>)</td>
-				<td><%= Filesharing.find_by_file_id(file.file_id).created_at %></td>
+				<td><%= Filesharing.find_by_file_id(file.file_id).created_at.strftime("%m/%d/%Y") %></td>
 		<tr>
 		</tr>
 		<% end %>

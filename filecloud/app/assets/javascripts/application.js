@@ -25,7 +25,7 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
- 
+
 $(function() {
     
     $("#folders").live("click", function() {

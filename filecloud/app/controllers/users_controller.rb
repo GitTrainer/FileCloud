@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_filter :set_mailer_host
 
   def index
+    # @user_name = User.find_by_sql(["Select name from users"])
     @users = User.search(params[:search])
     # respond_to do |format|
     #   format.html # index.html.erb
