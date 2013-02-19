@@ -26,8 +26,12 @@
 //=require jquery-fileupload/locale
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27dae0bbc20addb8326afbbf7ea3379b787d7312
 $(function() {
-    
+
     $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;

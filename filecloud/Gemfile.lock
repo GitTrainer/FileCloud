@@ -239,6 +239,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   rails3-jquery-autocomplete
   rspec-rails (~> 2.0)
+  rubyzip
   sass-rails (~> 3.2.3)
   shoulda-matchers
   spork (>= 0.8.4)

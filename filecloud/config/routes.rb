@@ -19,6 +19,9 @@ Filecloud::Application.routes.draw do
   	member do
   		get 'share_file'
   	end
+  	member do
+  		get 'folder_download'
+  	end
   end
 
   resources :foldersharings
@@ -34,6 +37,9 @@ Filecloud::Application.routes.draw do
     end
     member do
       get 'delete_from_folder'
+    end
+    collection do
+    	get 'multiple_download'
     end
 
    end

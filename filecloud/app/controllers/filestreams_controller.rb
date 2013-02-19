@@ -1,7 +1,8 @@
 class FilestreamsController < ApplicationController
-
-  before_filter :signed_in_user
-  before_filter :correct_user,   only: [:index]
+require 'zip/zip'
+require 'zip/zipfilesystem'
+before_filter :signed_in_user
+before_filter :correct_user,   only: [:index]
 
   def index
     @folder_id = params[:folder_id]
@@ -84,14 +85,29 @@ class FilestreamsController < ApplicationController
 
    def multiple_delete
    	 check_ids = params[:check]
-   	 if !check_ids.nil?
-				check_ids.each do |check|
-					del = Filestream.find(check)
-					del.destroy
-				end
+   	 if check_ids.nil?
+   	 	redirect_to ("/folders/" + params[:fID])
    	 else
-   	 end
-   	 redirect_to ("/folders/" + params[:fID])
+    	 if params[:commit].to_s == "Delete"
+				 check_ids.each do |check|
+				   del = Filestream.find(check)
+					 del.destroy
+				 end
+				 redirect_to ("/folders/" + params[:fID])
+			 else
+				 @files = check_ids
+  		   t = Tempfile.new('tmp-zip-' + request.remote_ip)
+    		 Zip::ZipOutputStream.open(t.path) do |zos|
+				   @files.each do |file|
+				  	 f = Filestream.find(file)
+		  		   zos.put_next_entry(f.attach_file_name)
+		  		   zos.print IO.read(f.attach.path)
+		 		   end
+  			 end
+  		   send_file t.path, :type => "application/zip", :filename => "FileIn-#{Folder.find(params[:fID]).name}-#{Time.now}.zip"
+  		   t.close
+		   end
+		 end
    end
 
   private
@@ -104,7 +120,6 @@ class FilestreamsController < ApplicationController
     end
 
     def correct_user
-      # binding.pry
 			if Folder.find(params[:folder_id]).user_id.to_s != current_user.id.to_s
 				flash[:notice] = "You do not have permission to do this"
 				redirect_to root_path

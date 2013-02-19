@@ -25,19 +25,40 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
-$(document).on("click", ".open-addMembers", function () {
-     var myFileId = $(this).data('params[:file_id]');
-     $(".modal-body #fileId").val( myFileId );
-    $('#myModal').modal('show');
-});
+function call(){
+     var x = document.getElementById("chk0").checked;
+		if (x==true){
+			$(".chk").attr('checked',true);
+		}
+		else{
+			$(".chk").attr('checked',false);
+		}
+}
 
 $(function() {
-  $("#folders th a, #folders .pagination a").live("click", function() {
+
+    $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;
   });
-  $("#folders_search input").keyup(function() {
-    $.get($("#folders_search").attr("action"), $("#folders_search").serialize(), null, "script");
+
+  $("#search_folder input").keyup(function() {
+    $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
   });
+      //   $(document).on("click", ".open-addMembers", function () {
+      //      var myFileId = $(this).data('params[:file_id]');
+      //      $(".modal-body #fileId").val( myFileId );
+      //     $('#myModal').modal('show');
+      // });
+      // $('.table-hove').each(function() {
+      //     $(this).table-hove({
+      //         timeout: 0.1
+      //         url:     "folders/show.html.erb"
+      //     });
+      // });
+      // function changeproject(folder_id,user_id){
+      //   window.location.href = url+"/?templateid=" +$("#templateid").val()
+      // }
+
 });

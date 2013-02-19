@@ -7,7 +7,7 @@
 			<th>Upload</th>
 			<%end%>
 		</tr>
-		<tr> 
+		<tr>
 			<td><%= @folder.name %></td>
 			<td><%= @folder.description %></td>
 			<td><%= Category.where(:id => @folder.category_id).first.name %></td>
@@ -43,15 +43,15 @@
 
 					  <div id="myCarousel" class="carousel slide">
 					  	<ol class="carousel-indicators">
-					  		
-					  		 
+
+
 					<li data-target="#previewModal" data-slide-to="0" class="active">
 <div class="modal-body">
-						
+
 							<%= image_tag filestream.attach.url %>
 						</div></li>
-					
-					
+
+
 				</ol>
 				 <div class="carousel-inner">
 <div class="active item">…</div>
@@ -62,7 +62,7 @@
 
 				</div>
 
-	
+
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
