@@ -7,6 +7,7 @@
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<th>Upload</th>
 			<%end%>
+			<th>Download folder(as ZIP file)</th>
 		</tr>
 		<tr>
 			<td><%= @folder.name %></td>
@@ -15,6 +16,7 @@
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
 			<%end%>
+			<td><a href="/folders/<%=@folder.id%>/folder_download">Download</a></td>
 		<tr>
 			<th><%= sortable "attach_file_name", "File Name"%></th>
 			<th><%= sortable "attach_file_size", "File Size"%></th>

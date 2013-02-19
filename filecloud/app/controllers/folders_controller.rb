@@ -63,7 +63,7 @@ class FoldersController < ApplicationController
 		@foldersharings = Foldersharing.all
 
 		@id = params[:id].to_i
-		
+
 			if Folder.where(:user_id => current_user.id, :id => @id).exists?
 				@folder = Folder.find(@id)
 				# format.html { render action: "show"}
@@ -79,7 +79,7 @@ class FoldersController < ApplicationController
 			 		redirect_to root_path
 				end
 			end
-		
+
 	end
 
 	def update
@@ -110,6 +110,21 @@ class FoldersController < ApplicationController
 		respond_to do |format|
 		  format.html { redirect_to "/folders"}
     end
+	end
+
+	def folder_download
+		require 'zip/zip'
+ 		require 'zip/zipfilesystem'
+		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
+    t = Tempfile.new('tmp-zip-' + request.remote_ip)
+    Zip::ZipOutputStream.open(t.path) do |zos|
+		  @files.each do |file|
+		    zos.put_next_entry(file.attach_file_name)
+		    zos.print IO.read(file.attach.path)
+		  end
+  	end
+  	send_file t.path, :type => "application/zip", :filename => "#{User.find(Folder.find(params[:id]).user_id).name}-#{Folder.find(params[:id]).name}-#{Time.now}.zip"
+  	t.close
 	end
 
   private

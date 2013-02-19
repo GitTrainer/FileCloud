@@ -14,7 +14,8 @@ class Filestream < ActiveRecord::Base
       "size" => read_attribute(:attach_file_size),
       "url" => attach.url(:original),
       "delete_url" => filestream_path(self),
-      "delete_type" => "DELETE"
+      "delete_type" => "DELETE",
+      "error_message" => read_attribute(:errors)
     }
   end
   def size_validation

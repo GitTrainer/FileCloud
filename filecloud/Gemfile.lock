@@ -236,6 +236,7 @@ DEPENDENCIES
   pry-debugger
   rails (= 3.2.8)
   rspec-rails (~> 2.0)
+  rubyzip
   sass-rails (~> 3.2.3)
   shoulda-matchers
   spork (>= 0.8.4)
