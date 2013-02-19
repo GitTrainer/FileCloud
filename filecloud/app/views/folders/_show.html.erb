@@ -25,7 +25,7 @@
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<th colspan="2">Action</th>
 				<th><input type="checkbox" onClick="call()" id="chk0">
-				<%= submit_tag "Delete" %>
+				<%= submit_tag "Delete", :confirm => "Are you sure?" %>
 
 			<%end%>
 		</tr>
@@ -98,4 +98,3 @@
 		</tr>
 		</tr>
 	</table>
-
