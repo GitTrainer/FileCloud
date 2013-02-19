@@ -9,7 +9,6 @@ def index
 end  
 
   def new
-  
     @folder=Folder.find_by_id(params[:id])
   	@fileupload=FileUpLoad.new
     
@@ -54,6 +53,15 @@ end
     else
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
      end
+  end
+  
+  def deletefiles
+    if params[:file_ids]
+      FileUpLoad.delete_all(["id in (?)",params[:file_ids]])
+      redirect_to :back,notice: "Files Successfull destroyed"
+    else
+      redirect_to :back,notice: "You don't select file"
+    end
   end
 
   def correct_user_folder_fileupload  

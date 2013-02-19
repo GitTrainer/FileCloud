@@ -1,35 +1,48 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
-<div class="listUser">
-	<table class="tb-lst", border="1">
-	  <tr align="center">
-	    <th>File_Id</th>
-	    <th><%= sortable "attach_file_name" %></th>
-	    <th>File Type</th>
-	    <th><%= sortable "attach_file_size" %></th>
-	    <th><%= sortable "created_at" %></th>
-      	<th><%= sortable "count_download" %></th>
-	    <th colspan=2>Action</th>
-	  </tr>
-	<% @files.each do |f| %>
-	  <tr align="center">
-	    <td><%= f.id %></td>
-	    <td><%= link_to f.attach_file_name,file_up_load_path(f.id) %></td>
-	    <td><%= f.attach_content_type %></td>
-	    <td><%= f.attach_file_size %></td>
-	    <td><%= f.created_at.strftime("%m/%d/%Y") %></td>
-	    <td><%= f.count_download %></td>
-	    <td><%= link_to image_tag("download.png", alt: "download"),file_up_load_path(f.id)%></td>
-	    <td> <%= link_to image_tag("del.png", alt: "delete"), f, method: :delete,
-                                    data: { confirm: "You sure?" } %></td>	  
-	    <%end%>
-	  </tr>
-	</table>
-</div>
- <div class="btn">
-    <%=link_to 'Back',folders_path %>
-  </div>
-  <div class="btn"> 
-    <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
- </div>
- <%= will_paginate @files%>
+
+<%= form_tag deletefiles_file_up_loads_path,:id=>"frm_delete_files" do %>
+	<div class="listUser">
+		<table class="tb-lst", border="1">
+		  <tr align="center">
+		    <th>File_Id</th>
+		    <th><%= sortable "attach_file_name" %></th>
+		    <th>File Type</th>
+		    <th><%= sortable "attach_file_size" %></th>
+		    <th><%= sortable "created_at" %></th>
+	      	<th><%= sortable "count_download" %></th>
+		    <th colspan=3>Action</th>
+		  </tr>
+		<% @files.each do |f| %>
+		  <tr align="center">
+		    <td><%= f.id %></td>
+		    <td><%= link_to f.attach_file_name,file_up_load_path(f.id) %></td>
+		    <td><%= f.attach_content_type %></td>
+		    <td><%= f.attach_file_size %></td>
+		    <td><%= f.created_at.strftime("%m/%d/%Y") %></td>
+		    <td><%= f.count_download %></td>
+		    <td><%= link_to image_tag("download.png", alt: "download"),file_up_load_path(f.id)%></td>
+		    <td> <%= link_to image_tag("del.png", alt: "delete"), f, method: :delete,
+	                                    data: { confirm: "You sure?" } %></td>	  
+	        <td>
+		    	 <%= check_box_tag  "file_ids[]", f.id , false %>
+		    </td>
+		    </tr>
+		 <%end%>
+		</table>
+	</div>
+
+	<div class="btn">
+	    <%=link_to 'Back',folders_path %>
+	</div>
+
+	<div class="btn"> 
+	    <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
+	</div>
+
+	<div class="btn"> 
+		<%= submit_tag "Delete files", :name => nil %>
+	</div>
+<% end %>
+<%= will_paginate @files%>
+

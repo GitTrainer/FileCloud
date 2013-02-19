@@ -19,11 +19,16 @@ Filecloud::Application.routes.draw do
       member do
            get 'download'
       end
-    end
+  end
+
   resources :file_shares do
-   member do
-     get 'download_file_shared'
-   end  
+    member do
+      get 'download_file_shared'
+    end  
+  end
+
+  resources :file_up_loads do
+    post 'deletefiles', :on => :collection
   end
 
 
