@@ -1,6 +1,7 @@
 class FoldersController < ApplicationController
+	require 'zip/zip'
+	require 'zip/zipfilesystem'
   before_filter :signed_in_user
-
   helper_method :sort_column, :sort_direction
 
    def index
@@ -9,14 +10,12 @@ class FoldersController < ApplicationController
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
-
-     	respond_to do |format|
-	         format.html { render action: "index"}
-	         format.js {render js: @foldersharings}
-	         format.js {render js: @new_folder }
-	         format.js {render js: @search_folder }
-      	end
-
+   	respond_to do |format|
+		  format.html { render action: "index"}
+		  format.js {render js: @foldersharings}
+		  format.js {render js: @new_folder }
+      format.js {render js: @search_folder }
+    end
 	end
 
 	def new
@@ -32,7 +31,7 @@ class FoldersController < ApplicationController
 		  if @new_folder.save
 			  @new_folder = nil
   			@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-				format.html { redirect_to "/folders/" }
+				format.html { render :action => 'index' }
 		    format.js {render js: @new_folder }
 		    format.js {render js: @search_folder }
 		  else
@@ -43,6 +42,7 @@ class FoldersController < ApplicationController
 		  end
 		end
 	end
+
 	def edit
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
   	@foldersharings = Foldersharing.all
@@ -56,19 +56,15 @@ class FoldersController < ApplicationController
 	end
 
 	def show
-
 		@folder = Folder.find(params[:id])
 		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
 		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
 		@foldersharings = Foldersharing.all
-
 		@id = params[:id].to_i
-
 			if Folder.where(:user_id => current_user.id, :id => @id).exists?
 				@folder = Folder.find(@id)
-				# format.html { render action: "show"}
 				render :action=> 'show'
-				# format.js {render js: @uploads }
+
 			else
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
 					@folder = Folder.find(params[:id])
@@ -113,8 +109,6 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_download
-		require 'zip/zip'
- 		require 'zip/zipfilesystem'
 		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
     t = Tempfile.new('tmp-zip-' + request.remote_ip)
     Zip::ZipOutputStream.open(t.path) do |zos|
