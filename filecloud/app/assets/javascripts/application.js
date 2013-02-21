@@ -27,6 +27,7 @@
 
 //= require autocomplete-rails
 
+
 $(function() {
 
     $("#folders").live("click", function() {
@@ -38,6 +39,11 @@ $(function() {
     $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
   });
+
+  function noFile()
+	{
+		alert("No files in folder");
+	}
       //   $(document).on("click", ".open-addMembers", function () {
       //      var myFileId = $(this).data('params[:file_id]');
       //      $(".modal-body #fileId").val( myFileId );

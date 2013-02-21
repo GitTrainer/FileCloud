@@ -9,7 +9,6 @@
 <% end %>
 <br></br>
 <div class="row">
-
   <% if(@new_folder.nil?)
     @new_folder= Folder.new
   end %>
@@ -17,8 +16,9 @@
     <div class="span7">
   		<h2>New Folder</h2>
   		<%= render 'shared/error_messages', object: f.object %>
-  		<%= render 'folder',st: @new_folder , f: f%>
-  		<div class="span1" ></br><%= f.submit class: "btn  btn-primary"%></div>
+  		<br/>
+  		<%= render 'folder', f: f%>
+  		<div class="span5"><center></br><%= f.submit class: "btn  btn-primary"%></center></div>
   	</div>
   <%end%>
 
@@ -39,7 +39,7 @@
 							<td><%= folder.description %></td>
 							<td><a href="/folders/<%=folder.id%>">Show</a></td>
 							<td><a href="/folders/<%=folder.id%>/edit">Edit</a></td>
-							<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+							<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 						</tr>
 				<% end %>
 			<% end %>
