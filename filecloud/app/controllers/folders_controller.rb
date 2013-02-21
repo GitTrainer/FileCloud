@@ -65,7 +65,7 @@ class FoldersController < ApplicationController
 			@folder = Folder.find(@id)
 			render :action=> 'show'
 		else
-			if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists? || Folder.where(:parentID => @id).exists?
+			if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists? || Folder.where(:id => Folder.where(:id => @id).first.parentID).exists?
 				@folder = Folder.find(params[:id])
 		 	else
 		 		redirect_to root_path
@@ -132,6 +132,11 @@ class FoldersController < ApplicationController
 	end
 
   private
+
+  def isParent
+		#finding the parent and check it is share or not.
+
+  end
     def signed_in_user
       unless signed_in?
         store_location

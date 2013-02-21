@@ -43,9 +43,9 @@
 			<th>Preview</th>
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
+			<th><input type="checkbox" onClick="call()" id="chk0"></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<th colspan="2">Action</th>
-				<th colspan="3"><input type="checkbox" onClick="call()" id="chk0">
 				<th><%= submit_tag "Delete", :confirm => "Are you sure?" %></th>
 			<%end%>
 			<th><%= submit_tag "Download"%></th>
@@ -120,5 +120,3 @@
 		</tr>
 		</tr>
 	</table>
-
-
