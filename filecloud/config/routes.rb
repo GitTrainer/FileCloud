@@ -13,6 +13,7 @@ Filecloud::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/filestreams/multiple_delete', to: 'filestreams#multiple_delete'
+  match '/folders/create_child', to: 'folders#create_child', via: :post
   resources :categories
 
   resources :folders do
@@ -21,6 +22,9 @@ Filecloud::Application.routes.draw do
   	end
   	member do
   		get 'folder_download'
+  	end
+  	member do
+  		get 'folder_child'
   	end
   end
 
@@ -38,11 +42,9 @@ Filecloud::Application.routes.draw do
     member do
       get 'delete_from_folder'
     end
-    collection do
-    	get 'multiple_download'
-    end
+  end
 
-   end
+  resources :foldertrees
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

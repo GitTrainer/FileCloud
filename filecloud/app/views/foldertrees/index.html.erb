@@ -1,0 +1,39 @@
+<h1>Folders tree</h1>
+<div class="row">
+  <% if(@new_foldertree.nil?)
+    @new_foldertree = Foldertree.new
+  end %>
+	<%= form_for(@new_foldertree) do |f| %>
+    <div class="span7">
+  		<h2>New Folderchild</h2>
+  		<%= render 'shared/error_messages', object: f.object %>
+  		<br/>
+  		<%= render 'foldertree', f: f%>
+  		<div class="span5"><center></br><%= f.submit class: "btn  btn-primary"%></center></div>
+  	</div>
+  <%end%>
+
+  <div class="span8">
+		<table class="table table-hover">
+		  <br/>
+				<tr>
+				  <th>Name</th>
+				  <th>Description </th>
+				  <th>Show details</th>
+				  <th>Edit</th>
+				  <th>Delete </th>
+				</tr>
+				<%if !@foldertrees.nil? %>
+					<% @foldertrees.each do |tree|%>
+			 		  <tr>
+				  		<td><%= tree.name %> </td>
+							<td><%= tree.description %></td>
+							<td><a href="/foldertrees/<%=tree.id%>">Show</a></td>
+							<td><a href="/foldertrees/<%=tree.id%>/edit/?pID=<%=params[:pID]%>">Edit</a></td>
+							<td><%= link_to 'Delete', tree, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+						</tr>
+				<% end %>
+			<% end %>
+		</table>
+	</div>
+</div>

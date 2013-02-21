@@ -24,7 +24,7 @@ class FoldersController < ApplicationController
 	end
 
 	def create
-    @foldersharings = Foldersharing.all
+
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
 		respond_to do |format|
@@ -61,21 +61,16 @@ class FoldersController < ApplicationController
 		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
 		@foldersharings = Foldersharing.all
 		@id = params[:id].to_i
-			if Folder.where(:user_id => current_user.id, :id => @id).exists?
-				@folder = Folder.find(@id)
-				render :action=> 'show'
-
-			else
-				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists?
-					@folder = Folder.find(params[:id])
-					# format.html
-				    # format.js {render js: @folder}
-			 	else
-			 		# format.html { redirect_to root_path }
-			 		redirect_to root_path
-				end
+		if Folder.where(:user_id => current_user.id, :id => @id).exists?
+			@folder = Folder.find(@id)
+			render :action=> 'show'
+		else
+			if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists? || Folder.where(:parentID => @id).exists?
+				@folder = Folder.find(params[:id])
+		 	else
+		 		redirect_to root_path
 			end
-
+		end
 	end
 
 	def update
@@ -86,7 +81,7 @@ class FoldersController < ApplicationController
 			if @new_folder.update_attributes(params[:folder])
 				@new_folder = nil
 				@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-		    format.html {render :action => 'index'}
+		    format.html { redirect_to "/folders"}
 		    format.js { render js: @new_folder }
 		    format.js { render js: @search_folder }
 		  else
@@ -109,15 +104,8 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_download
-
-		# binding.pry
-		require 'zip/zip'
- 		require 'zip/zipfilesystem'
-
-
 		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
     t = Tempfile.new('tmp-zip-' + request.remote_ip)
-    # binding.pry
     Zip::ZipOutputStream.open(t.path) do |zos|
 		  @files.each do |file|
 		    zos.put_next_entry(file.attach_file_name)
@@ -126,6 +114,21 @@ class FoldersController < ApplicationController
   	end
   	send_file t.path, :type => "application/zip", :filename => "#{User.find(Folder.find(params[:id]).user_id).name}-#{Folder.find(params[:id]).name}-#{Time.now}.zip"
   	t.close
+	end
+
+	def create_child
+		@child = Folder.new
+		@child.name = params[:name]
+		@child.description = params[:description]
+		@child.parentID = params[:parentID]
+		@child.category_id = params[:category_id]
+		if @child.save
+			@child = nil
+			redirect_to ("/folders/"+ params[:parentID]+"/folder_child")
+		else
+			redirect_to ("/folders/"+ params[:parentID]+"/folder_child")
+			flash[:error] = "Please fill all fields correctly!"
+		end
 	end
 
   private

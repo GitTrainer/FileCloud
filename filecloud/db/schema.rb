@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220090552) do
+ActiveRecord::Schema.define(:version => 20130220074042) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(:version => 20130220090552) do
     t.integer  "download_count",      :default => 0
   end
 
+  create_table "folderchilds", :force => true do |t|
+    t.integer  "parentID"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "folders", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -62,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130220090552) do
     t.datetime "updated_at",  :null => false
     t.string   "file"
     t.integer  "user_id"
+    t.integer  "parentID"
   end
 
   create_table "foldersharings", :force => true do |t|
@@ -70,6 +79,14 @@ ActiveRecord::Schema.define(:version => 20130220090552) do
     t.boolean  "isShare"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+  end
+
+  create_table "foldertrees", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "parentID"
+    t.string   "name"
+    t.string   "description"
   end
 
   create_table "users", :force => true do |t|
