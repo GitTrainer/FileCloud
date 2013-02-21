@@ -37,6 +37,7 @@
 		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
 			<P><a href="/folders">Go to Folders</a></p>
+			<p><a href="/folders/<%=@folder.id%>/folder_child">Create folder child</a></p>
 		<%end%>
 <%end%>
 

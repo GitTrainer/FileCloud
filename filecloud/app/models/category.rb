@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :description, :presence => true
 
- 
+
 
 def self.search(search)
   if search
@@ -13,9 +13,9 @@ def self.search(search)
     find(:all)
   end
 end
-    
-  
-  
+
+
+
   # def to_s
   #   self.name
   # end
