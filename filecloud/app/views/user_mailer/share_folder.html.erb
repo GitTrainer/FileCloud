@@ -3,6 +3,6 @@
 	<body>
 	You was shared a folder <br/>
 	Visit your profile or checkout link below: <br/>
-	<%= url_for(:action => 'show', :controller => 'folders', :only_path => false,:id => @folder_id, :user_id => @user_id) %>
+	<%= url_for(:action => 'show', :controller => 'folders', :host =>"localhost:3000",:id => @folder_id) %>
 	</body>
 </html>

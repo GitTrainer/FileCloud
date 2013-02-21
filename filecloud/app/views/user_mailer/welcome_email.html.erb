@@ -10,7 +10,7 @@ your username is: <%= @user.name %>.
 Login activation code: <%= @user.login %>.
  Please activation:
       
-      <%=link_to "Login", :controller => "users", :action => "activate",set default_url_options[:host], :id => @user.id,:active_code =>@user.login%>
+      <%=link_to "Login", :controller => "users", :action => "activate",:host => "localhost:3000", :id => @user.id,:active_code =>@user.login%>
 Thanks for joining and have a great day!
   </body>
 </html>

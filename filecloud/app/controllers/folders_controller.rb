@@ -109,12 +109,12 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_download
-<<<<<<< HEAD
+
 		# binding.pry
 		require 'zip/zip'
  		require 'zip/zipfilesystem'
-=======
->>>>>>> 118daa5afc5aec6616f132d0d9a5bfd54867453a
+
+
 		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
     t = Tempfile.new('tmp-zip-' + request.remote_ip)
     # binding.pry
