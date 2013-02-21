@@ -1,0 +1,9 @@
+Dear you.
+
+User <%= @user.name %> (<%= @user.email %>) has share file you.
+
+Use the following URL to download your file:
+
+<%= sharefiles_url(:id => @share_link.link_token) %>
+
+--FildeColder

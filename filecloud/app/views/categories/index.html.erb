@@ -1,0 +1,49 @@
+
+
+<!--form tao moi-->
+<div class="row">
+  <div class ="span13">
+    <legend><%= t('Create or Edit category')%></legend>
+    <% if @category.nil?
+      @category = Category.new
+    end
+  %>
+    <%= simple_form_for(@category) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :name %>
+      </div>
+
+      <div class="form-inputs">
+        <%= f.input :description %>
+      </div>
+
+      <div class="form-actions1">
+        <%= f.button :submit, :class =>'btn-primary' %>
+      </div>
+    <% end %>
+  </div></div>
+<!-- ket thuc-->
+
+<legend>List category</legend>
+
+<table class="table table-bordered" >
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th colspan="2" style="text-align:center">Action</th>
+  </tr>
+
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+      <td><%= category.description %></td>
+      <td><%= link_to 'Show', category %></td>
+      <td><%= link_to 'Edit', edit_category_path(category) %></td>
+      <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+
+  <% end %>
+
+</table>

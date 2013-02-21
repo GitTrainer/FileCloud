@@ -1,0 +1,12 @@
+class Folder < ActiveRecord::Base
+  attr_accessible :description, :name, :category_id, :user_id
+  validates :name, presence: true, uniqueness: true
+  validates :description, presence: true
+  validates :category_id, presence: true
+
+  belongs_to :category 
+
+  has_many :uploads, :dependent => :destroy
+  belongs_to :user
+  
+end

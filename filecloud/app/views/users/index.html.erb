@@ -1,27 +1,37 @@
-<h1>Listing users</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Login</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
-    <td><%= user.login %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% content_for :head do %>
+  <%= javascript_include_tag 'http://www.google.com/jsapi' %>
 <% end %>
+<legend>Users List</legend>
+
+<table class="datatable table table-bordered table-condensed" style="width: 884px;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Requested</th>
+      <th>Joined</th>
+      <th>Visits</th>
+      <th>Most Recent</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name%></td>
+        <td><%= user.email%></td>
+        <td><%= user.created_at.to_date %></td>
+        <td><%= user.confirmed_at.to_date if user.confirmed_at %></td>
+        <td><%= user.sign_in_count if user.sign_in_count %></td>
+        <td><%= user.last_sign_in_at.to_date if user.last_sign_in_at %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
 
-<%= link_to 'New User', new_user_path %>
+
+

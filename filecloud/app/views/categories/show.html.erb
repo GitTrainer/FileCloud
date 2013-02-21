@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<%if @category.folders.blank?%>
+	<legend>These is Files not contian in this category</legend>
+<%else%>
+	<legend>These is Files contian in this category</legend>
+<%end%>
+<table class="table table-bordered">
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th colspan="2" style="text-align:center">Name folder</th>
+	</tr>
+	
+		<tr>
+			<td><%= @category.name %></td>
+			<td><%= @category.description %></td>
+			<% @category.folders.each do |f| %>
+				<td><%= link_to f.name, {:action=>'show',:controller=>'folders',:id=>f.id},{:method=>'get'} %></td>
+			<% end %>	
+		</tr>
+	
+</table>
+
+<%= link_to 'Back', categories_path %>

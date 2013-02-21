@@ -28,10 +28,28 @@ Filecloud::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+#    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+#  config.action_mailer.delivery_method = :smtp
+#  # change to true to allow email to be sent during development
+#  config.action_mailer.perform_deliveries = true
+#  config.action_mailer.raise_delivery_errors = false
+#  config.action_mailer.default :charset => "utf-8"
+#
+#  config.action_mailer.smtp_settings = {
+#    :address   => "smtp.mandrillapp.com",
+#    :port      => 25,
+#    :user_name => "tuanthuasac",
+#    :password  => "pm-NyMtEJIwpeJL_cDfoPA"
+#  }
+  
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
 end

@@ -1,0 +1,13 @@
+<% content_for :title, t(:share_file) %>
+
+<h1><%= content_for :title %></h1>
+
+<%= form_for [@upload,@sharefile], :url => {:action => 'create'} do |f| %>
+
+<span>
+	<p><%= f.label :email, t(:emails_to_share_with) %></p>
+	<p><%= f.text_area :email, :class => 'emails_to_share_with'%></p>
+
+</span>
+<p><%= f.submit %></p>
+<% end %>
