@@ -113,10 +113,12 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_download
+		# binding.pry
 		require 'zip/zip'
  		require 'zip/zipfilesystem'
 		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
     t = Tempfile.new('tmp-zip-' + request.remote_ip)
+    # binding.pry
     Zip::ZipOutputStream.open(t.path) do |zos|
 		  @files.each do |file|
 		    zos.put_next_entry(file.attach_file_name)

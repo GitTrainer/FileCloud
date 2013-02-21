@@ -25,11 +25,8 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
+//= require autocomplete-rails
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 27dae0bbc20addb8326afbbf7ea3379b787d7312
 $(function() {
 
     $("#folders").live("click", function() {

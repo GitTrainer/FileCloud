@@ -24,7 +24,7 @@ class FilesharingsController < ApplicationController
 		    activated_ids.each do |activated_id|
       	  @file_share = Filesharing.new(:file_id => @file_id, :shared_user_id => activated_id)
 		      @file_share.save!
-		      UserMailer.share_file(activated_id,@file_id).deliver
+		      UserMailer.delay.share_file(activated_id,@file_id)
 		 	  end
 		 	  flash[:success] = "Share file successfully"
 		 	  redirect_to ("/folders/"+ @folder_id.to_s)
