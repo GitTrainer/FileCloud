@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_password(user)
-  	@user = user
+    @user = user
     mail(:to => @user.email, :subject => "You have Forgot password")#replaced user.mail to dangkhanhjava
   end
 

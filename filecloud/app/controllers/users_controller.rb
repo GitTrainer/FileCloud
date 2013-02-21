@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index,:show]
   before_filter :correct_user, only: [:edit, :update,:show]
   before_filter :admin_user, only: :destroy
-  before_filter :set_mailer_host
+  # before_filter :set_mailer_host
 
   def index
     @users = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])

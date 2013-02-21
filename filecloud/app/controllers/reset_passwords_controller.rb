@@ -1,7 +1,10 @@
 class ResetPasswordsController < ApplicationController
+	# before_filter :set_mailer_host
 
 	def create
 		@user=User.find_by_email(params[:email])
+		# @user.host=request.host_with_port
+		@user.save
 		if @user
 			@user.send_resset_password
 			flash.now[:notice]='Please check your email to reset password'

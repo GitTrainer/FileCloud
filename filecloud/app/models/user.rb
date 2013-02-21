@@ -11,7 +11,6 @@
 #
 
 class User < ActiveRecord::Base
-  	
   	attr_accessible :email,:name, :login,:password, :password_confirmation,:password_reset, :password_reset_sent_at,:status,:avatar
     has_attached_file :avatar, :styles => { :medium => "400x600>", :thumb => "400x600>" },:default_url => "/assets/rails.jpeg"
    
@@ -27,13 +26,13 @@ class User < ActiveRecord::Base
   	before_save :create_remember_token
     has_many :folders,dependent: :destroy
     has_many :file_shares
-   
+
     def send_resset_password
       self.password_reset_sent_at=Time.zone.now
       @pass=SecureRandom.urlsafe_base64
       self.password_reset=@pass
       save!(:validate => false)
-      UserMailer.send_password(self).deliver
+      UserMailer.delay_for(10.seconds).send_password(self)
     end
 
     def self.search(search)
