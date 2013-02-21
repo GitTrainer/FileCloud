@@ -6,11 +6,13 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Welcome to My Awesome Site")
   end
 
-
   def password_reset(user)
-   @user = user
-  mail(:to => user.email, :subject => "password reset")
+      # binding.pry
+    @user = user
+    # @url  = "http://localhost:3000/users/#{user.password_reset_token}"
+  mail(:to => @user.email, :subject => "password reset")
   end
+
   def share_folder(activated_id, folder_id)
     @user_email = User.where(:id => activated_id).first.email
     @folder_id = folder_id

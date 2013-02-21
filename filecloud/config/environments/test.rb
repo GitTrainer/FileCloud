@@ -29,10 +29,11 @@ Filecloud::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-
+  # config.action_mailer.default_url_options = { :host => 'localhost' }  
+  config.action_mailer.delivery_method = :smtp
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
-  # config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
+ config.action_mailer.default_url_options = { :host => "localhost:3000" }
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
     require 'bcrypt'

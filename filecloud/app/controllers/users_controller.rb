@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
-  before_filter :set_mailer_host
+  # before_filter :set_mailer_host
+  # before_filter :set_host_from_request, only: [:create]
 
   def index
     # @user_name = User.find_by_sql(["Select name from users"])
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
     @code = SecureRandom.urlsafe_base64
     @user.login=@code
     if @user.save
-      UserMailer.welcome_email(@user).deliver
+      UserMailer.delay.welcome_email(@user)
       flash[:success] = "Welcome to the Sample App! Please in your mail activate account"
       render 'sessions/new'
     else
@@ -109,4 +110,7 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+
+
+  
 end
