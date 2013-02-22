@@ -13,6 +13,7 @@
     	<div class="span3"><%= text_area_tag 'description'  %></div>
         <%= hidden_field_tag :parentID, params[:id] %>
         <%= hidden_field_tag :category_id, Folder.where(:id=>params[:id]).first.category_id %>
+        <%= hidden_field_tag :user_id, Folder.where(:id=>params[:id]).first.user_id %>
 		</br>
   		<div class="span5"><center></br><%= submit_tag nil,:class => "btn  btn-primary"%></center></div>
   	</div>
