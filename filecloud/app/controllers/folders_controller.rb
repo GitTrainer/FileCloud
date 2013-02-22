@@ -65,7 +65,7 @@ class FoldersController < ApplicationController
 			@folder = Folder.find(@id)
 			render :action=> 'show'
 		else
-			if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @id).exists? || Folder.where(:parentID => @id).exists?
+			if isParent
 				@folder = Folder.find(params[:id])
 		 	else
 		 		redirect_to root_path
@@ -122,6 +122,7 @@ class FoldersController < ApplicationController
 		@child.description = params[:description]
 		@child.parentID = params[:parentID]
 		@child.category_id = params[:category_id]
+		@child.user_id = params[:user_id]
 		if @child.save
 			@child = nil
 			redirect_to ("/folders/"+ params[:parentID]+"/folder_child")
@@ -132,15 +133,42 @@ class FoldersController < ApplicationController
 	end
 
   private
-    def signed_in_user
-      unless signed_in?
-        store_location
+
+  def isParent 											#finding the parent and check it is share or not.
+		temp = true
+		folder_id = params[:id]
+		begin
+			x = Folder.find(folder_id).parentID
+			if x.nil?
+				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => folder_id).exists?
+					return true
+				else
+					return false
+				end
+			else
+			#If parent is shared, return true
+				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => folder_id).exists?
+					return true
+				else
+				# Finding lastest parent is shared or not.
+					folder_id = Folder.find(folder_id).parentID
+					temp = false
+				end
+			end
+		end while(temp = true, x = nil)
+  end
+
+  def signed_in_user
+    unless signed_in?
+      store_location
         redirect_to signin_url, notice: "Please sign in."
       end
     end
+
 	def sort_column
 	    Filestream.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
 	end
+
 	def sort_direction
 	    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
 	end

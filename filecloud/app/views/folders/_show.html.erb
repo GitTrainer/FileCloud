@@ -24,15 +24,14 @@
 			<th>Children Name</th>
 			<th>Description</th>
 		</tr>
-		<% if @folder.parentID.nil? %>
-			<% Folder.where(:parentID => @folder.id).each do |child| %>
+		<% Folder.where(:parentID => @folder.id).each do |child| %>
 			<tr>
 				<td></td>
 				<td><a href="/folders/<%= child.id %>"><%= child.name%></a></td>
 				<td><%=child.description%></td>
 			</tr>
-			<%end%>
 		<%end%>
+
 	</table>
 	</br>
 	<table class="table table-hover">
@@ -43,9 +42,9 @@
 			<th>Preview</th>
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
+			<th><input type="checkbox" onClick="call()" id="chk0"></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<th colspan="2">Action</th>
-				<th colspan="3"><input type="checkbox" onClick="call()" id="chk0">
 				<th><%= submit_tag "Delete", :confirm => "Are you sure?" %></th>
 			<%end%>
 			<th><%= submit_tag "Download"%></th>
@@ -120,5 +119,3 @@
 		</tr>
 		</tr>
 	</table>
-
-
