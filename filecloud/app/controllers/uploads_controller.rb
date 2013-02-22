@@ -25,6 +25,7 @@ class UploadsController < ApplicationController
   # GET /uploads/new
   # GET /uploads/new.json
   def new
+    # binding.pry
     @folder=Folder.find_by_id(params[:id])
     @upload = Upload.new
 
