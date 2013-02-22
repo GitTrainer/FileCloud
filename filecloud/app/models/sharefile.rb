@@ -1,6 +1,6 @@
 class Sharefile < ActiveRecord::Base
   attr_accessible :email, :upload_id
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true
   belongs_to :upload
   before_save :generate_token
 

@@ -3,7 +3,9 @@
 <h1><%= content_for :title %></h1>
 
 <%= form_for [@upload,@sharefile], :url => {:action => 'create'} do |f| %>
-
+<% @sharefile.errors.full_messages.each do |msg| %>
+	<p><%= msg %></p>
+<% end %>
 <span>
 	<p><%= f.label :email, t(:emails_to_share_with) %></p>
 	<p><%= f.text_area :email, :class => 'emails_to_share_with'%></p>

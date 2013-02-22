@@ -8,10 +8,10 @@ class SharefilesController < ApplicationController
 
 	def create
 		# binding.pry
-		@sharefiles = @upload.sharefiles.build(params[:sharefile])
+		@sharefile = @upload.sharefiles.build(params[:sharefile])
 
-		if @sharefiles.save
-			UserMailer.share_link_email(current_user,@sharefiles).deliver
+		if @sharefile.save
+			UserMailer.share_link_email(current_user,@sharefile).deliver
 			redirect_to @folder, notice: 'Sharefile was successfully!!!'
 		else
 			# redirect_to @new_upload_sharefile, notice: 'Email not is empty.'
