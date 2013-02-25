@@ -4,7 +4,7 @@ class Upload < ActiveRecord::Base
   has_attached_file :upload
   belongs_to :folder
   belongs_to :user
-  # validate :validate_size
+  validate :validate_size
 
   has_many :sharefiles, :dependent => :destroy
 
