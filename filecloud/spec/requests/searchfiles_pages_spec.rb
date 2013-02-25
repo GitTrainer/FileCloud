@@ -18,12 +18,11 @@ describe "SearchFilesPages" do
 	      end
     	  describe "search files" do 
 	    	  before do
-				    visit '/folders/'+@file.folder_id.to_s
+				    visit ("/folders/" + @file.folder_id.to_s + "&?user_id=" + @file.user_id.to_s)
 				    fill_in "search", with: "bench_with_sea_view_sunset-wallpaper-1366x768.jpg"
 					    	# let(:search) { FactoryGirl.create(:search, keywords: "dung") }
 				    click_button "Search"
 				  end
-				    it {save_and_open_page}
 				    it { should_not have_content('Count Download') }
 				    it {should have_content('bench_with_sea_view_sunset-wallpaper-1366x768.jpg')}
 				end
