@@ -13,7 +13,8 @@ class FileUpLoad < ActiveRecord::Base
     {
       "name" => read_attribute(:attach_file_name),
       "size" => read_attribute(:attach_file_size),
-      "url" => attach.url(:original),
+      # "url" => attach.url(:original),
+      "url"=>file_up_load_path(self),
       "delete_url" => file_up_load_path(self),
       "delete_type" => "DELETE" 
 
