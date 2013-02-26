@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])
-    
     # respond_to do |format|
     #   format.html # index.html.erb
     #   format.json { render json: @users }
@@ -21,8 +20,8 @@ class UsersController < ApplicationController
     rescue ActiveRecord::RecordNotFound
     if @user 
       respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+        format.html # show.html.erb
+        format.json { render json: @user }
       end  
     else
       render 'shared/notify'

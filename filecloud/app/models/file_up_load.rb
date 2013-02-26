@@ -7,7 +7,18 @@ class FileUpLoad < ActiveRecord::Base
   belongs_to :folder 
   has_attached_file :attach
   has_many :file_shares,dependent: :destroy
-  
+  include Rails.application.routes.url_helpers
+
+  def to_jq_upload
+    {
+      "name" => read_attribute(:attach_file_name),
+      "size" => read_attribute(:attach_file_size),
+      "url" => attach.url(:original),
+      "delete_url" => file_up_load_path(self),
+      "delete_type" => "DELETE" 
+
+    }
+  end
 	def self.search(search)
 	  if search
 	    where('attach_file_name LIKE ?', "%#{search}%")

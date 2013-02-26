@@ -15,12 +15,15 @@ end
   end
 
   def create
-
     @fileupload=FileUpLoad.new(params[:file_up_load])
     if @fileupload.save
       respond_to do |format|
-        format.html { redirect_to folder_path(@fileupload.folder)}
-        format.js { render json: [@fileupload.folder.to_json] }
+        format.html {
+          render :json => [@fileupload.to_jq_upload].to_json,
+          :content_type => 'text/html',
+          :layout => false
+        }
+        format.json { render json: [@fileupload.to_jq_upload].to_json, status: :created, location: @fileupload }
       end
     else
       render :action=>'new' 
@@ -29,11 +32,13 @@ end
 
 	def show
     @fileupload=FileUpLoad.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
+    # rescue ActiveRecord::RecordNotFound
     if @fileupload
-      render 'show'
-    else
-      render 'shared/notify'
+      # render 'show'
+      respond_to do |format|
+        format.html 
+        format.js { render json: @fileupload.to_json }
+      end
     end
 	end
 

@@ -11,9 +11,9 @@ class FoldersController < ApplicationController
   	@folder=Folder.find(params[:id])
     @files = @folder.file_up_loads.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
     # respond_to do |format|
-    #   format.html
-    #   format.js {render js: @files }
-    # end
+    #     format.html # show.html.erb
+    #     format.json { render json: @folder }
+    #   end  
   end
   
   def new
