@@ -1,3 +1,7 @@
+require 'zip/zip'
+require 'zip/zipfilesystem'
+require 'open-uri'
+
 class FoldersController < ApplicationController
  
   before_filter :signed_in_user,only:[:new]
@@ -24,10 +28,10 @@ class FoldersController < ApplicationController
   def create
   	@folder=Folder.new(params[:folder])
     if @folder.save
-    	 redirect_to folders_path
+    	redirect_to folders_path
     else
-        @categorys=Category.all
-        render :action=>'new' 
+      @categorys=Category.all
+      render :action=>'new' 
     end    
   end
 
@@ -39,34 +43,47 @@ class FoldersController < ApplicationController
   def update
     @folder=Folder.find(params[:id])
     if @folder.update_attributes(params[:folder])
-    	 redirect_to :action=>'show'
+    	redirect_to :action=>'show'
     else
-    	 @categorys=Category.all
-    	 render :action=>'edit'
-   end
-  end
-
-  def destroy
-     Folder.find(params[:id]).destroy
-     redirect_to folders_path
-end
-def correct_user_folder
-          @current_folder=Folder.find(params[:id])
-       if @current_folder.user.id.to_s!=current_user.id.to_s
-          redirect_to current_user  
-       end
-    Folder.find(params[:id]).destroy
-    redirect_to folders_path
-  end
-  
-  def correct_user_folder
-      @user=Folder.find(params[:id]).user
-      redirect_to(root_path) unless current_user?(@user)
+      @categorys=Category.all
+      render :action=>'edit'
     end
   end
 
-private
+  def destroy
+    Folder.find(params[:id]).destroy
+    redirect_to folders_path
+  end
 
+    
+  def correct_user_folder
+    @current_folder=Folder.find(params[:id])
+    if @current_folder.user.id.to_s!=current_user.id.to_s
+      redirect_to current_user  
+    end
+    Folder.find(params[:id]).destroy
+    redirect_to folders_path
+  end
+    
+  def correct_user_folder
+      @user=Folder.find(params[:id]).user
+      redirect_to(root_path) unless current_user?(@user)
+  end
+
+  def down
+    @folder=Folder.find(params[:id])
+    t = Tempfile.new("#{@folder.name}-#{Time.now}")
+    Zip::ZipOutputStream.open(t.path) do |zos|
+      @folder.file_up_loads.each do |file|
+        zos.put_next_entry(file.attach_file_name)
+        zos.print IO.read(file.attach.path)
+      end
+    end
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
+    t.close
+    end
+  end
+private
     def sort_column
         FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
     end

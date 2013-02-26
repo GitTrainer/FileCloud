@@ -255,6 +255,7 @@ DEPENDENCIES
   pry-rails
   rails (= 3.2.8)
   rspec-rails (= 2.11.0)
+  rubyzip
   sass-rails (~> 3.2.3)
   shoulda-matchers
   sidekiq

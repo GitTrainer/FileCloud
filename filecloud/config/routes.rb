@@ -1,8 +1,4 @@
 Filecloud::Application.routes.draw do
-
-
- 
-
   resources :users
   root to: 'sessions#new'
   resources :reset_passwords
@@ -15,6 +11,13 @@ Filecloud::Application.routes.draw do
   match '/home',  to: 'static_pages#home'
   resources :categories
   resources :folders 
+
+  resources :folders do
+    member do
+      get 'down', to: 'folders#down'
+    end
+  end
+
   resources :file_up_loads do
       member do
            get 'download'
@@ -31,6 +34,7 @@ Filecloud::Application.routes.draw do
     post 'deletefiles', :on => :collection
   end
 
+  
 
 
   # The priority is based upon order of creation:

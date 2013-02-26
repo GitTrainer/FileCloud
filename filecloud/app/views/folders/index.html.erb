@@ -21,6 +21,7 @@
     <td><%= f.created_at %></td>
     <td><%= "0"%></td>
     <td><%= f.file_up_loads.count%></td>
+    <td><%=link_to "Download", down_folder_path(f.id) %></td>
   </tr>
 <% end %>
 </table>
