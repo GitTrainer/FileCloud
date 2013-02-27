@@ -5,7 +5,7 @@ require 'open-uri'
 class FoldersController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :signed_in_user,only:[:new]
-  before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update]
+  before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update,:down]
   
   def index
   	 @folders=current_user.folders
@@ -59,7 +59,7 @@ class FoldersController < ApplicationController
   def correct_user_folder
     @current_folder=Folder.find(params[:id])
     if @current_folder.user.id.to_s!=current_user.id.to_s
-      redirect_to current_user  
+      redirect_to current_user
     end
     Folder.find(params[:id]).destroy
     redirect_to folders_path
