@@ -1,5 +1,6 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
+<%if Folder.where(:user_id => current_user, :id => params[:id]).exists? || Folder.where(:status => true).exists? %>
 	<table class="table table-hover">
 		<tr>
 			<th>Name</th>
@@ -42,6 +43,8 @@
 			<th>Preview</th>
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+			<th>Status</th><%end%>
 			<th><input type="checkbox" onClick="call()" id="chk0"></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<th colspan="2">Action</th>
@@ -92,7 +95,12 @@
 
 		<td><button type="button" onClick="location.href='/filestreams/<%= filestream.id%>/download'">Download</button></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
-
+		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+		<% if filestream.status == true %>	
+						<td><a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public</a></td>
+        				<%else%>
+            <td><a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a></td>
+        		<%end%><%end%>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 				<%= form_for(Filesharing.new) do |f| %>
 					<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
@@ -119,3 +127,4 @@
 		</tr>
 		</tr>
 	</table>
+<%end%>

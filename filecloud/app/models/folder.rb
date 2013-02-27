@@ -1,5 +1,5 @@
 class Folder < ActiveRecord::Base
-  attr_accessible :category_id, :description, :name, :user_id, :parentID
+  attr_accessible :category_id, :description, :name, :user_id, :parentID, :status
   validates :name, :presence => true, :uniqueness => true
   validates :category_id, :presence => true
   validates :description, :presence => true

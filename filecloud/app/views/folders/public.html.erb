@@ -1,0 +1,21 @@
+<h1>All list folders public</h1>
+<div class="row">
+<div class="span8">
+	<table class="table table-hover">
+		  <br/>
+				<tr>
+				  <th>Foder Name</th>
+				</tr>
+				<% @folders.each do |folder|%>
+			 		  <tr>
+			 		  	<%if folder.status==true%>
+
+				  		<td><a href="/folders/<%=folder.id%>"><%= folder.name%></a></td>
+				  		
+				  		
+				  	</tr>
+				  	<%end%>
+			<%end%>
+	</table>
+</div>
+</div>

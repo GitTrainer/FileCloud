@@ -5,7 +5,7 @@ Filecloud::Application.routes.draw do
   resources :password_resets
   resources :users
   root to: 'homes#home'
-
+ 
   match '/activate',to: 'users#activate'
 # :url  => "/assets/users/:id/:style/:basename.:extension"
   resources :sessions, only: [:new, :create, :destroy]
@@ -26,6 +26,12 @@ Filecloud::Application.routes.draw do
   	member do
   		get 'folder_child'
   	end
+    member do
+        get 'accept'
+    end
+     collection do
+        get 'indexpublic'
+    end
   end
 
   resources :foldersharings
@@ -41,6 +47,12 @@ Filecloud::Application.routes.draw do
     end
     member do
       get 'delete_from_folder'
+    end
+     member do
+        get 'accept'
+    end
+     collection do
+        get 'indexpublic'
     end
   end
 

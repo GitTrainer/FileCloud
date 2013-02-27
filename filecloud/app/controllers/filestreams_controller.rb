@@ -1,7 +1,7 @@
 class FilestreamsController < ApplicationController
 require 'zip/zip'
 require 'zip/zipfilesystem'
-before_filter :signed_in_user
+before_filter :signed_in_user, only: [:index, :destroy, :create, :multiple_delete]
 before_filter :correct_user,   only: [:index]
 
   def index
@@ -13,7 +13,15 @@ before_filter :correct_user,   only: [:index]
       format.json {render json: @uploads}
     end
   end
-
+def indexpublic
+# binding.pry
+    # if folder.status==true
+      @filestreams=Filestream.where(:status =>true)
+      respond_to do |format|
+      format.html {render :action => "filepublic"}
+      format.json { render json: @filestreams }
+    end
+  end
   def show
     @folder_id = Filestream.find(params[:id]).folder_id
     @user_id= Folder.find(@folder_id).user_id
@@ -54,6 +62,27 @@ before_filter :correct_user,   only: [:index]
       end
     end
   end
+
+  def accept
+    # binding.pry
+        # @foldersharings = Foldersharing.all
+    # @search_folder = Folder.where(:user_id => current_user).search(params[:search])
+     @uploads = Filestream.find(params[:id])
+      if params[:status]=="true"
+          temp="false"
+        else
+          temp="true"
+        end
+        # binding.pry
+
+        # @search_folder.update_attribute(:status => temp)
+        @uploads.status=temp
+        @uploads.save!
+        redirect_to ("/folders/"+@uploads.folder_id.to_s)
+  
+    end
+
+
 
   def download
      @fileupload = Filestream.find(params[:id])
