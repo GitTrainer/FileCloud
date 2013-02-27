@@ -52,20 +52,22 @@
 <script type="text/javascript" charset="utf-8">
 	function checked_box() {
 		var a=document.getElementsByName("file_ids[]")
+		var flag=false
 		for (var i=0;i<a.length;i++)
 			{
 			if (a[i].checked) {
-				document.getElementById("btdel").disabled=false	
-				document.getElementById("btdow").disabled=false
+				flag=true;
 				break
 			} 
-			else
-			{
-				document.getElementById("btdel").disabled=true	
-				document.getElementById("btdow").disabled=true
-			}
 		}
-
+		
+		if (flag==true){
+			document.getElementById("btdel").disabled=false	
+			document.getElementById("btdow").disabled=false
+		}else{
+			document.getElementById("btdel").disabled=true	
+			document.getElementById("btdow").disabled=true
+		}
 	}
 </script>
 
