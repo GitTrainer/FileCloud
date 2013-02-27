@@ -25,13 +25,13 @@
 		    <td> <%= link_to image_tag("del.png", alt: "delete"), f, method: :delete,
 	                                    data: { confirm: "You sure?" } %></td>	  
 	        <td>
-		    	 <%= check_box_tag  "file_ids[]", f.id , false %>
+		    	 <%= check_box_tag  "file_ids[]", f.id , false,:onClick=>"checked_box()" %>
 		    </td>
 		    </tr>
 		 <%end%>
 		</table>
 	</div>
-
+	
 	<div class="btn">
 	    <%=link_to 'Back',folders_path %>
 	</div>
@@ -41,8 +41,31 @@
 	</div>
 
 	<div class="btn"> 
-		<%= submit_tag "Delete files", :name => nil %>
+		<%= submit_tag "Delete files", :name => "delFiles",:disabled => true ,:confirm => "Are you sure?" ,:id=>"btdel"%>
+	</div>
+	<div class="btn">
+		<%= submit_tag "Download files", :name => "downFiles",:disabled => true  ,:id=>"btdow"%>
 	</div>
 <% end %>
 <%= will_paginate @files%>
+
+<script type="text/javascript" charset="utf-8">
+	function checked_box() {
+		var a=document.getElementsByName("file_ids[]")
+		for (var i=0;i<a.length;i++)
+			{
+			if (a[i].checked) {
+				document.getElementById("btdel").disabled=false	
+				document.getElementById("btdow").disabled=false
+				break
+			} 
+			else
+			{
+				document.getElementById("btdel").disabled=true	
+				document.getElementById("btdow").disabled=true
+			}
+		}
+
+	}
+</script>
 

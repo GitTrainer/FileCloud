@@ -1,17 +1,15 @@
 class FileUpLoadsController < ApplicationController
 
-before_filter :signed_in_user
-before_filter :correct_user_for_download_file ,only: [:download,:show,:destroy]
-before_filter :correct_user_folder_fileupload,only:[:new]
+  before_filter :signed_in_user
+  before_filter :correct_user_for_download_file ,only: [:download,:show,:destroy]
+  before_filter :correct_user_folder_fileupload,only:[:new]
 
-def index
-	
-end  
+  def index
+  end  
 
   def new
     @folder=Folder.find_by_id(params[:id])
   	@fileupload=FileUpLoad.new
-    
   end
 
   def create
@@ -62,8 +60,21 @@ end
   
   def deletefiles
     if params[:file_ids]
-      FileUpLoad.delete_all(["id in (?)",params[:file_ids]])
-      redirect_to :back,notice: "Files Successfull destroyed"
+      if params[:delFiles]
+        FileUpLoad.delete_all(["id in (?)",params[:file_ids]])
+        redirect_to :back,notice: "Files Successfull destroyed"
+      else
+        t = Tempfile.new("mulFiles-#{Time.now}")
+        Zip::ZipOutputStream.open(t.path) do |zos|
+            params[:file_ids].each do |id|
+            f=FileUpLoad.find(id)
+            zos.put_next_entry(f.attach_file_name)
+            zos.print IO.read(f.attach.path)
+          end
+        end
+        send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "mulFiles.zip"
+        t.close
+      end
     else
       redirect_to :back,notice: "You don't select file"
     end
@@ -75,4 +86,5 @@ end
         redirect_to current_user
      end
   end
+
 end

@@ -66,8 +66,8 @@ class FoldersController < ApplicationController
   end
     
   def correct_user_folder
-      @user=Folder.find(params[:id]).user
-      redirect_to(root_path) unless current_user?(@user)
+    @user=Folder.find(params[:id]).user
+    redirect_to(root_path) unless current_user?(@user)
   end
 
   def down
@@ -81,13 +81,12 @@ class FoldersController < ApplicationController
     end
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
     t.close
-    end
   end
-private
+  private
     def sort_column
         FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
     end
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
-
+end

@@ -1,16 +1,17 @@
 Filecloud::Application.routes.draw do
-  resources :users
-  root to: 'sessions#new'
-  resources :reset_passwords
-  match '/activate',to: 'users#activate'
   
-  resources :sessions, only: [:new, :create, :destroy]
+  root to: 'sessions#new'
+  match '/activate',to: 'users#activate'
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/home',  to: 'static_pages#home'
+  
   resources :categories
   resources :folders 
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :reset_passwords
 
   resources :folders do
     member do
@@ -19,9 +20,9 @@ Filecloud::Application.routes.draw do
   end
 
   resources :file_up_loads do
-      member do
-           get 'download'
-      end
+    member do
+      get 'download'
+    end
   end
 
   resources :file_shares do

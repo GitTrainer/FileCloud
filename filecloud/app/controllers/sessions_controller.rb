@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+	
 	before_filter :filter_login, only: [:new,:create]
 
 	def new
@@ -24,4 +25,5 @@ class SessionsController < ApplicationController
 		sign_out
     	redirect_to home_path
 	end
+	
 end
