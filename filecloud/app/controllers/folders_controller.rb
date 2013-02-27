@@ -3,7 +3,7 @@ require 'zip/zipfilesystem'
 require 'open-uri'
 
 class FoldersController < ApplicationController
- 
+  helper_method :sort_column, :sort_direction
   before_filter :signed_in_user,only:[:new]
   before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update]
   

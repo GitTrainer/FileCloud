@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  helper_method :sort_column, :sort_direction
   before_filter :signed_in_user, only: [:index,:show]
   before_filter :correct_user, only: [:edit, :update,:show]
   before_filter :admin_user, only: :destroy
