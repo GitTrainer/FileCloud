@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    colorbox-on-rails (0.0.2)
     columnize (0.3.6)
     database_cleaner (0.9.1)
     debugger (1.2.3)
@@ -231,12 +232,13 @@ DEPENDENCIES
   capybara (= 1.1.2)
   cocaine
   coffee-rails (~> 3.2.1)
+  colorbox-on-rails
   database_cleaner
   delayed_job_active_record
   factory_girl_rails (= 4.1.0)
   faker (= 1.0.1)
   jquery-fileupload-rails
-  jquery-rails
+  jquery-rails (~> 2.1.2)
   launchy
   nifty-generators
   paperclip

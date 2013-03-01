@@ -14,14 +14,10 @@
  */
  *= require_tree .
 *= require_self
+*= require colorbox
 *= require jquery.fileupload-ui
 
-.modal-body {
-  max-height: 800px;
-}
-.modal.fade.in {
-  top: 0;
-}
+
 .table-hover th .current {
   padding-right: 12px;
   background-repeat: no-repeat;
