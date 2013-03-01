@@ -4,6 +4,8 @@
 
 .btn{
 	margin-top: 20px;
+	color: #0088CC !important ;
+	border-color: 10px;
 }
 
 
@@ -26,4 +28,25 @@
 #search_file_form{
 	margin-top: 15px;
 }
-
+#folderDetail
+{
+	float:left;
+}
+#listFolder
+{
+	padding-top:60px;
+	margin-left:400px;
+}
+.clear{
+	clear:both;
+}
+#listFolder li
+{
+	margin-left:50px;
+}
+#listFolder ul{
+	margin-left:0px;
+}
+#listFolder ul a{
+	color:blue !important;
+}

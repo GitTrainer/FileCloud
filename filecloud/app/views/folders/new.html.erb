@@ -20,14 +20,19 @@
 <tr>
 	<td>  <%= f.text_field :name %></td>
 </tr>
+<%= f.hidden_field :parentId, :value => @parentId %>
 
-<tr>
-	<td style="color:blue"><%=f.label :Category%></td>
-</tr>
-
-<tr>
+<%if !@parentId%>
+  <tr>
+  <td style="color:blue"><%=f.label :Category%></td>
+  </tr>
+  <tr>
     <td><%=collection_select(:folder,:category_id,@categorys,:id,:name)%></td>
-</tr>
+  </tr>
+<%else%>
+  <%= f.hidden_field :category_id, :value => @categorys.id%>
+<%end%>
+
  <tr>
   <%= f.hidden_field :user_id,:value=>current_user.id %>
 </tr>

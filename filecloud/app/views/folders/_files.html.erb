@@ -40,21 +40,18 @@
 	    <%=link_to 'Add File',{:action=>'new',:controller=>'file_up_loads',:id=>@folder.id}%>
 	</div>
 
-	<div class="btn"> 
-		<%= submit_tag "Delete files", :name => "delFiles",:disabled => true ,:confirm => "Are you sure?" ,:id=>"btdel"%>
-	</div>
-	<div class="btn">
-		<%= submit_tag "Download files", :name => "downFiles",:disabled => true  ,:id=>"btdow"%>
-	</div>
+	<%= submit_tag "Delete files", :name => "delFiles",:disabled => true ,:confirm => "Are you sure?" ,:id=>"btdel",:class=>"btn"%> 
+
+	<%= submit_tag "Download files", :name => "downFiles",:disabled => true  ,:id=>"btdow",:class=>"btn"%>
 <% end %>
+
 <%= will_paginate @files%>
 
 <script type="text/javascript" charset="utf-8">
 	function checked_box() {
 		var a=document.getElementsByName("file_ids[]")
 		var flag=false
-		for (var i=0;i<a.length;i++)
-			{
+		for (var i=0;i<a.length;i++){
 			if (a[i].checked) {
 				flag=true;
 				break

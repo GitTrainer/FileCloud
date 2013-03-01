@@ -8,6 +8,7 @@
   <tr>
     <th>Ten folder</th>
     <th>Ten category</th>
+    <th>Folder parent</th>
     <th>Ngay tao</th>
     <th>So Nguoi chia se</th>
     <th>So luong file</th>
@@ -18,6 +19,7 @@
   <tr align="center">
     <td><%=link_to f.name,folder_path(f.id)%></td>
     <td><%= f.category.name %></td>
+    <td><%= f.parentId%></td>
     <td><%= f.created_at %></td>
     <td><%= "0"%></td>
     <td><%= f.file_up_loads.count%></td>

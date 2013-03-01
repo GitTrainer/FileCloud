@@ -1,7 +1,7 @@
 
 class Folder < ActiveRecord::Base
 # include Rails.application.routes.url_helpers
-  attr_accessible :category_id, :description, :name,:user_id
+  attr_accessible :category_id, :description, :name,:user_id,:parentId
 
   validates :name, presence:true
   validates :category_id, presence:true
@@ -11,5 +11,5 @@ class Folder < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :file_up_loads,dependent: :destroy
-
+  
 end

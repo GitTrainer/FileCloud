@@ -4,7 +4,7 @@ require 'open-uri'
 
 class FoldersController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_filter :signed_in_user,only:[:new]
+  before_filter :signed_in_user,only:[:new,:index]
   before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update,:down]
   
   def index
@@ -13,6 +13,8 @@ class FoldersController < ApplicationController
 
   def show
   	@folder=Folder.find(params[:id])
+    @subFolders=Folder.where(:parentId => @folder.id)
+
     @files = @folder.file_up_loads.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
     # respond_to do |format|
     #     format.html # show.html.erb
@@ -21,14 +23,20 @@ class FoldersController < ApplicationController
   end
   
   def new
-  	@folder=Folder.new
-  	@categorys=Category.all
+    @parentId=params[:Fparent]
+    @folder=Folder.new
+    if !@parentId
+     @categorys=Category.all
+    else
+      folder=Folder.find(@parentId)
+      @categorys=Category.find(folder.category_id)
+    end
   end
 
   def create
   	@folder=Folder.new(params[:folder])
     if @folder.save
-    	redirect_to folders_path
+    	redirect_to folder_path(@folder) ,:notice=> "Sucessful created!"
     else
       @categorys=Category.all
       render :action=>'new' 
@@ -54,7 +62,6 @@ class FoldersController < ApplicationController
     Folder.find(params[:id]).destroy
     redirect_to folders_path
   end
-
     
   def correct_user_folder
     @current_folder=Folder.find(params[:id])
@@ -82,10 +89,13 @@ class FoldersController < ApplicationController
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
     t.close
   end
+
   private
+
     def sort_column
-        FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
+      FileUpLoad.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
     end
+    
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
