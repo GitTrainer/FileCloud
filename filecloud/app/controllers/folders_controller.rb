@@ -1,10 +1,11 @@
 class FoldersController < ApplicationController
 	require 'zip/zip'
 	require 'zip/zipfilesystem'
-  before_filter :signed_in_user
+  before_filter :signed_in_user , only: [:index, :edit, :update, :destroy, :create, :create_child]
   helper_method :sort_column, :sort_direction
-
+  
    def index
+   	# binding.pry
 		@foldersharings = Foldersharing.all
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		if ( @new_folder.nil?)
@@ -17,12 +18,21 @@ class FoldersController < ApplicationController
       format.js {render js: @search_folder }
     end
 	end
+	def indexpublic
+
+		# if folder.status==true
+			@folders=Folder.where(:status =>true)
+			respond_to do |format|
+		  format.html { render action: "public"}
+		  format.js {render js: @folders}
+		end
+	end
 
 	def new
   	@foldersharings = Foldersharing.all
 	  @new_folder = Folder.new
 	end
-
+ # @folders= current_user.folders
 	def create
 
 		@foldersharings = Foldersharing.all
@@ -43,6 +53,28 @@ class FoldersController < ApplicationController
 		end
 	end
 
+
+	 def accept
+	 	# binding.pry
+        # @foldersharings = Foldersharing.all
+		# @search_folder = Folder.where(:user_id => current_user).search(params[:search])
+		 @search_folder = Folder.find(params[:id])
+     	if params[:status]=="true"
+          temp="false"
+        else
+          temp="true"
+        end
+        # binding.pry
+
+        # @search_folder.update_attribute(:status => temp)
+        @search_folder.status=temp
+        @search_folder.save!
+        redirect_to folders_path
+  
+    end
+
+
+
 	def edit
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
   	@foldersharings = Foldersharing.all
@@ -56,12 +88,13 @@ class FoldersController < ApplicationController
 	end
 
 	def show
+		# binding.pry
 		@folder = Folder.find(params[:id])
 		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
 		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
 		@foldersharings = Foldersharing.all
 		@id = params[:id].to_i
-		if Folder.where(:user_id => current_user.id, :id => @id).exists?
+		if Folder.where(:status =>true, :id =>@id).exists? || Folder.where(:user_id => current_user.id, :id => @id).exists?
 			@folder = Folder.find(@id)
 			render :action=> 'show'
 		else
@@ -159,7 +192,8 @@ class FoldersController < ApplicationController
   end
 
   def signed_in_user
-    unless signed_in?
+  	# binding.pry
+    unless signed_in? 
       store_location
         redirect_to signin_url, notice: "Please sign in."
       end

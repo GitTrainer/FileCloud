@@ -1,5 +1,5 @@
 class Filestream < ActiveRecord::Base
-  attr_accessible :folder_id,:attach, :filename,:attach_content_type, :attach_file_name, :attach_file_size, :download_count
+  attr_accessible :folder_id,:attach, :filename,:attach_content_type, :attach_file_name, :attach_file_size, :download_count, :status
    
   validates :attach, :presence => true
   validates :folder_id, :presence => true

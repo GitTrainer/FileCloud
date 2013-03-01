@@ -28,6 +28,7 @@
 				<tr>
 				  <th>Name</th>
 				  <th>Description </th>
+				  <th>Status</th>
 				  <th>Show details</th>
 				  <th> Edit </th>
 				  <th>Delete </th>
@@ -36,7 +37,13 @@
 					<% @search_folder.each do |folder|%>
 			 		  <tr>
 				  		<td><%= folder.name %> </td>
-							<td><%= folder.description %></td>
+						<td><%= folder.description %></td>
+						
+						<% if folder.status == true %>	
+						<td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Public</a></td>
+        				<%else%>
+            <td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Private</a></td>
+        		<%end%>
 							<td><a href="/folders/<%=folder.id%>">Show</a></td>
 							<td><a href="/folders/<%=folder.id%>/edit">Edit</a></td>
 							<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
