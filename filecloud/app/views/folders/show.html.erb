@@ -43,6 +43,7 @@
 			<%end%>
 			<td><a href="/folders/<%=@folder.id%>/folder_download">Download</a></td>
 		</tr>
+		<% if signed_in? %>
 		<tr>
 			<th></th>
 			<th>Children Name</th>
@@ -54,6 +55,7 @@
 				<td><a href="/folders/<%= child.id %>"><%= child.name%></a></td>
 				<td><%=child.description%></td>
 			</tr>
+		<%end%>
 		<%end%>
 	</table>
 
