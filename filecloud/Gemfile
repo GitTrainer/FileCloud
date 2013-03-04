@@ -24,6 +24,9 @@ gem 'rails3-jquery-autocomplete'
 gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'rubyzip'
+
+
+
 # gem 'delayed_job_mongoid', '1.0.8'
 #gem 'less', '2.2.2' # (at this date)
 #gem 'therubyracer'
