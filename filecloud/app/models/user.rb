@@ -22,20 +22,15 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
 
    def send_password_reset
-# binding.pry
       self.password_reset_token=SecureRandom.urlsafe_base64
       self.password_reset_sent_at = Time.zone.now
       save!(:validate => false)
-      UserMailer.delay.password_reset(self)
-      # binding.pry
+      UserMailer.delay({:run_at => 10.seconds.from_now}).password_reset(self)
     end
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end
-
-
-
 
     def self.search(search)
       if search

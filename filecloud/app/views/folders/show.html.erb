@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
   function call(){
      var x = document.getElementById("chk0").checked;
@@ -8,14 +9,10 @@
 			$(".chk").attr('checked',false);
 		}
 }
-
 </script>
 
-
 <h1>Folder details</h1>
-
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
-
   <p class="span2">
     <label style="float:left;">Files Name </label>
     <input id="search" class="tf-search" type="text" name="search">
@@ -23,16 +20,48 @@
   </p>
 <% end %>
 
-	<br></br><br></br>
+	<br/>
 	<div class="row">
-<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
-	<%= hidden_field_tag :fID, @folder.id %>
+
+	<br/>
+		<table class="table table-hover">
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Category</th>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+				<th>Upload</th>
+			<%end%>
+			<th>Download folder(as ZIP file)</th>
+		</tr>
+		<tr>
+			<td><%= @folder.name %></td>
+			<td><%= @folder.description %></td>
+			<td><%= Category.where(:id => @folder.category_id).first.name %></td>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+			<td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
+			<%end%>
+			<td><a href="/folders/<%=@folder.id%>/folder_download">Download</a></td>
+		</tr>
+		<tr>
+			<th></th>
+			<th>Children Name</th>
+			<th>Description</th>
+		</tr>
+		<% Folder.where(:parentID => @folder.id).each do |child| %>
+			<tr>
+				<td></td>
+				<td><a href="/folders/<%= child.id %>"><%= child.name%></a></td>
+				<td><%=child.description%></td>
+			</tr>
+		<%end%>
+	</table>
 
 	<div id="searchajax">
-	<%= render 'show'%>
+		<%= render 'show'%>
 	</div>
 
-		<%= will_paginate @uploads %>
+<%= will_paginate @uploads %>
 
 	 <%= hidden_field_tag :page, :value => params[:page] %>
 		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
@@ -40,10 +69,6 @@
 			<P><a href="/folders">Go to Folders</a></p>
 			<p><a href="/folders/<%=@folder.id%>/folder_child">Create folder child</a></p>
 		<%end%>
-<%end%>
-
-
-
 
 <style type="text/css">
 input.tf-search{
@@ -57,10 +82,3 @@ p.span2{
 
 }
 </style>
-
-<script type="text/javascript">
-$( "#search" ).autocomplete({
-source: @uploads
-
-});
-</script>

@@ -24,11 +24,6 @@ class UserMailer < ActionMailer::Base
 		@file_id = file_id
     mail(:to => @user_email, :subject => "You was shared file.")
   end
-
-
-
-
-
 end
 
 

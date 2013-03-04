@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//=require jquery.colorbox
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
@@ -24,8 +25,7 @@
 //=require jquery-fileupload/jquery.fileupload-fp
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
-
-
+//=require autocomplete-rails
 
 $(function() {
 
@@ -39,23 +39,20 @@ $(function() {
     return false;
   });
 
-  function noFile()
-	{
-		alert("No files in folder");
-	}
-      //   $(document).on("click", ".open-addMembers", function () {
-      //      var myFileId = $(this).data('params[:file_id]');
-      //      $(".modal-body #fileId").val( myFileId );
-      //     $('#myModal').modal('show');
-      // });
-      // $('.table-hove').each(function() {
-      //     $(this).table-hove({
-      //         timeout: 0.1
-      //         url:     "folders/show.html.erb"
-      //     });
-      // });
-      // function changeproject(folder_id,user_id){
-      //   window.location.href = url+"/?templateid=" +$("#templateid").val()
-      // }
+	 $(".inline").colorbox({inline:true, width:"40%"});
+ 	 $("#btn_share").click(function() {
+	 	 $("#share_form").submit();
+//		  $("#share_form").submit(function(){
+//  	    var valuesToSubmit = $(this).serialize();
+//		    $.ajax({
+//		      url: $(this).attr('action'), //sumbits it to the given url of the form
+//		      data: valuesToSubmit,
+//		      dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+//    		}).success(function(json){
+//        //act on result.
+//  		  	});
+//	    	return false; // prevents normal behaviour
+//		  });
+	 });
 
 });

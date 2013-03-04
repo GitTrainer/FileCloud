@@ -1,39 +1,7 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
-<%if Folder.where(:user_id => current_user, :id => params[:id]).exists? || Folder.where(:status => true).exists? %>
-	<table class="table table-hover">
-		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Category</th>
-			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-			<th>Upload</th>
-			<%end%>
-			<th>Download folder(as ZIP file)</th>
-		</tr>
-		<tr>
-			<td><%= @folder.name %></td>
-			<td><%= @folder.description %></td>
-			<td><%= Category.where(:id => @folder.category_id).first.name %></td>
-			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-			<td><a href="/filestreams/?folder_id=<%=@folder.id%>">Upload file</a></td>
-			<%end%>
-			<td><a href="/folders/<%=@folder.id%>/folder_download">Download</a></td>
-		</tr>
-		<tr>
-			<th></th>
-			<th>Children Name</th>
-			<th>Description</th>
-		</tr>
-		<% Folder.where(:parentID => @folder.id).each do |child| %>
-			<tr>
-				<td></td>
-				<td><a href="/folders/<%= child.id %>"><%= child.name%></a></td>
-				<td><%=child.description%></td>
-			</tr>
-		<%end%>
 
-	</table>
+<br/>
 	</br>
 	<table class="table table-hover">
 		<tr>
@@ -44,16 +12,23 @@
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-			<th>Status</th><%end%>
+			<th>Status</th>
+			<%end%>
+			<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
+				<%= hidden_field_tag :fID, @folder.id %>
+				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+					<th>Delete</th>
+				<%end%>
+
 			<th><input type="checkbox" onClick="call()" id="chk0"></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-				<th colspan="2">Action</th>
 				<th><%= submit_tag "Delete", :confirm => "Are you sure?" %></th>
 			<%end%>
 			<th><%= submit_tag "Download"%></th>
-		</tr>
-<% @uploads.each do |filestream|%>
 
+			<th>Share file</th>
+		</tr>
+	<% @uploads.each do |filestream|%>
 		<tr>
 			<td><%= filestream.attach_file_name %></td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
@@ -61,70 +36,47 @@
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
 					<span><a href="#previewModal-<%=filestream.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
-				</td>
-				<div id="previewModal-<%=filestream.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
+					<div id="previewModal-<%=filestream.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						<h3 id="previewModalLabel"><%=filestream.attach_file_name%></h3>
 					</div>
-
-					  <div id="myCarousel" class="carousel slide">
-					  	<ol class="carousel-indicators">
-
-
-					<li data-target="#previewModal" data-slide-to="0" class="active">
-<div class="modal-body">
-
-							<%= image_tag filestream.attach.url %>
-						</div></li>
-				</ol>
-				 <div class="carousel-inner">
-<div class="active item">…</div>
-<div class="item">…</div>
-<div class="item">…</div>
-</div>
-				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
 					</div>
 				</div>
+			</td>
 			<%else%>
-			<td></td>
+				<td></td>
 			<%end%>
-
-
 		<td><button type="button" onClick="location.href='/filestreams/<%= filestream.id%>/download'">Download</button></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
+			<% if filestream.status == true %>
+				<td>
+					<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public</a>
+				</td>
+      <%else%>
+     		<td>
+     			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a>
+     		</td>
+     <%end%>
 		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-		<% if filestream.status == true %>	
-						<td><a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public</a></td>
-        				<%else%>
-            <td><a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a></td>
-        		<%end%><%end%>
-			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-				<%= form_for(Filesharing.new) do |f| %>
-					<td><a href="#myModal-<%=filestream.id%>" role="button" class="open-addMembers btn btn-small" data-toggle="modal" >Share...</a></td>
 
-						<div id="myModal-<%=filestream.id	%>"  class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data>
-  						<div class="modal-header">
-    						<h3 id="myModalLabel">List members</h3>
-  						</div>
-  						<div class="modal-body">
-  							<%= f.hidden_field :folder_id, :value => params[:id]%>
-    						<p><%= render 'file_share', f: f, file_id: filestream.id %></p>
-  						</div>
-  						<div class="modal-footer">
-    						<button class="btn" data-dismiss="modal" aria-hidden="true" onClick="location.href='/folders/<%=@folder.id%>'">Close</button>
-   							<%= f.submit 'Save changes', class: "btn btn-primary"%>
-  						</div>
-						</div>
-				<%end%>
-				<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
-
+		<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
 			<%end%>
-<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
-			<% end %>
-		</tr>
-		</tr>
-	</table>
-<%end%>
+			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
+		<td></td><td></td>
+
+		<td><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a>
+		<%end%>
+	<%end%>
+				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+					<% @uploads.each do |filestream|%>
+						<div style='display:none'>
+							<div style="padding:10px; background:#fff;" id="inline_content-<%=filestream.id %>">
+								<%= render 'file_share', file_id: filestream.id %>
+							</div>
+        	<%end%>
+       	<%end%>
+	<tr>
+</table>

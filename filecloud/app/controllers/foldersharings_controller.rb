@@ -33,7 +33,7 @@ before_filter :signed_in_user
 		   activated_ids.each do |activated_id|
 		   	 @folder_share = Foldersharing.new(:folder_id => params[:foldersharing][:folder_id], :shared_user_id => activated_id)
 		     @folder_share.save!
-      	 UserMailer.delay.share_folder(activated_id, @folder_id)
+      	 UserMailer.delay({:run_at => 5.seconds.from_now}).share_folder(activated_id, @folder_id)
 		 	 end
 		 	 redirect_to ("/folders/"+ @folder_id.to_s)
 		 else
