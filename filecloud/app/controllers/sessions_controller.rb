@@ -4,7 +4,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    binding.pry
     user = User.find_by_email(params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       if user.status==true
@@ -29,7 +28,7 @@ class SessionsController < ApplicationController
       flash.now[ :error]='password protect unmark'
       redirect_to ("/folders/"+@filestream.folder_id.to_s)
     end
-    
+
   end
 
 

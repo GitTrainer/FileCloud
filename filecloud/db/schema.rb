@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130307042342) do
 
-
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.string   "description"
