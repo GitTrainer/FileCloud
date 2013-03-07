@@ -1,11 +1,9 @@
 module FoldersHelper
 	require 'fileutils.rb'
-	# $list=Array.new
 	$level=0
 	$path=Rails.root.to_s
-
+	
 	def downloadSubFolder(rootFolder)
-		
 		if $level==0
 			Dir.mkdir(rootFolder.name)
 			$path+="/"+rootFolder.name
@@ -56,16 +54,6 @@ module FoldersHelper
 		return newPath
 	end
 
-	# def downloadSubFolder(folder)
-	# 	child=Folder.where(:parentId=>rootFolder.id)
-	# 	if child
-	# 		child.each do |f|
-	# 			getSubTreeFolder(f)
-	# 		end
-	# 	end
-	# end
-
-
 	def getAllTreeFolder
 		roots=Folder.where(:parentId=>nil)
 		hashAllFolder={}
@@ -76,17 +64,5 @@ module FoldersHelper
 		return hashAllFolder
 		
 	end
-
-
-	# def getMaxLevel(rootFolder)
-	# 	varLst=getSubTreeFolder(rootFolder)
-	# 	varMax=tempLst[0].level
-	# 	for in 0..tempLst.length-1
-	# 		if tempLst[i]>varMax
-	# 			varMax=tempLst[i].level;
-	# 		end
-	# 	end
-	# 	return varMax
-	# end
 
 end

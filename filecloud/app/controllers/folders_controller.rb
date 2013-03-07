@@ -98,22 +98,7 @@ class FoldersController < ApplicationController
     $path=Rails.root.to_s
     $level=0
     
-    # @folder=Folder.find(params[:id])
-    # t = downloadSubFolder(@folder)
-    # binding.pry
-    # Zip::ZipOutputStream.open(t.path) do |zos|
-    #   # @folder.file_up_loads.each do |file|
-    #   #   zos.put_next_entry(file.attach_file_name)
-    #   #   zos.print IO.read(file.attach.path)
-    #   # end
-
-    # end
-    # send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
-    # t.close
   end
-
-
-
   private
 
     def sort_column
