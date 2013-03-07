@@ -6,7 +6,7 @@ class FoldersController < ApplicationController
   include FoldersHelper
   helper_method :sort_column, :sort_direction
   before_filter :signed_in_user,only:[:new,:index]
-  before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update,:down]
+  before_filter :correct_user_folder,only:[:show,:destroy,:edit,:update,:down]
   
   def index
   	 @folders=current_user.folders
@@ -61,18 +61,21 @@ class FoldersController < ApplicationController
   end
 
   def destroy
-    Folder.find(params[:id]).destroy
+    @folder=Folder.find(params[:id])
+    arr=getSubFolders(@folder)
+    binding.pry
+    Folder.delete_all(["id in (?)",arr])
     redirect_to folders_path
   end
     
-  def correct_user_folder
-    @current_folder=Folder.find(params[:id])
-    if @current_folder.user.id.to_s!=current_user.id.to_s
-      redirect_to current_user
-    end
-    Folder.find(params[:id]).destroy
-    redirect_to folders_path
-  end
+  # def correct_user_folder
+  #   @current_folder=Folder.find(params[:id])
+  #   if @current_folder.user.id.to_s!=current_user.id.to_s
+  #     redirect_to current_user
+  #   end
+  #   Folder.find(params[:id]).destroy
+  #   redirect_to folders_path
+  # end
     
   def correct_user_folder
     @user=Folder.find(params[:id]).user

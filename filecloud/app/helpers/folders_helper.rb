@@ -54,15 +54,25 @@ module FoldersHelper
 		return newPath
 	end
 
+	$listFolder=Array.new
+	def getSubFolders(folder)
+		$listFolder.push(folder)
+		child=Folder.where(:parentId=>folder.id)
+		if !child.empty?
+			child.each do |f|
+				getSubFolders(f)
+			end
+		end
+		return $listFolder
+	end
+
 	def getAllTreeFolder
 		roots=Folder.where(:parentId=>nil)
 		hashAllFolder={}
 		for i in 0..roots.length-1
    			hashAllFolder[i]=getSubTreeFolder(roots[i])
-   			$list=[]
 		end
 		return hashAllFolder
-		
 	end
 
 end
