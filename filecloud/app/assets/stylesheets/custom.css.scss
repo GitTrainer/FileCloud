@@ -261,3 +261,72 @@ aside {
   margin-right: -220px;
   margin-left: 30px;
 }
+
+
+element.style {
+    display: block;
+    left: 420px;
+    top: 232px;
+}
+.popup {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
+    display: none;
+    font-family: 'Open Sans',sans-serif;
+    position: absolute;
+    z-index: 1001;
+}
+
+.popup-close {
+    background: url("http://cdn.mediafire.com/images/icons/icon-sprite-16-v6.png") repeat scroll -980px 0 transparent;
+    height: 17px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 16px;
+}
+a {
+    color: #3190D3;
+    text-decoration: none;
+}
+
+.popup-content {
+    clear: both;
+    padding: 0 15px 15px;
+}
+ol, ul {
+    list-style: none outside none;
+}
+
+.popup-content label {
+    display: block;
+    margin-top: 5px;
+}
+element.style {
+    width: 400px;
+}
+.myfiles textarea, .myfiles input {
+    -moz-user-select: text;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+    background-clip: padding-box;
+    background-color: #F3F3F3;
+    border: 1px solid #C7C7C7;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15) inset;
+    color: #5C5E61;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    outline: medium none;
+    padding: 8px;
+}
+
+.popup-btns {
+    overflow: auto;
+    padding: 2px 15px 15px;
+}
+.gbtnPrimary:first-letter, .gbtnSecondary:first-letter, .gbtnTertiary:first-letter, .gbtnAlt:first-letter {
+    padding-left: 10px;
+}

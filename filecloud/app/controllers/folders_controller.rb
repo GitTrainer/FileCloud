@@ -34,7 +34,6 @@ class FoldersController < ApplicationController
 	end
  # @folders= current_user.folders
 	def create
-
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
 		respond_to do |format|
@@ -137,6 +136,9 @@ class FoldersController < ApplicationController
 	end
 
 	def folder_download
+		gem 'rubyzip'
+  require 'zip/zip'
+  require 'zip/zipfilesystem'
 		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
     t = Tempfile.new('tmp-zip-' + request.remote_ip)
     Zip::ZipOutputStream.open(t.path) do |zos|
@@ -149,6 +151,41 @@ class FoldersController < ApplicationController
   	t.close
 	end
 
+
+# 	def create(path, files)
+#   Zip::ZipFile.open(path, Zip::ZipFile::CREATE) do |z|
+#     files.each do |file|
+#       source_path = "#{Rails.root}/public/webui/#{file}"
+#       expand_dirs(file).each do |dir|
+#         begin
+#           z.mkdir dir
+#         rescue Errno::EEXIST
+#         end
+#       end
+#       z.add file, source_path
+#     end
+#   end
+#   send_file t.path, :type => "application/zip", :filename => "#{User.find(Folder.find(params[:id]).user_id).name}-#{Folder.find(params[:id]).name}-#{Time.now}.zip"
+#   	t.close
+# end
+
+
+
+
+
+
+def compress(path)
+
+  path.sub!(%r[/$],'')
+  archive = File.join(path,File.basename(path))+'.zip'
+  FileUtils.rm archive, :force=>true
+
+  Zip::ZipFile.open(archive, 'w') do |zipfile|
+    Dir["#{path}/**/**"].reject{|f|f==archive}.each do |file|
+      zipfile.add(file.sub(path+'/',''),file)
+    end
+  end
+end
 	def create_child
 		@child = Folder.new
 		@child.name = params[:name]

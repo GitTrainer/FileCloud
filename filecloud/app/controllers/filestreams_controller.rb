@@ -45,6 +45,7 @@ def indexpublic
   end
 
   def create
+    # binding.pry
     @folder_id = params[:filestream][:folder_id]
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
@@ -82,7 +83,60 @@ def indexpublic
   
     end
 
+  def password_protect_create
+    # binding.pry
+     @filespass = Filestream.find(params[:file_id])
+     @filespass.update_attributes :password_protect=>params[:password_protect]
+     @filespass.save!
+     redirect_to ("/folders/"+@filespass.folder_id.to_s)
+    
+  end
+def destroy_password_protect
+    binding.pry
+    @filespass = Filestream.find(params[:file_id])
+    @filespass[:password_protect]=nil
+    # @filespass.update_attributes :password_protect=>null
+    # @filespass.delete(:password_protect)
+@filespass.save!
+    respond_to do |format|
+      format.html { redirect_to ("/folders/"+@filespass.folder_id.to_s) }
+      format.xml  { head :ok }
+    end
 
+     # redirect_to ("/folders/"+@filespass.folder_id.to_s)
+  end
+
+
+  def password_protect
+    # binding.pry
+      @filespass = Filestream.find(params[:file_id])
+      @filespass[:password_protect]=nil
+      if params[:commit] == 'Save'
+           # binding.pry
+        @filespass.update_attributes :password_protect=>params[:password_protect]
+      end
+      @filespass.save!
+         
+     redirect_to ("/folders/"+@filespass.folder_id.to_s) 
+     
+  end
+
+  def create_unlocked
+      # binding.pry
+
+    @filestream=Filestream.find_by_id(params[:file_id])
+    @filestream.password_protect
+    # if @filestream && @filestream.authenticate(params[:filestream][:password_protect])
+      if 
+      @filestream.password_protect == params[:password_protect]
+      redirect_to ("/filestreams/"+@filestream.id.to_s)
+    else
+      flash[:success] = "password invalid"
+      redirect_to ("/folders/"+@filestream.folder_id.to_s)
+    end
+    
+  end
+  
 
   def download
      @fileupload = Filestream.find(params[:id])
@@ -113,6 +167,7 @@ def indexpublic
    end
 
    def multiple_delete
+      binding.pry
    	 check_ids = params[:check]
    	 if check_ids.nil?
    	 	redirect_to ("/folders/" + params[:fID])

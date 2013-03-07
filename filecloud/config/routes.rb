@@ -14,6 +14,8 @@ Filecloud::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/filestreams/multiple_delete', to: 'filestreams#multiple_delete'
   match '/folders/create_child', to: 'folders#create_child', via: :post
+  match '/filestreams/password_protect', to: 'filestreams#password_protect', via: :post
+   match '/filestreams/create_unlocked', to: 'filestreams#create_unlocked', via: :post
   resources :categories
 
   resources :folders do
@@ -54,6 +56,7 @@ Filecloud::Application.routes.draw do
      collection do
         get 'indexpublic'
     end
+
   end
 
   resources :foldertrees

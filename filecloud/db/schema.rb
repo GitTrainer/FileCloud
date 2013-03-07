@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226044011) do
+ActiveRecord::Schema.define(:version => 20130305034405) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130226044011) do
     t.integer  "attach_file_size"
     t.integer  "download_count",      :default => 0
     t.boolean  "status",              :default => false
+    t.string   "password_protect"
   end
 
   create_table "folderchilds", :force => true do |t|

@@ -11,7 +11,7 @@
 			<th>Preview</th>
 			<th>Download</th>
 			<th><%= sortable "download_count", "Count Download"%></th>
-			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? || signed_in? %>
 			<th>Status</th>
 			<%end%>
 			<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
@@ -27,15 +27,27 @@
 			<th><%= submit_tag "Download"%></th>
 
 			<th>Share file</th>
+			<th>Security file</th>
 		</tr>
 	<% @uploads.each do |filestream|%>
 		<tr>
-			<td><%= filestream.attach_file_name %></td>
+			<td><% if filestream.password_protect !=nil%><%= filestream.attach_file_name %><i class="icon-lock"></i>
+				<%else%><%= filestream.attach_file_name %>
+				<%end%>
+				
+			</td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
 			<td><%= filestream.created_at.strftime("%m/%d/%Y") %></td>
 			<% if filestream.attach_content_type.include? "image"%>
 				<td>
-					<span><a href="#previewModal-<%=filestream.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
+					<span>
+
+						<% if !filestream.password_protect.nil?%>
+						<a href="#inline_preview-<%=filestream.id%>" class="inline">Unlocked</a></a>
+						<%else%>
+<a href="#previewModal-<%=filestream.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a>
+<%end%>
+					</span>
 					<div id="previewModal-<%=filestream.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -67,7 +79,8 @@
 			<%end%>
 		<td><button type="button" onClick="location.href='/filestreams/<%= filestream.id%>/download'">Download</button></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
-			<% if filestream.status == true %>
+			<%if signed_in? %>
+			<% if filestream.status == true  %>
 				<td>
 					<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public</a>
 				</td>
@@ -75,15 +88,27 @@
      		<td>
      			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a>
      		</td>
-     <%end%>
+     <%end%><%end%>
 		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 
 		<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
 			<%end%>
 			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
-		<td></td><td></td>
+		
+			<td></td><td></td>
+		
 
-		<td><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a>
+		<td><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a></td>
+		<td><li id="fat-menu" class="dropdown" style="list-style: none;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= image_tag("keys.png",:size => "25x35") %>
+              </a>
+                <ul class="dropdown-menu" style="margin-left: -100px;">
+                   <li><a href="#inline_password-<%=filestream.id%>" class="inline" >Password Protect</a></li>
+                </ul>
+            </li>
+           
+		</td>
 		<%end%>
 	<%end%>
 				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
@@ -94,5 +119,21 @@
 							</div>
         	<%end%>
        	<%end%>
+       	<td>
+			
+       	 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+					<% @uploads.each do |filestream|%>
+						<div style='display:none'>
+							<div style="padding:10px; background:#fff;" id="inline_password-<%=filestream.id %>">
+								<%= render 'password_protect', file_id: filestream.id %>
+							</div>
+        	<%end%>	<%end%>
+        	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
+					<% @uploads.each do |filestream|%>
+						<div style='display:none'>
+							<div style="padding:10px; background:#fff;" id="inline_preview-<%=filestream.id %>">
+								<%= render 'preview_password', file_id: filestream.id %>
+							</div>
+        	<%end%>	<%end%>
 	<tr>
 </table>
