@@ -17,7 +17,6 @@
     	<% else %>
 				<%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%>
     	<%end%>
-
     	</div>
         <%= f.hidden_field :user_id, :value=> current_user.id %>
 		</br>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226044011) do
+ActiveRecord::Schema.define(:version => 20130307042342) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(:version => 20130226044011) do
     t.boolean  "status",              :default => false
   end
 
+  create_table "folderchildren", :force => true do |t|
+    t.integer  "parentID"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "folderchilds", :force => true do |t|
     t.integer  "parentID"
     t.string   "name"
@@ -73,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20130226044011) do
     t.integer  "user_id"
     t.integer  "parentID"
     t.boolean  "status",      :default => false
+    t.integer  "level"
   end
 
   create_table "foldersharings", :force => true do |t|
