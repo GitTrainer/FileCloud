@@ -1,11 +1,13 @@
 class FoldersController < ApplicationController
+	include FoldersHelper
 	require 'zip/zip'
 	require 'zip/zipfilesystem'
+	require 'open-uri'
+
   before_filter :signed_in_user , only: [:index, :edit, :update, :destroy, :create, :create_child]
   helper_method :sort_column, :sort_direction
-  
+
    def index
-   	# binding.pry
 		@foldersharings = Foldersharing.all
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		if ( @new_folder.nil?)
@@ -18,24 +20,19 @@ class FoldersController < ApplicationController
       format.js {render js: @search_folder }
     end
 	end
-	def indexpublic
 
-		# if folder.status==true
-			@folders=Folder.where(:status =>true)
-			respond_to do |format|
-		  format.html { render action: "public"}
-		  format.js {render js: @folders}
+	def indexpublic
+		@folders = Folder.where(:status =>true)
+		respond_to do |format|
+	  	format.html { render action: "public"}
+	 	  format.js {render js: @folders}
 		end
 	end
 
-	def new
-  	@foldersharings = Foldersharing.all
-	  @new_folder = Folder.new
-	end
- # @folders= current_user.folders
 	def create
 		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
+		@new_folder.level = 1
 		respond_to do |format|
 		  if @new_folder.save
 			  @new_folder = nil
@@ -52,27 +49,17 @@ class FoldersController < ApplicationController
 		end
 	end
 
-
 	 def accept
-	 	# binding.pry
-        # @foldersharings = Foldersharing.all
-		# @search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		 @search_folder = Folder.find(params[:id])
-     	if params[:status]=="true"
-          temp="false"
-        else
-          temp="true"
-        end
-        # binding.pry
-
-        # @search_folder.update_attribute(:status => temp)
-        @search_folder.status=temp
-        @search_folder.save!
-        redirect_to folders_path
-  
-    end
-
-
+     if params[:status]=="true"
+       temp="false"
+     else
+       temp="true"
+     end
+     @search_folder.status=temp
+     @search_folder.save!
+     redirect_to folders_path
+   end
 
 	def edit
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
@@ -87,7 +74,6 @@ class FoldersController < ApplicationController
 	end
 
 	def show
-		# binding.pry
 		@folder = Folder.find(params[:id])
 		@sort_file=Filestream.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
 		@uploads = @sort_file.where(:folder_id => params[:id]).search(params[:search])
@@ -126,29 +112,35 @@ class FoldersController < ApplicationController
 	end
 
 	def destroy
-		@foldersharings = Foldersharing.all
-		@user_id = Folder.find(params[:id]).user_id
 		@folder = Folder.find(params[:id])
-		@folder.destroy
+		getAllFolderByList(@folder)
+		@foldersharings = Foldersharing.all
+		$list.each do |f|
+			Folder.find(f.id).destroy
+		end
 		respond_to do |format|
 		  format.html { redirect_to "/folders"}
     end
 	end
 
 	def folder_download
-		gem 'rubyzip'
-  require 'zip/zip'
-  require 'zip/zipfilesystem'
-		@files = Filestream.find_by_sql(["select * from filestreams where folder_id =?",params[:id]])
-    t = Tempfile.new('tmp-zip-' + request.remote_ip)
-    Zip::ZipOutputStream.open(t.path) do |zos|
-		  @files.each do |file|
-		    zos.put_next_entry(file.attach_file_name)
-		    zos.print IO.read(file.attach.path)
-		  end
-  	end
-  	send_file t.path, :type => "application/zip", :filename => "#{User.find(Folder.find(params[:id]).user_id).name}-#{Folder.find(params[:id]).name}-#{Time.now}.zip"
-  	t.close
+
+		@folder=Folder.find(params[:id])
+    downloadSubFolder(@folder)
+    path = Rails.root.join(@folder.name).to_s
+    archive = path +'.zip'
+    Zip::ZipFile.open(archive, 'w') do |zipfile|
+      Dir["#{path}/**/**"].reject{|f|f==archive}.each do |file|
+        zipfile.add(file.sub(path+'/',''),file)
+      end
+    end
+    send_file archive, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
+    FileUtils.rm archive, :force=>true
+    FileUtils.rm_r(path, :force => true)
+    Dir.chdir(Rails.root.to_s)
+    $path=Rails.root.to_s
+    $level=0
+
 	end
 
 
@@ -193,6 +185,7 @@ end
 		@child.parentID = params[:parentID]
 		@child.category_id = params[:category_id]
 		@child.user_id = params[:user_id]
+		@child.level = Folder.find(params[:parentID]).level.to_i + 1
 		if @child.save
 			@child = nil
 			redirect_to ("/folders/"+ params[:parentID]+"/folder_child")
@@ -220,7 +213,7 @@ end
 				if Foldersharing.where(:shared_user_id => current_user.id, :folder_id => folder_id).exists?
 					return true
 				else
-				# Finding lastest parent is shared or not.
+				# Finding last parent is shared or not.
 					folder_id = Folder.find(folder_id).parentID
 					temp = false
 				end
@@ -229,12 +222,11 @@ end
   end
 
   def signed_in_user
-  	# binding.pry
-    unless signed_in? 
+    unless signed_in?
       store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
+      redirect_to signin_url, notice: "Please sign in."
     end
+  end
 
 	def sort_column
 	    Filestream.column_names.include?(params[:sort]) ? params[:sort] : "attach_file_name"
