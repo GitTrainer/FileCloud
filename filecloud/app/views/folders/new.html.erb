@@ -20,9 +20,9 @@
 <tr>
 	<td>  <%= f.text_field :name %></td>
 </tr>
-<%= f.hidden_field :parentId, :value => @parentId %>
-
+  <%= f.hidden_field :parentId, :value => @parentId %>
 <%if !@parentId%>
+  <%= f.hidden_field :level, :value => 1 %>
   <tr>
   <td style="color:blue"><%=f.label :Category%></td>
   </tr>
@@ -30,7 +30,8 @@
     <td><%=collection_select(:folder,:category_id,@categorys,:id,:name)%></td>
   </tr>
 <%else%>
-  <%= f.hidden_field :category_id, :value => @categorys.id%>
+    <%= f.hidden_field :category_id, :value => @categorys.id%>
+    <%= f.hidden_field :level, :value => @newLevel %>
 <%end%>
 
  <tr>

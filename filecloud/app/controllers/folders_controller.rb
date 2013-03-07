@@ -3,6 +3,7 @@ require 'zip/zipfilesystem'
 require 'open-uri'
 
 class FoldersController < ApplicationController
+  include FoldersHelper
   helper_method :sort_column, :sort_direction
   before_filter :signed_in_user,only:[:new,:index]
   before_filter :correct_user_folder,only:[:show,:edit,:destroy,:update,:down]
@@ -14,19 +15,20 @@ class FoldersController < ApplicationController
   def show
   	@folder=Folder.find(params[:id])
     @subFolders=Folder.where(:parentId => @folder.id)
-
     @files = @folder.file_up_loads.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
-    # respond_to do |format|
-    #     format.html # show.html.erb
-    #     format.json { render json: @folder }
-    #   end  
   end
   
   def new
-    @parentId=params[:Fparent]
     @folder=Folder.new
-    if !@parentId
-     @categorys=Category.all
+    @parentId=params[:Fparent]
+    @parentLevel=params[:parentLevel]
+   
+    if @parentLevel
+      @newLevel=@parentLevel.to_i+1
+    end
+
+    if !@parentId 
+      @categorys=Category.all
     else
       folder=Folder.find(@parentId)
       @categorys=Category.find(folder.category_id)
@@ -79,16 +81,38 @@ class FoldersController < ApplicationController
 
   def down
     @folder=Folder.find(params[:id])
-    t = Tempfile.new("#{@folder.name}-#{Time.now}")
-    Zip::ZipOutputStream.open(t.path) do |zos|
-      @folder.file_up_loads.each do |file|
-        zos.put_next_entry(file.attach_file_name)
-        zos.print IO.read(file.attach.path)
+    downloadSubFolder(@folder)
+    path=Rails.root.join(@folder.name).to_s
+    archive = path +'.zip'
+    
+    Zip::ZipFile.open(archive, 'w') do |zipfile|
+      Dir["#{path}/**/**"].reject{|f|f==archive}.each do |file|
+        zipfile.add(file.sub(path+'/',''),file)
       end
     end
-    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
-    t.close
+    send_file archive, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
+    FileUtils.rm archive, :force=>true
+    #FileUtils.rm path, :force=>true
+    FileUtils.rm_r(path, :force => true)
+    Dir.chdir(Rails.root.to_s)
+    $path=Rails.root.to_s
+    $level=0
+    
+    # @folder=Folder.find(params[:id])
+    # t = downloadSubFolder(@folder)
+    # binding.pry
+    # Zip::ZipOutputStream.open(t.path) do |zos|
+    #   # @folder.file_up_loads.each do |file|
+    #   #   zos.put_next_entry(file.attach_file_name)
+    #   #   zos.print IO.read(file.attach.path)
+    #   # end
+
+    # end
+    # send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@folder.name}.zip"
+    # t.close
   end
+
+
 
   private
 

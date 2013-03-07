@@ -1,7 +1,7 @@
 
 class Folder < ActiveRecord::Base
 # include Rails.application.routes.url_helpers
-  attr_accessible :category_id, :description, :name,:user_id,:parentId
+  attr_accessible :category_id, :description, :name,:user_id,:parentId ,:level
 
   validates :name, presence:true
   validates :category_id, presence:true
