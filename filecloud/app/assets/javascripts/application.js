@@ -50,10 +50,10 @@ $(function() {
      $("#password_form").submit();
    });
         $("#btn_preivew").click(function(){
-          
+
       $("#preivew_form").submit();
    });
-         
+
 
 //		  $("#share_form").submit(function(){
 //  	    var valuesToSubmit = $(this).serialize();
@@ -66,8 +66,8 @@ $(function() {
 //  		  	});
 //	    	return false; // prevents normal behaviour
 //		  });
-	 
 
- 
+
+
 
 });
