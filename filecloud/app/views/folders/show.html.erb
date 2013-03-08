@@ -1,14 +1,19 @@
 
 <script type="text/javascript">
-  function call(){
+  function checkAll(){
      var x = document.getElementById("chk0").checked;
 		if (x==true){
 			$(".chk").attr('checked',true);
+			 $("#btn_multiple_delete").removeAttr("disabled");
+			 $("#btn_multiple_download").removeAttr("disabled");
 		}
 		else{
 			$(".chk").attr('checked',false);
+			$("#btn_multiple_delete").attr("disabled", "disabled");
+			$("#btn_multiple_download").attr("disabled", "disabled");
 		}
 }
+
 </script>
 
 <h1>Folder details</h1>

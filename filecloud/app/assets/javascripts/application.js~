@@ -34,6 +34,17 @@ $(function() {
     return false;
   });
 
+	$(".chk").click(function() {
+		  var checked_status = this.checked;
+		  if (checked_status == true) {
+		     $("#btn_multiple_delete").removeAttr("disabled");
+		     $("#btn_multiple_download").removeAttr("disabled");
+		  } else {
+		     $("#btn_multiple_download").attr("disabled", "disabled");
+		     $("#btn_multiple_delete").attr("disabled", "disabled");
+		  }
+	});
+
   $("#search_folder input").keyup(function() {
     $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
