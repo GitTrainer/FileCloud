@@ -261,3 +261,139 @@ aside {
   margin-right: -220px;
   margin-left: 30px;
 }
+
+
+element.style {
+    display: block;
+    left: 420px;
+    top: 232px;
+}
+.popup {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.35);
+    display: none;
+    font-family: 'Open Sans',sans-serif;
+    position: absolute;
+    z-index: 1001;
+}
+
+.popup-close {
+    background: url("http://cdn.mediafire.com/images/icons/icon-sprite-16-v6.png") repeat scroll -980px 0 transparent;
+    height: 17px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 16px;
+}
+a {
+    color: #3190D3;
+    text-decoration: none;
+}
+
+.popup-content {
+    clear: both;
+    padding: 0 15px 15px;
+}
+ol, ul {
+    list-style: none outside none;
+}
+
+.popup-content label {
+    display: block;
+    margin-top: 5px;
+}
+element.style {
+    width: 400px;
+}
+.myfiles textarea, .myfiles input {
+    -moz-user-select: text;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+    background-clip: padding-box;
+    background-color: #F3F3F3;
+    border: 1px solid #C7C7C7;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15) inset;
+    color: #5C5E61;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    outline: medium none;
+    padding: 8px;
+}
+
+.popup-btns {
+    overflow: auto;
+    padding: 2px 15px 15px;
+}
+.gbtnPrimary:first-letter, .gbtnSecondary:first-letter, .gbtnTertiary:first-letter, .gbtnAlt:first-letter {
+    padding-left: 10px;
+}
+
+#maincont
+	{
+		width: 820px;
+		padding: 20px 20px 0 20px;
+		line-height: 22px;
+		background: url("../images/bg-maincont.png") repeat-y;
+	}
+
+			#maincont p { margin: 0 0 15px 0; }
+			#maincont h1, #maincont h2, #maincont h3, #maincont h4, #maincont h5 { margin: 0 0 15px 0; font-weight: normal; letter-spacing: -1px; }
+			#maincont h1 { font-size: 24px; }
+			#maincont h2 { font-size: 22px; }
+			#maincont h3 { font-size: 22px; }
+			#maincont h4 { font-size: 20px; }
+			#maincont h5 { font-size: 20px; }
+			#maincont ul { margin: 0 0 15px 35px; list-style-type: square; }
+			#maincont ul li { padding: 0 0 0 2px; }
+			#maincont ol { margin: 0 0 15px 35px; list-style-type: decimal; }
+			#maincont ol li { padding: 0 0 0 2px; }
+			#maincont blockquote { background: #EEE; border-left: 3px solid #D82B00; padding: 15px; margin: 0 0 15px 0; font-style: italic; line-height: 18px; }
+
+		#maincont #mainleft
+		{
+			float: left;
+			width: 190px;
+			padding: 0 15px;
+			font-size: 11px;
+		}
+
+			#maincont #mainleft ul.sidemenu
+			{
+				float: left;
+				width: 190px;
+				margin: 0 0 15px 0;
+			}
+
+			#maincont #mainleft ul.sidemenu li
+			{
+				display: block;
+				list-style-type: none;
+			}
+
+			#maincont #mainleft ul.sidemenu li a
+			{
+				float: left;
+				width: 170px;
+				padding: 6px 10px;
+				margin: 0 0 1px 0;
+				background: #EEE;
+				border-bottom: 1px solid #DDD;
+				color: #D82B00;
+				font-weight: bold;
+			}
+
+			#maincont #mainleft ul.sidemenu li a:hover
+			{
+				color: #FFF;
+				background: #D82B00 url('../images/bg-graphiccont.png') bottom repeat-x;
+			}
+
+		#maincont #mainright
+		{
+			float: left;
+			width: 580px;
+			padding: 0 0 0 20px;
+		}

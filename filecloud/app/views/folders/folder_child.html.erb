@@ -15,7 +15,7 @@
         <%= hidden_field_tag :category_id, Folder.where(:id=>params[:id]).first.category_id %>
         <%= hidden_field_tag :user_id, Folder.where(:id=>params[:id]).first.user_id %>
 		</br>
-  		<div class="span5"><center></br><%= submit_tag nil,:class => "btn  btn-primary"%></center></div>
+  		<div class="span5"><center></br><%= submit_tag "Save",:class => "btn  btn-primary"%></center></div>
   	</div>
 
   <%end%>

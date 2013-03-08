@@ -11,7 +11,7 @@
 		<%= check_box_tag 'activated[]', user.id,select %>
 		<%= user.name %> (<%= user.email%>)
 		<br/>
-		<%= hidden_field_tag :file_id, file_id %>
 	<%end%>
 	<input type="submit" value="Share" id="btn_share"/>
+	<%= hidden_field_tag :file_id, file_id %>
 	<%end%>

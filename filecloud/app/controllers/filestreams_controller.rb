@@ -13,15 +13,15 @@ before_filter :correct_user,   only: [:index]
       format.json {render json: @uploads}
     end
   end
-def indexpublic
-# binding.pry
-    # if folder.status==true
-      @filestreams=Filestream.where(:status =>true)
-      respond_to do |format|
-      format.html {render :action => "filepublic"}
-      format.json { render json: @filestreams }
+
+	def indexpublic
+    @filestreams=Filestream.where(:status =>true)
+    respond_to do |format|
+  	  format.html {render :action => "filepublic"}
+  	  format.json { render json: @filestreams }
     end
   end
+
   def show
     @folder_id = Filestream.find(params[:id]).folder_id
     @user_id= Folder.find(@folder_id).user_id
@@ -45,7 +45,6 @@ def indexpublic
   end
 
   def create
-    # binding.pry
     @folder_id = params[:filestream][:folder_id]
     @upload = Filestream.new(params[:filestream])
     @upload.folder_id = params[:filestream][:folder_id]
@@ -65,78 +64,55 @@ def indexpublic
   end
 
   def accept
-    # binding.pry
-        # @foldersharings = Foldersharing.all
-    # @search_folder = Folder.where(:user_id => current_user).search(params[:search])
-     @uploads = Filestream.find(params[:id])
-      if params[:status]=="true"
-          temp="false"
-        else
-          temp="true"
-        end
-        # binding.pry
-
-        # @search_folder.update_attribute(:status => temp)
-        @uploads.status=temp
-        @uploads.save!
-        redirect_to ("/folders/"+@uploads.folder_id.to_s)
-  
+    @uploads = Filestream.find(params[:id])
+    if params[:status]=="true"
+      temp="false"
+    else
+      temp="true"
+    end
+    @uploads.status=temp
+    @uploads.save!
+    redirect_to ("/folders/"+@uploads.folder_id.to_s)
     end
 
   def password_protect_create
-    # binding.pry
-     @filespass = Filestream.find(params[:file_id])
-     @filespass.update_attributes :password_protect=>params[:password_protect]
-     @filespass.save!
-     redirect_to ("/folders/"+@filespass.folder_id.to_s)
-    
-  end
-def destroy_password_protect
-    binding.pry
     @filespass = Filestream.find(params[:file_id])
-    @filespass[:password_protect]=nil
-    # @filespass.update_attributes :password_protect=>null
-    # @filespass.delete(:password_protect)
-@filespass.save!
-    respond_to do |format|
-      format.html { redirect_to ("/folders/"+@filespass.folder_id.to_s) }
-      format.xml  { head :ok }
-    end
-
-     # redirect_to ("/folders/"+@filespass.folder_id.to_s)
+    @filespass.update_attributes :password_protect=>params[:password_protect]
+    @filespass.save!
+    redirect_to ("/folders/"+@filespass.folder_id.to_s)
   end
 
+	def destroy_password_protect
+	  @filespass = Filestream.find(params[:file_id])
+		@filespass[:password_protect]=nil
+	  @filespass.save!
+		respond_to do |format|
+		  format.html { redirect_to ("/folders/"+@filespass.folder_id.to_s) }
+		  format.xml  { head :ok }
+		end
+  end
 
   def password_protect
-    # binding.pry
-      @filespass = Filestream.find(params[:file_id])
-      @filespass[:password_protect]=nil
-      if params[:commit] == 'Save'
-           # binding.pry
-        @filespass.update_attributes :password_protect=>params[:password_protect]
-      end
-      @filespass.save!
-         
-     redirect_to ("/folders/"+@filespass.folder_id.to_s) 
-     
+    @filespass = Filestream.find(params[:file_id])
+    @filespass[:password_protect]=nil
+    if params[:commit] == 'Save'
+      @filespass.update_attributes :password_protect=>params[:password_protect]
+    end
+    @filespass.save!
+    redirect_to ("/folders/"+@filespass.folder_id.to_s)
   end
 
   def create_unlocked
-      # binding.pry
-
     @filestream=Filestream.find_by_id(params[:file_id])
     @filestream.password_protect
-    # if @filestream && @filestream.authenticate(params[:filestream][:password_protect])
-      if 
+      if
       @filestream.password_protect == params[:password_protect]
       redirect_to ("/filestreams/"+@filestream.id.to_s)
     else
       flash[:success] = "password invalid"
       redirect_to ("/folders/"+@filestream.folder_id.to_s)
     end
-    
   end
-  
 
   def download
      @fileupload = Filestream.find(params[:id])
@@ -167,7 +143,6 @@ def destroy_password_protect
    end
 
    def multiple_delete
-      binding.pry
    	 check_ids = params[:check]
    	 if check_ids.nil?
    	 	redirect_to ("/folders/" + params[:fID])

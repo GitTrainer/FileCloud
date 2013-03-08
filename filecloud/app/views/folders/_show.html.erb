@@ -10,22 +10,20 @@
 			<th><%= sortable "attach_file_size", "File Size"%></th>
 			<th><%= sortable "created_at", "Created Date"%></th>
 			<th>Preview</th>
-			<th>Download</th>
+
 			<th><%= sortable "download_count", "Count Download"%></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? || signed_in? %>
 			<th>Status</th>
 			<%end%>
 			<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
 				<%= hidden_field_tag :fID, @folder.id %>
-				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-					<th>Delete</th>
-				<%end%>
 
-			<th><input type="checkbox" onClick="call()" id="chk0"></th>
+
+			<th><input type="checkbox" onClick="checkAll()" id="chk0"></th>
 			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-				<th><%= submit_tag "Delete", :confirm => "Are you sure?" %></th>
+				<th><%= submit_tag "Delete", :confirm => "Are you sure?",:class => "multiple", :disabled => true,:class => "btn  btn-primary", :id=> "btn_multiple_delete" %></th>
 			<%end%>
-			<th><%= submit_tag "Download"%></th>
+			<th><%= submit_tag "Download", :id=> "btn_multiple_download", :disabled => true, :class => "btn  btn-primary" %></th>
 
 			<th>Share file</th>
 			<th>Security file</th>
@@ -35,7 +33,7 @@
 			<td><% if filestream.password_protect !=nil%><%= filestream.attach_file_name %><i class="icon-lock"></i>
 				<%else%><%= filestream.attach_file_name %>
 				<%end%>
-				
+
 			</td>
 			<td><span><%= number_to_human_size(filestream.attach_file_size) %></span></td>
 			<td><%= filestream.created_at.strftime("%m/%d/%Y") %></td>
@@ -78,7 +76,6 @@
 			<%else%>
 				<td></td>
 			<%end%>
-		<td><button type="button" onClick="location.href='/filestreams/<%= filestream.id%>/download'">Download</button></td>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
 			<%if signed_in? %>
 			<% if filestream.status == true  %>
@@ -90,14 +87,10 @@
      			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a>
      		</td>
      <%end%><%end%>
-		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-
-		<td><%= link_to 'Delete',delete_from_folder_filestream_path(filestream.id), data:{ confirm: "Are you sure?" } %></td>
-			<%end%>
 			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
-		
+
 			<td></td><td></td>
-		
+
 
 		<td><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a></td>
 		<td><li id="fat-menu" class="dropdown" style="list-style: none;">
@@ -108,7 +101,7 @@
                    <li><a href="#inline_password-<%=filestream.id%>" class="inline" >Password Protect</a></li>
                 </ul>
             </li>
-           
+
 		</td>
 		<%end%>
 	<%end%>
@@ -121,7 +114,7 @@
         	<%end%>
        	<%end%>
        	<td>
-			
+
        	 <% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 					<% @uploads.each do |filestream|%>
 						<div style='display:none'>
