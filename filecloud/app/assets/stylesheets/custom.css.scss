@@ -330,3 +330,25 @@ input[type="text"], input[type="password"], input[type="email"] {
 .gbtnPrimary:first-letter, .gbtnSecondary:first-letter, .gbtnTertiary:first-letter, .gbtnAlt:first-letter {
     padding-left: 10px;
 }
+
+
+.table th, .table td {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 2px;
+    text-align: left;
+    vertical-align: top;
+}
+.container{width: 1200px; height: auto;margin: 10px auto;}
+.table{
+  margin-top: -350px;
+  margin-left: 400px;
+  margin-right: 20px;
+}
+#btn_search{
+  margin-left: 515px;
+  margin-top: -80px;
+}
+.footer_p{
+  margin-left: 100px;
+}

@@ -12,8 +12,10 @@ class FilesharingsController < ApplicationController
 	end
 
 	def create
+		# binding.pry
 		seen_ids = params[:seen].collect {|id| id.to_i} if params[:seen]
 		@file_id = params[:file_id]
+		# binding.pry
 		if !seen_ids.nil?
 			@folder_id = Filestream.find(@file_id).folder_id
 			activated_ids = params[:activated].collect {|id| id.to_i} if params[:activated]
