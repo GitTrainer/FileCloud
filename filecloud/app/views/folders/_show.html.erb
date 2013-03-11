@@ -86,7 +86,7 @@
      			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a>
      		</td>
      <%end%><%end%>
-			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk"%></td>
+			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk", :onclick => "checked_box()" %></td>
 
 			<td></td><td></td>
 

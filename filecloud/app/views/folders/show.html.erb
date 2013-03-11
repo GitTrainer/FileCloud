@@ -14,6 +14,37 @@
 		}
 }
 
+	function checked_box() {
+		var numberOfCheckboxes = document.getElementsByName("check[]")
+		var flag = false
+		var x = 0
+		for (var i = 0; i<numberOfCheckboxes.length; i++){
+			if (numberOfCheckboxes[i].checked) {
+				flag = true;
+				break
+			}
+		}
+		for (var i = 0; i<numberOfCheckboxes.length; i++){
+			if (numberOfCheckboxes[i].checked) {
+				x++;
+			}
+		}
+		if (flag == true){
+			document.getElementById("chk0").checked = false
+			document.getElementById("btn_multiple_delete").disabled = false
+			document.getElementById("btn_multiple_download").disabled = false
+		}
+		if (flag == false){
+			document.getElementById("chk0").checked = false
+			document.getElementById("btn_multiple_delete").disabled = true
+			document.getElementById("btn_multiple_download").disabled = true
+		}
+		if(x == numberOfCheckboxes.length){
+			document.getElementById("chk0").checked = true
+		}
+
+
+	}
 </script>
 
 <h1>Folder details</h1>
