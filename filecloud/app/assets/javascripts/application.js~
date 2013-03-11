@@ -61,17 +61,17 @@ $(function() {
      $("#password_form").submit();
    });
         $("#btn_preivew").click(function(){
-<<<<<<< HEAD
+
           
       $("#preivew_form").submit();
    });
          
-=======
+
 
       $("#preivew_form").submit();
    });
 
->>>>>>> f3d92482771d03303197893feee620a5e0c24ddc
+
 
 //		  $("#share_form").submit(function(){
 //  	    var valuesToSubmit = $(this).serialize();
@@ -84,14 +84,6 @@ $(function() {
 //  		  	});
 //	    	return false; // prevents normal behaviour
 //		  });
-<<<<<<< HEAD
-	 
 
- 
-=======
-
-
-
->>>>>>> f3d92482771d03303197893feee620a5e0c24ddc
 
 });

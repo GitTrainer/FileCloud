@@ -4,10 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-<<<<<<< HEAD
-    # binding.pry
-=======
->>>>>>> f3d92482771d03303197893feee620a5e0c24ddc
+
     user = User.find_by_email(params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       if user.status==true

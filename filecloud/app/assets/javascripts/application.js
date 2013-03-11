@@ -36,13 +36,15 @@ $(function() {
 
 	$(".chk").click(function() {
 		  var checked_status = this.checked;
-		  if (checked_status == true) {
+		  if (checked == true) {
 		     $("#btn_multiple_delete").removeAttr("disabled");
 		     $("#btn_multiple_download").removeAttr("disabled");
-		  } else {
+		  } else {if (checked == false){
 		     $("#btn_multiple_download").attr("disabled", "disabled");
-		     $("#btn_multiple_delete").attr("disabled", "disabled");
+		     $("#btn_multiple_delete").attr("disabled", "disabled");}
 		  }
+
+      
 	});
 
   $("#search_folder input").keyup(function() {
@@ -60,9 +62,8 @@ $(function() {
    $("#btn_abc").click(function(){
      $("#password_form").submit();
    });
-        $("#btn_preivew").click(function(){
-
-      $("#preivew_form").submit();
+   $("#btn_preivew").click(function(){
+     $("#preivew_form").submit();
    });
 
 
@@ -76,7 +77,7 @@ $(function() {
 //        //act on result.
 //  		  	});
 //	    	return false; // prevents normal behaviour
-//		  });
+		  // });
 
 
 

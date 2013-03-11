@@ -13,7 +13,7 @@
 			$("#btn_multiple_download").attr("disabled", "disabled");
 		}
 }
-<<<<<<< HEAD
+
   		$(function() {
 			$("#browser").treeview();
 		});
@@ -28,40 +28,31 @@ $(document).ready(function() {
   });
 
 });
-=======
->>>>>>> f3d92482771d03303197893feee620a5e0c24ddc
+
 
 </script>
 
 <h1>Folder details</h1>
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
-<div id="select" style="width: 70px;margin-bottom: -50px;margin-left: 650px;">
+<div id="select" style="width: 70px;margin-bottom: -50px;margin-left: 400px;">
  
      <%= select_tag "search", options_for_select([ "files", "Open", "Closed" ], params[:search]) %></div>
   
   <p class="span2">
 
   	
-    <label style="float:left;margin-left:200px;margin-top: -5px;">Files Name </label>
+    <label style="float:left">Files Name </label>
     <input id="search" class="tf-search" type="text" name="search">
-    <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" , id: "btn_search"%>
+    <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
 
 	<br/>
 
-
-
-
-
-
-
-
-
 	<div class="row">
 
 	<br/>
-		<table class="table table-hover" style="width: 500px;margin-top: 10px;">
+		<table class="table table-hover">
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
@@ -97,57 +88,26 @@ $(document).ready(function() {
 	</table>
 
 
-	<div id="main" style="float: none;margin-top: 100px;margin-left: 130px;">
-
-	<h4>MY FOLDER</h4>
-	<ul id="browser" class="filetree">
-		<li>
-			<%= image_tag src="folder.gif" %> 123</span>
-			<ul>
-				<li>blabla <%= image_tag src="file.gif" %></li>
-
-			</ul>
-		</li>
-		<li><%= image_tag src="folder.gif" %>
-			<ul>
-				<li><%= image_tag src="folder.gif" %>
-					<ul id="folder21">
-						<li><%= image_tag src="file.gif" %> more text</li>
-						<li>and here, too<%= image_tag src='file.gif' %></li>
-					</ul>
-				</li>
-				<li><%= image_tag src="file.gif" %></li>
-			</ul>
-		</li>
-		<li class="closed">this is closed! <%= image_tag src="folder.gif" %>
-			<ul>
-				<li><%= image_tag src="file.gif" %></li>
-			</ul>
-		</li>
-		<li><%= image_tag src="file.gif" %></li>
-	</ul>
-		
-</div>
-
-	<div id="searchajax" style="width: auto; clear: both;">
+	
+	<div id="searchajax">
 		<%= render 'show'%>
 	</div>
 	<%= will_paginate @uploads %>
 </div>
 	<%= hidden_field_tag :page, :value => params[:page] %>
 	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-		<p class="footer_p"><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
-		<P class="footer_p"><a href="/folders">Go to Folders</a></p>
-		<p class="footer_p"><a href="/folders/<%=@folder.id%>/folder_child">Create folder child</a></p>
+		<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
+		<P><a href="/folders">Go to Folders</a></p>
+		<p><a href="/folders/<%=@folder.id%>/folder_child">Create folder child</a></p>
 	<%end%>
 
 <style type="text/css">
 input.tf-search{
     width: 200px;
     float: left;
-    margin-left: 300px;
+    margin-left: 10px;
     margin-right: 10px;
-    margin-top: -20px;
+  
 }
 p.span2{
     width: 400px;
