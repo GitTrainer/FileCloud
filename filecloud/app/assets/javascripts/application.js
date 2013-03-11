@@ -25,7 +25,7 @@
 //=require jquery-fileupload/jquery.fileupload-fp
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
-//=require autocomplete-rails
+
 
 $(function() {
 
@@ -33,6 +33,7 @@ $(function() {
     $.getScript(this.href);
     return false;
   });
+
 
   $("#search_folder input").keyup(function() {
     $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
@@ -49,9 +50,9 @@ $(function() {
    $("#btn_abc").click(function(){
      $("#password_form").submit();
    });
-        $("#btn_preivew").click(function(){
-
-      $("#preivew_form").submit();
+   $("#btn_preivew").click(function(){
+     $("#preivew_form").submit();
    });
+
 
 });

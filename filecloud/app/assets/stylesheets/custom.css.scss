@@ -330,3 +330,16 @@ input[type="text"], input[type="password"], input[type="email"] {
 .gbtnPrimary:first-letter, .gbtnSecondary:first-letter, .gbtnTertiary:first-letter, .gbtnAlt:first-letter {
     padding-left: 10px;
 }
+
+
+
+.table th, .table td {
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+}
+
+
+

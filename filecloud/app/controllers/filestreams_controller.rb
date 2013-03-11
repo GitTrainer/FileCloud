@@ -155,6 +155,8 @@ before_filter :correct_user,   only: [:index]
 				 redirect_to ("/folders/" + params[:fID])
 			 else
 				 @files = check_ids
+         # download_count=@files.download_count
+         # @files.update_attribute(:download_count, download_count+1)
   		   t = Tempfile.new('tmp-zip-' + request.remote_ip)
     		 Zip::ZipOutputStream.open(t.path) do |zos|
 				   @files.each do |file|
