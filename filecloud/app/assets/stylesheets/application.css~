@@ -16,6 +16,7 @@
 *= require_self
 *= require colorbox
 *= require jquery.fileupload-ui
+*= require validationEngine.jquery
 
 
 .table-hover th .current {

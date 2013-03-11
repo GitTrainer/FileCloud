@@ -5,9 +5,7 @@ Filecloud::Application.routes.draw do
   resources :password_resets
   resources :users
   root to: 'homes#home'
- 
   match '/activate',to: 'users#activate'
-# :url  => "/assets/users/:id/:style/:basename.:extension"
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
@@ -15,7 +13,8 @@ Filecloud::Application.routes.draw do
   match '/filestreams/multiple_delete', to: 'filestreams#multiple_delete'
   match '/folders/create_child', to: 'folders#create_child', via: :post
   match '/filestreams/password_protect', to: 'filestreams#password_protect', via: :post
-   match '/filestreams/create_unlocked', to: 'filestreams#create_unlocked', via: :post
+  match '/filestreams/create_unlocked', to: 'filestreams#create_unlocked', via: :post
+   match '/filestreams/download', to: 'filestreams#download', via: :post
   resources :categories
 
   resources :folders do
@@ -31,7 +30,7 @@ Filecloud::Application.routes.draw do
     member do
         get 'accept'
     end
-     collection do
+    collection do
         get 'indexpublic'
     end
   end
@@ -45,7 +44,7 @@ Filecloud::Application.routes.draw do
 
   resources :filestreams do
     member do
-      get 'download'
+      get 'download_public_file'
     end
     member do
       get 'delete_from_folder'
@@ -56,10 +55,8 @@ Filecloud::Application.routes.draw do
      collection do
         get 'indexpublic'
     end
-
   end
 
-  resources :foldertrees
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

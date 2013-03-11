@@ -105,25 +105,43 @@ before_filter :correct_user,   only: [:index]
   def create_unlocked
     @filestream=Filestream.find_by_id(params[:file_id])
     @filestream.password_protect
-      if
+    if
       @filestream.password_protect == params[:password_protect]
       redirect_to ("/filestreams/"+@filestream.id.to_s)
     else
-      flash[:success] = "password invalid"
-      redirect_to ("/folders/"+@filestream.folder_id.to_s)
+      flash[:error] = "Invalid password"
+      redirect_to ("/folders/" + @filestream.folder_id.to_s)
     end
   end
 
   def download
-     @fileupload = Filestream.find(params[:id])
-     download_count=@fileupload.download_count
-     @fileupload.update_attribute(:download_count, download_count+1)
-     if @fileupload.attach_content_type == "image/*"
-       send_file @fileupload.attach.path, :type =>
-       @fileupload.attach_content_type,:disposition=>'inline'
-     else
-       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
-     end
+    @fileupload = Filestream.find(params[:file_id])
+    download_count=@fileupload.download_count
+    password = @fileupload.password_protect
+    if params[:password_protect] == password
+		  @fileupload.update_attribute(:download_count, download_count+1)
+		  if @fileupload.attach_content_type == "image/*"
+		    send_file @fileupload.attach.path, :type =>
+		    @fileupload.attach_content_type,:disposition=>'inline'
+		  else
+		    send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
+		  end
+    else
+			flash[:error] = "Invalid password"
+			redirect_to ("/users/" + current_user.id.to_s)
+    end
+  end
+
+  def download_public_file
+    @fileupload = Filestream.find(params[:id])
+    download_count=@fileupload.download_count
+    @fileupload.update_attribute(:download_count, download_count+1)
+    if @fileupload.attach_content_type == "image/*"
+      send_file @fileupload.attach.path, :type =>
+      @fileupload.attach_content_type,:disposition=>'inline'
+    else
+      send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
+    end
   end
 
 	 def delete_from_folder

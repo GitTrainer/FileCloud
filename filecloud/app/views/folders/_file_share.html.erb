@@ -1,17 +1,21 @@
-<h5>Choose member to share file</h5>
 	<%= form_tag('/filesharings', :method => 'POST', :id => 'share_form') do %>
 	<% list_users = User.find_by_sql(["select * from users where users.id != ?",current_user.id.to_s]) %>
-	<% list_users.each do |user|
-		if Filesharing.where("shared_user_id = ? AND file_id = ?", user.id.to_s, file_id.to_s).exists?
-			select = true
-		else
-			select = false
-		end %>
-		<%= hidden_field_tag('seen[]', user.id) %>
-		<%= check_box_tag 'activated[]', user.id,select %>
-		<%= user.name %> (<%= user.email%>)
-		<br/>
+	<% if !list_users.blank?%>
+		<h5>Choose member to share file</h5>
+		<% list_users.each do |user|
+			if Filesharing.where("shared_user_id = ? AND file_id = ?", user.id.to_s, file_id.to_s).exists?
+				select = true
+			else
+				select = false
+			end %>
+			<%= hidden_field_tag('seen[]', user.id) %>
+			<%= check_box_tag 'activated[]', user.id,select %>
+			<%= user.name %> (<%= user.email%>)
+			<br/>
 	<%end%>
 	<input type="submit" value="Share" id="btn_share"/>
+	<%else%>
+		<b>No user to share</b>
+	<%end%>
 	<%= hidden_field_tag :file_id, file_id %>
 	<%end%>

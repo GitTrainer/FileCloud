@@ -25,6 +25,8 @@
 //=require jquery-fileupload/jquery.fileupload-fp
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
+//=require jquery.validationEngine
+//=require jquery.validationEngine-en
 
 
 $(function() {
@@ -40,6 +42,8 @@ $(function() {
     return false;
   });
 
+
+
 	 $(".inline").colorbox({inline:true, width:"40%"});
  	 $("#btn_share").click(function() {
 	 	 $("#share_form").submit();
@@ -53,6 +57,11 @@ $(function() {
    $("#btn_preivew").click(function(){
      $("#preivew_form").submit();
    });
+
+   $("#btn_download").click(function(){
+     $("#protect_download_form").submit();
+   });
+
 
 
 });

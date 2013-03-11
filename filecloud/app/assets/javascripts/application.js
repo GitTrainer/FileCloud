@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//=require jquery.colorbox
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
@@ -27,6 +26,7 @@
 //=require jquery-fileupload/locale
 
 
+
 $(function() {
 
     $("#folders").live("click", function() {
@@ -39,6 +39,8 @@ $(function() {
     $.get($("#search_folder").attr("action"), $("#search_folder").serialize(), null, "script");
     return false;
   });
+
+
 
 	 $(".inline").colorbox({inline:true, width:"40%"});
  	 $("#btn_share").click(function() {
@@ -53,6 +55,11 @@ $(function() {
    $("#btn_preivew").click(function(){
      $("#preivew_form").submit();
    });
+
+   $("#btn_download").click(function(){
+     $("#protect_download_form").submit();
+   });
+
 
 
 });

@@ -14,9 +14,7 @@
  */
  *= require_tree .
 *= require_self
-*= require colorbox
 *= require jquery.fileupload-ui
-
 
 .table-hover th .current {
   padding-right: 12px;
