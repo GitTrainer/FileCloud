@@ -2,7 +2,7 @@
   <div class="navbar-inner">
     <div class="container">
     <% if signed_in? %>
-	    <a href="/users/<%=current_user.id%>" id="logo">Training Project</a>
+	    <a href="/users/<%=current_user.id%>" id="logo">FileCloud Project</a>
     <%else%>
       <%= link_to "Training Project", root_path, id: "logo" %>
     <% end %>

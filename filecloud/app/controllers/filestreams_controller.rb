@@ -75,23 +75,6 @@ before_filter :correct_user,   only: [:index]
     redirect_to ("/folders/"+@uploads.folder_id.to_s)
     end
 
-  def password_protect_create
-    @filespass = Filestream.find(params[:file_id])
-    @filespass.update_attributes :password_protect=>params[:password_protect]
-    @filespass.save!
-    redirect_to ("/folders/"+@filespass.folder_id.to_s)
-  end
-
-	def destroy_password_protect
-	  @filespass = Filestream.find(params[:file_id])
-		@filespass[:password_protect]=nil
-	  @filespass.save!
-		respond_to do |format|
-		  format.html { redirect_to ("/folders/"+@filespass.folder_id.to_s) }
-		  format.xml  { head :ok }
-		end
-  end
-
   def password_protect
     @filespass = Filestream.find(params[:file_id])
     @filespass[:password_protect]=nil
@@ -110,7 +93,7 @@ before_filter :correct_user,   only: [:index]
       redirect_to ("/filestreams/"+@filestream.id.to_s)
     else
       flash[:error] = "Invalid password"
-      redirect_to ("/folders/" + @filestream.folder_id.to_s)
+      redirect_to :back
     end
   end
 
@@ -128,7 +111,7 @@ before_filter :correct_user,   only: [:index]
 		  end
     else
 			flash[:error] = "Invalid password"
-			redirect_to ("/users/" + current_user.id.to_s)
+			redirect_to :back
     end
   end
 

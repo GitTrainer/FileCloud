@@ -25,10 +25,10 @@
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
 
-
-
 $(function() {
 
+		$('#preivew_form').validationEngine();
+		$('#protect_download_form').validationEngine();
     $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;

@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//=require jquery.colorbox
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
@@ -25,12 +24,11 @@
 //=require jquery-fileupload/jquery.fileupload-fp
 //=require jquery-fileupload/jquery.fileupload-ui
 //=require jquery-fileupload/locale
-//=require jquery.validationEngine
-//=require jquery.validationEngine-en
-
 
 $(function() {
 
+		$('#preivew_form').validationEngine();
+		$('#protect_download_form').validationEngine();
     $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;

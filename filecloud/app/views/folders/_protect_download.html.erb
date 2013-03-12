@@ -1,0 +1,14 @@
+
+<%= form_tag('/filestreams/download', :id =>'protect_download_form', :remote => true, :method => 'POST') do %>
+  <div class="field">
+    <p>This file is protected. Please enter password here to download it. </p>
+
+  <input autofocus="autofocus" class="validate[required]" id="password_protect" name="password_protect" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
+
+  </div>
+  <div class="actions">
+
+  <input type="submit" value="Download" id="btn_download" class="btn btn-primary" />
+  </div>
+  <%= hidden_field_tag :file_id, file_id %>
+<% end %>

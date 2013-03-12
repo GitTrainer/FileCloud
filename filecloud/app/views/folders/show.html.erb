@@ -32,12 +32,16 @@
 		}
 		if (flag == true){
 			document.getElementById("chk0").checked = false
-			document.getElementById("btn_multiple_delete").disabled = false
+			<% if Folder.where(:id => params[:id], :user_id => current_user.id).exists?%>
+				document.getElementById("btn_multiple_delete").disabled = false
+			<%end%>
 			document.getElementById("btn_multiple_download").disabled = false
 		}
 		if (flag == false){
 			document.getElementById("chk0").checked = false
-			document.getElementById("btn_multiple_delete").disabled = true
+			<% if Folder.where(:id => params[:id], :user_id => current_user.id).exists?%>
+				document.getElementById("btn_multiple_delete").disabled = true
+			<%end%>
 			document.getElementById("btn_multiple_download").disabled = true
 		}
 		if(x == numberOfCheckboxes.length){
@@ -49,13 +53,8 @@
 
 <h1>Folder details</h1>
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
-<div id="select" style="width: 70px;margin-bottom: -50px;margin-left: 400px;">
-
-     <%= select_tag "search", options_for_select([ "files", "Open", "Closed" ], params[:search]) %></div>
 
   <p class="span2">
-
-
     <label style="float:left">Files Name </label>
     <input id="search" class="tf-search" type="text" name="search">
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>

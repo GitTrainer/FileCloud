@@ -12,7 +12,7 @@
 			<th>Preview</th>
 
 			<th><%= sortable "download_count", "Count Download"%></th>
-			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? || signed_in? %>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists?%>
 			<th>Status</th>
 			<%end%>
 			<%= form_tag(:controller => 'filestreams', :action => 'multiple_delete') do %>
@@ -24,9 +24,15 @@
 				<th><%= submit_tag "Delete", :confirm => "Are you sure?",:class => "multiple", :disabled => true,:class => "btn  btn-primary", :id=> "btn_multiple_delete" %></th>
 			<%end%>
 			<th><%= submit_tag "Download", :id=> "btn_multiple_download", :disabled => true, :class => "btn  btn-primary" %></th>
-
+				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 			<th>Share file</th>
 			<th>Security file</th>
+			<th>Download</th>
+			<%else%>
+			<th></th>
+			<th>Download</th>
+			<%end%>
+
 		</tr>
 	<% @uploads.each do |filestream|%>
 		<tr>
@@ -41,9 +47,7 @@
 				<td>
 					<span>
 
-						<% if !filestream.password_protect.nil?%>
-						<a href="#inline_preview-<%=filestream.id%>" class="inline">Locked</a></a>
-						<%else%>
+
 <a href="#previewModal-<%=filestream.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a>
 <%end%>
 					</span>
@@ -65,25 +69,23 @@
 					</div>
 				</div>
 			</td>
-			<%else%>
-				<td></td>
-			<%end%>
 		<td style="text-align: center;"> <%= filestream.download_count%></td>
-			<%if signed_in? %>
-			<% if filestream.status == true  %>
-				<td>
-					<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public</a>
-				</td>
-      <%else%>
-     		<td>
-     			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private</a>
-     		</td>
-     <%end%><%end%>
+			<% if Folder.where(:user_id => current_user, :id => params[:id]).exists?%>
+				<% if filestream.status == true  %>
+					<td>
+						<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Public (Make private)</a>
+					</td>
+		    <%else%>
+		   		<td>
+		   			<a href="/filestreams/<%=filestream.id%>/accept?status=<%=filestream.status%>">Private (Make public)</a>
+		   		</td>
+		   <%end%>
+     <%end%>
 			<td><%= check_box_tag 'check[]', filestream.id, false, class: "chk", :onclick => "checked_box()" %></td>
 
 			<td></td><td></td>
 
-
+		<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 		<td><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a></td>
 		<td><li id="fat-menu" class="dropdown" style="list-style: none;">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -95,6 +97,8 @@
             </li>
 
 		</td>
+		<%end%>
+			<td><%=link_to "Download", download_public_file_filestream_path(filestream.id)%></td>
 		<%end%>
 	<%end%>
 				<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
@@ -115,13 +119,6 @@
 							</div>
         	  <%end%>
         	<%end%>
-        	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
-					 <% @uploads.each do |filestream|%>
-						 <div style='display:none'>
-							 <div style="padding:10px; background:#fff;" id="inline_preview-<%=filestream.id %>">
-								 <%= render 'preview_password', file_id: filestream.id %>
-							 </div>
-        	  <%end%>
-        	<%end%>
+
 	<tr>
 </table>
