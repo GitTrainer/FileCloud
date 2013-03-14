@@ -56,16 +56,13 @@
 						<div align="right">
 						<button type="button" class="btn btn-mini" onClick="location.href='/folders/<%=filestream.folder_id%>'">X</button>
 						</div>
-
 						<h3 id="previewModalLabel"><%=filestream.attach_file_name%></h3>
 					</div>
-					<div id="myCarousel" class="carousel slide">
 						<div class="modal-body">
 							<%= image_tag filestream.attach.url %>
 						</div>
-				  </div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
+						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=filestream.id%>/download_public_file'"><i class="icon-download icon-white"></i>Download</button>
 					</div>
 				</div>
 			</td>

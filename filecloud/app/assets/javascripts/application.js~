@@ -27,6 +27,7 @@
 
 $(function() {
 
+		$('#view_form').validationEngine();
 		$('#preivew_form').validationEngine();
 		$('#protect_download_form').validationEngine();
     $("#folders").live("click", function() {
@@ -41,7 +42,7 @@ $(function() {
   });
 
 
-
+	 $(".preview").colorbox
 	 $(".inline").colorbox({inline:true, width:"40%"});
  	 $("#btn_share").click(function() {
 	 	 $("#share_form").submit();

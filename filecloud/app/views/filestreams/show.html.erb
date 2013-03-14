@@ -1,5 +1,55 @@
-<%= image_tag @upload.attach.url %>
-<br></br>
- <div style="float:right">
-	 <button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download'" ><i class="icon-download icon-white"></i>Download</button>
- </div>
+<% if @flagSigned == true %>
+		<%= image_tag @upload.attach.url %>
+	<br></br>
+ 	<div style="float:right">
+	<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+<%end%>
+
+<% if @flagSignedStatus == true && @flagPass == true%>
+	<%= image_tag @upload.attach.url %>
+	<br></br>
+ 	<div style="float:right">
+	<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+<% end %>
+
+<% if @flagSignedStatus == true && @flagWrongPass == true %>
+	<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
+		<div style="padding:10px">
+			<div class="field">
+			  <p>This file is password protected. Please enter the password here to preview it. </p>
+			  <input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
+			  <%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock", :disabled => true %>
+			</div>
+		</div>
+	<%end%>
+<%end%>
+
+<% if @flagNotSigned == true && @flagPass == true%>
+	<%= image_tag @upload.attach.url %>
+	<br></br>
+ 	<div style="float:right">
+		<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+<%end%>
+
+<% if @flagNotSigned == true && @flagWrongPass == true%>
+	<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
+		<div style="padding:10px">
+			<div class="field">
+			  <p>This file is password protected. Please enter the password here to preview it. </p>
+			  <input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
+			  <%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock", :disabled => true %>
+			</div>
+		</div>
+	<%end%>
+<%end%>
+
+<script type="text/javascript">
+  $("#password_protect").keyup(function(){ check_submit(this)});
+	function check_submit(obj) {
+		if ($(obj).val() == "") {
+		  $("#btn_unlock").attr("disabled", "disabled");
+		} else {
+		  $("#btn_unlock").removeAttr("disabled");
+		}
+	}
+</script>

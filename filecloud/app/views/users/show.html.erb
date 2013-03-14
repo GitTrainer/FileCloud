@@ -60,11 +60,7 @@
 			</tr>
 		 	  <% listFiles = Filesharing.where(:shared_user_id => current_user) %>
 		    <% listFiles.each do |file|%>
-
 				  <td><%= Filestream.find(file.file_id).attach_file_name %></td>
-
-
-
 					  <% if Filestream.find(file.file_id).attach_content_type.include? "image"%>
 				   <td>
 					<span><a href="#previewModal-<%=file.file_id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
@@ -78,7 +74,7 @@
 							<%= image_tag Filestream.find(file.file_id).attach.url %>
 					</div>
 				<div class="modal-footer">
-						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=file.file_id%>/download'"><i class="icon-download icon-white"></i>Download</button>
+						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=file.file_id%>/download_public_file'"><i class="icon-download icon-white"></i>Download</button>
 					</div>
 				</div>
 				</td>

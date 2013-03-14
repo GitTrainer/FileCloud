@@ -37,17 +37,7 @@
 				<td><%= link_to 'Download', download_public_file_filestream_path(file.id) %></td>
 				<%else%>
 				 <td><%= Filestream.find(file.id).attach_file_name %><i class="icon-lock"></i></td>
-				 <td><a href="#inline_preview-<%=file.id%>" class="inline">Locked</a>
-					<div style='display:none'>
-					  <div style="padding:10px; background:#fff;" id="inline_preview-<%=file.id %>">
-						  <%= render 'folders/preview_password', file_id: file.id %>
-						 </div>
-				 </td>
-				 <td><a href="#download_protect-<%=file.id%>" class="inline">Download</a>
-						<div style='display:none'>
-							 <div style="padding:10px; background:#fff;" id="download_protect-<%=file.id %>">
-								 <%= render 'folders/protect_download', file_id: file.id %>
-							 </div>
+				 <td><a href="/filestreams/<%=file.id%>">Go to download page</a>
 					</td>
 				<%end%>
 

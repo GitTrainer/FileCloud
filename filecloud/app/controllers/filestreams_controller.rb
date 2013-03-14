@@ -23,16 +23,44 @@ before_filter :correct_user,   only: [:index]
   end
 
   def show
-    @folder_id = Filestream.find(params[:id]).folder_id
-    @user_id= Folder.find(@folder_id).user_id
+    @folder = Folder.find(Filestream.find(params[:id]).folder_id)
+    @user_id = @folder.user_id
+    @upload = Filestream.find(params[:id])
+    @flagPass = false
+    @flagSigned = false
+    @flagNotSigned = false
+    @flagWrongPass = false
+    @flagSignedStatus = false
     respond_to do |format|
-	    if current_user.id.to_s == @user_id.to_s || Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @folder_id).exists? || Filesharing.where(:shared_user_id => current_user.id, :file_id => params[:id]).exists?
-  	    @upload = Filestream.find(params[:id])
-        format.html
-        format.json { render json: @upload }
-   	  else
-        format.html { redirect_to root_path }
-      end
+			if signed_in?
+	   	  if current_user.id.to_s == @user_id.to_s || Foldersharing.where(:shared_user_id => current_user.id, :folder_id => @folder.id).exists? || Filesharing.where(:shared_user_id => current_user.id, :file_id => params[:id]).exists?
+	   	  	@flagSigned = true
+        	format.html
+   	  	else
+   	  		if @upload.status == true
+   	  			@flagSignedStatus = true
+   	  			if @upload.password_protect == params[:password]
+  	      		@flagPass = true
+	          	format.html
+	          else
+	        		@flagWrongPass = true
+							format.html
+	          end
+	        else
+	        	format.html { redirect_to root_path}
+	        end
+      	end
+      else
+      	if @upload.password_protect == params[:password]
+      		@flagNotSigned = true
+      		@flagPass = true
+    			format.html
+    		else
+    			@flagNotSigned = true
+    			@flagWrongPass = true
+					format.html
+				end
+    	end
     end
   end
 
@@ -86,15 +114,7 @@ before_filter :correct_user,   only: [:index]
   end
 
   def create_unlocked
-    @filestream=Filestream.find_by_id(params[:file_id])
-    @filestream.password_protect
-    if
-      @filestream.password_protect == params[:password_protect]
-      redirect_to ("/filestreams/"+@filestream.id.to_s)
-    else
-      flash[:error] = "Invalid password"
-      redirect_to :back
-    end
+    redirect_to ("/filestreams/"+params[:file_id])
   end
 
   def download
@@ -156,12 +176,12 @@ before_filter :correct_user,   only: [:index]
 				 redirect_to ("/folders/" + params[:fID])
 			 else
 				 @files = check_ids
-         # download_count=@files.download_count
-         # @files.update_attribute(:download_count, download_count+1)
   		   t = Tempfile.new('tmp-zip-' + request.remote_ip)
     		 Zip::ZipOutputStream.open(t.path) do |zos|
 				   @files.each do |file|
 				  	 f = Filestream.find(file)
+				  	 download_count= f.download_count
+	           f.update_attribute(:download_count, download_count+1)
 		  		   zos.put_next_entry(f.attach_file_name)
 		  		   zos.print IO.read(f.attach.path)
 		 		   end
@@ -171,6 +191,7 @@ before_filter :correct_user,   only: [:index]
 		   end
 		 end
    end
+
 
   private
 
