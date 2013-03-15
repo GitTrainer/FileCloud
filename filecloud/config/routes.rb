@@ -15,6 +15,8 @@ Filecloud::Application.routes.draw do
   match '/filestreams/password_protect', to: 'filestreams#password_protect', via: :post
   match '/filestreams/create_unlocked', to: 'filestreams#create_unlocked', via: :post
    match '/filestreams/download', to: 'filestreams#download', via: :post
+   match '/filestreams/move_file', to: 'filestreams#move_file', via: :post
+   match '/filestreams/rename', to: 'filestreams#rename', via: :post
    match '/filestreams/:id', to: 'filestreams#show', via: :post
   resources :categories
 

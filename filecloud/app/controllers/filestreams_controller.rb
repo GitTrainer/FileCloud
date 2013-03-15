@@ -10,7 +10,6 @@ before_filter :correct_user,   only: [:index]
     respond_to do |format|
       format.html # index.html
       format.json { render json: @uploads.map{|upload| upload.to_jq_upload } }
-      format.json {render json: @uploads}
     end
   end
 
@@ -149,19 +148,43 @@ before_filter :correct_user,   only: [:index]
 
 	 def delete_from_folder
 	 	 @upload = Filestream.find(params[:id])
+	 	 path	= @upload.attach.path
 		 @upload.destroy
+		 File.delete(path)
 		 redirect_to ("/folders/"+@upload.folder_id.to_s)
 	 end
 
 	 def destroy
    	 @delete_file = Filestream.find(params[:id])
+   	 path = @delete_file.attach.path
    	 @folder_id = @delete_file.folder_id
      @delete_file.destroy
+     File.delete(path)
      respond_to do |format|
        format.html { redirect_to "/filestreams/?folder_id=" + folder_id.to_s }
        format.json { head :no_content }
      end
    end
+
+	 def move_file
+	 	file = Filestream.find_by_id(params[:file_id])
+	 	file.update_attribute(:folder_id, params[:folder].first.to_i)
+	 	redirect_to ("/folders/"+params[:folder_id])
+	 	flash[:success] = "File moved"
+	 end
+
+	 def rename
+		 file = Filestream.find_by_id(params[:file_id])
+		 fileExtension = file.attach_content_type.partition('/').last
+		 fileNameSave = params[:filename] + "." + fileExtension
+		 splitPath = file.attach.path.split('/')
+		 removeLast = splitPath.delete(file.attach_file_name)
+		 newPath = splitPath.join('/') + "/" + fileNameSave
+		 File.rename(file.attach.path, newPath)
+		 file.update_attribute(:attach_file_name, fileNameSave)
+		 redirect_to ("/folders/" + params[:folder_id])
+	 	 flash[:success] = "File renamed"
+	 end
 
    def multiple_delete
    	 check_ids = params[:check]
@@ -203,9 +226,13 @@ before_filter :correct_user,   only: [:index]
     end
 
     def correct_user
-			if Folder.find(params[:folder_id]).user_id.to_s != current_user.id.to_s
-				flash[:notice] = "You do not have permission to do this"
-				redirect_to root_path
+	    folder = Folder.find_by_id(params[:folder_id])
+	    if !folder.nil?
+				if folder.user_id == current_user.id
+				else
+					redirect_to root_path
+					flash[:notice] = "You do not have permission to do this"
+      	end
       end
     end
 end

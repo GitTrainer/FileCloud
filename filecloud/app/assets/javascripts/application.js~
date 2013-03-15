@@ -30,6 +30,7 @@ $(function() {
 		$('#view_form').validationEngine();
 		$('#preivew_form').validationEngine();
 		$('#protect_download_form').validationEngine();
+		$('#rename_form').validationEngine();
     $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;
@@ -60,6 +61,15 @@ $(function() {
    $("#btn_download").click(function(){
      $("#protect_download_form").submit();
    });
+
+   $("#btn_move").click(function(){
+     $("#move_file_form").submit();
+   });
+
+	 $("#btn_rename").click(function(){
+     $("#rename_form").submit();
+   });
+
 
 
 

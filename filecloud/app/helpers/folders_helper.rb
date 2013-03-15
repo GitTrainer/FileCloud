@@ -53,16 +53,6 @@ module FoldersHelper
 		return newPath
 	end
 
-	def getAllTreeFolder
-		roots=Folder.where(:parentId=>nil)
-		hashAllFolder={}
-		for i in 0..roots.length-1
-   			hashAllFolder[i]=getSubTreeFolder(roots[i])
-   			$list=[]
-		end
-		return hashAllFolder
-	end
-
 	$list = Array.new
 	def getAllFolderByList(rootFolder)
 		$list.push(rootFolder)

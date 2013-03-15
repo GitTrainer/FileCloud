@@ -20,7 +20,6 @@ gem 'progress_bar'
 gem 'delayed_job_active_record'
 gem 'nifty-generators'
 gem 'rubyzip'
-gem 'colorbox-on-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,6 +36,10 @@ end
 group :test, :development do
   gem 'sunspot_solr'
 end
+group :development do
+  gem 'meta_request'
+end
+
 group :test, :development do
   gem 'factory_girl_rails', '4.1.0'
   gem "rspec-rails", "~> 2.0"
