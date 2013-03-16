@@ -104,8 +104,8 @@ before_filter :correct_user,   only: [:index]
 
   def password_protect
     @filespass = Filestream.find(params[:file_id])
-    @filespass[:password_protect]=nil
-    if params[:commit] == 'Save'
+    @filespass.password_protect = nil
+    if params[:save] == "" || params[:save].nil?
       @filespass.update_attributes :password_protect=>params[:password_protect]
     end
     @filespass.save!
@@ -148,18 +148,14 @@ before_filter :correct_user,   only: [:index]
 
 	 def delete_from_folder
 	 	 @upload = Filestream.find(params[:id])
-	 	 path	= @upload.attach.path
 		 @upload.destroy
-		 File.delete(path)
 		 redirect_to ("/folders/"+@upload.folder_id.to_s)
 	 end
 
 	 def destroy
    	 @delete_file = Filestream.find(params[:id])
-   	 path = @delete_file.attach.path
    	 @folder_id = @delete_file.folder_id
      @delete_file.destroy
-     File.delete(path)
      respond_to do |format|
        format.html { redirect_to "/filestreams/?folder_id=" + folder_id.to_s }
        format.json { head :no_content }
@@ -174,11 +170,11 @@ before_filter :correct_user,   only: [:index]
 	 end
 
 	 def rename
-		 file = Filestream.find_by_id(params[:file_id])
-		 fileExtension = file.attach_content_type.partition('/').last
+		 file = Filestream.find(params[:file_id])
+		 fileExtension = file.attach_file_name.split('.').last
 		 fileNameSave = params[:filename] + "." + fileExtension
 		 splitPath = file.attach.path.split('/')
-		 removeLast = splitPath.delete(file.attach_file_name)
+		 splitPath.delete(file.attach_file_name)
 		 newPath = splitPath.join('/') + "/" + fileNameSave
 		 File.rename(file.attach.path, newPath)
 		 file.update_attribute(:attach_file_name, fileNameSave)
@@ -214,7 +210,6 @@ before_filter :correct_user,   only: [:index]
 		   end
 		 end
    end
-
 
   private
 

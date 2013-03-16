@@ -51,7 +51,7 @@ $(function() {
    $("#btn_password").click(function(){
      $("#password_form").submit();
    });
-   $("#btn_abc").click(function(){
+   $("#btn_remove").click(function(){
      $("#password_form").submit();
    });
    $("#btn_preivew").click(function(){
@@ -67,10 +67,9 @@ $(function() {
    });
 
 	 $("#btn_rename").click(function(){
-     $("#rename_form").submit();
+     $('#rename_form').submit(function() {
+       $(this).unbind('submit').submit();
+     });
    });
-
-
-
 
 });

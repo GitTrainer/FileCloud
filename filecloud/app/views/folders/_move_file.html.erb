@@ -1,0 +1,24 @@
+<%= form_tag('/filestreams/move_file', :id =>'move_file_form', :remote => true) do %>
+	<% allFolder = Folder.where(:user_id => current_user.id)%>
+	<% if !allFolder.blank? %>
+	<h5>Choose folder to move file into</h5>
+  <div class="field">
+		<% allFolder.each do |folder| %>
+			<% if folder.id.to_s == folder_id.to_s %>
+				<% select = true %>
+			<% else%>
+				<% select = false %>
+			<% end %>
+			<%= radio_button_tag 'folder[]', folder.id, select %>
+			<%= folder.name %>
+			<br/>
+		<%end%>
+  </div>
+  <div class="actions">
+  	<br/>
+		<input type="submit" value="Move" id="btn_move" name = "commit" class="btn btn-primary"/>
+  </div>
+   <%end%>
+  <%= hidden_field_tag :file_id, file_id %>
+  <%= hidden_field_tag :folder_id, folder_id %>
+<% end %>

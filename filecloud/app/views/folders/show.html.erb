@@ -55,7 +55,7 @@
 <%= form_tag folder_path(@folder), :method => 'get',:id => "search_folder" do %>
 
   <p class="span2">
-    <label style="float:left">Files Name </label>
+    <label style="float:left">Filename </label>
     <input id="search" class="tf-search" type="text" name="search">
     <%= submit_tag "Search", :attach_file_name => nil , class: "btn  btn-primary" %>
   </p>
