@@ -1,49 +1,30 @@
 
 <h1>All list files public</h1>
-<table class="table table-hover">
-    	<tr>
-				<th>File name</th>
-				<th>View file (image only)</th>
-				<th>Download</th>
-
-			</tr>
-
-		    <% @filestreams.each do |file|%>
-
-		    <%if file.status==true%>
-		    	<%if file.password_protect.nil?%>
-				  	<td><%= Filestream.find(file.id).attach_file_name %></td>
-				  	<% if Filestream.find(file.id).attach_content_type.include? "image"%>
-				   <td>
-					<span><a href="#previewModal-<%=file.id%>" data-toggle="modal"><%= image_tag("preview.jpeg",:size => "30x30", alt: "Preview") %></a></span>
-				</td>
-				<div id="previewModal-<%=file.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true" data>
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h3 id="previewModalLabel"><%=Filestream.find(file.id).attach_file_name%></h3>
-
-
-					<div class="modal-body">
-							<%= image_tag Filestream.find(file.id).attach.url %>
-						</div>
-				</div>
-				<div class="modal-footer">
-						<button type="button" class="btn btn-large" onClick="location.href='/filestreams/<%=file.id%>/download'"><i class="icon-download icon-white"></i>Download</button>
-					</div>
-				</div>
-					<%else%>
-						<td></td>
-					<%end%>
-				<td><%= link_to 'Download', download_public_file_filestream_path(file.id) %></td>
-				<%else%>
-				 <td><%= Filestream.find(file.id).attach_file_name %><i class="icon-lock"></i></td>
-				 <td><a href="/filestreams/<%=file.id%>">Go to download page</a>
-					</td>
-				<%end%>
-
-
+	<table class="table table-hover">
+  	<tr>
+			<th>File name</th>
+			<th>View</th>
+			<th>Download</th>
+		</tr>
+	  <% @filestreams.each do |file|%>
 			<tr>
+			  <%if file.status==true%>
+			  	<%if file.password_protect.blank?%>
+						<td><%= Filestream.find(file.id).attach_file_name %></td>
+						<td><a href="/filestreams/<%=file.id%>">View file</td>
+						<td><%= link_to 'Download', download_public_file_filestream_path(file.id) %></td>
+					<%else%>
+						 <td><%= Filestream.find(file.id).attach_file_name %><i class="icon-lock"></i></td>
+						 <td><a href="/filestreams/<%=file.id%>">Go to download page</a></td>
+						 <td><a href="#protect_download-<%=file.id%>" class="inline">Download</a>
+							 <div style='display:none'>
+								 <div style="padding:10px; background:#fff;" id="protect_download-<%=file.id %>">
+									 <%= render 'folders/protect_download', file_id: file.id %>
+								 </div>
+							 </div>
+						 </td>
+					<%end%>
+				<% end %>
 			</tr>
-			<% end %>
-			<% end %>
-    </table>
+		<% end %>
+  </table>

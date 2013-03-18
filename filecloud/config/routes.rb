@@ -17,7 +17,9 @@ Filecloud::Application.routes.draw do
    match '/filestreams/download', to: 'filestreams#download', via: :post
    match '/filestreams/move_file', to: 'filestreams#move_file', via: :post
    match '/filestreams/rename', to: 'filestreams#rename', via: :post
+   match '/filestreams/facebook', to: 'filestreams#facebook', via: :post
    match '/filestreams/:id', to: 'filestreams#show', via: :post
+
   resources :categories
 
   resources :folders do
@@ -55,9 +57,13 @@ Filecloud::Application.routes.draw do
      member do
         get 'accept'
     end
-     collection do
+    collection do
         get 'indexpublic'
     end
+    collection do
+      get 'editcontent'
+    end
+
   end
 
   # The priority is based upon order of creation:

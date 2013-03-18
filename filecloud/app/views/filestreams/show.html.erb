@@ -1,47 +1,65 @@
-<% if @flagSigned == true %>
-		<%= image_tag @upload.attach.url %>
-	<br></br>
- 	<div style="float:right">
-	<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
-<%end%>
+	<% if @flagSigned == true %>
+		<% if !@data.nil? %>
+			<b><font size="4"><%= @upload.attach_file_name%></font></b>
+			<%= text_area_tag 'content', @data, :rows => 20, :cols => 40, :class => "area" %>
+			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%else%>
+			<%= image_tag @upload.attach.url %>
+			<br></br>
+		 	<div style="float:right">
+			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%end%>
+	<%end%>
 
-<% if @flagSignedStatus == true && @flagPass == true%>
-	<%= image_tag @upload.attach.url %>
-	<br></br>
- 	<div style="float:right">
-	<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
-<% end %>
+	<% if @flagSignedStatus == true && @flagPass == true%>
+		<% if !@data.nil? %>
+			<b><font size="4"><%= @upload.attach_file_name%></font></b>
+			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40,:class => "area"%>
+			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%else%>
+			<%= image_tag @upload.attach.url %>
+			<br></br>
+	 		<div style="float:right">
+				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%end%>
+	<% end %>
 
-<% if @flagSignedStatus == true && @flagWrongPass == true %>
-	<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
+	<% if @flagSignedStatus == true && @flagWrongPass == true %>
+		<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
+			<div style="padding:10px">
+				<div class="field">
+					<p>This file is password protected. Please enter the password here to preview it. </p>
+					<input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
+					<%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock" %>
+				</div>
+			</div>
+		<%end%>
+	<%end%>
+
+	<% if @flagNotSigned == true && @flagPass == true%>
+		<% if !@data.nil? %>
+			<b><font size="4"><%= @upload.attach_file_name%></font></b>
+			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40, :class => "area" %>
+			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%else%>
+			<%= image_tag @upload.attach.url %>
+			<br></br>
+ 			<div style="float:right">
+				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%end%>
+	<%end%>
+
+	<% if @flagNotSigned == true && @flagWrongPass == true%>
+		<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
 		<div style="padding:10px">
 			<div class="field">
-			  <p>This file is password protected. Please enter the password here to preview it. </p>
-			  <input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
-			  <%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock", :disabled => true %>
+				<p>This file is password protected. Please enter the password here to preview it. </p>
+				<input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
+				<%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock" %>
 			</div>
 		</div>
+		<%end%>
 	<%end%>
-<%end%>
-
-<% if @flagNotSigned == true && @flagPass == true%>
-	<%= image_tag @upload.attach.url %>
-	<br></br>
- 	<div style="float:right">
-		<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
-<%end%>
-
-<% if @flagNotSigned == true && @flagWrongPass == true%>
-	<%= form_tag(filestream_path(@upload.id), :id=>"view_form", :method => 'POST') do %>
-		<div style="padding:10px">
-			<div class="field">
-			  <p>This file is password protected. Please enter the password here to preview it. </p>
-			  <input autofocus="autofocus" class="validate[required]" id="password_protect" name="password" type="password" data-prompt-position="bottomRight" placeholder="Enter password"/>
-			  <%= submit_tag "Unlock File", :class => "btn btn-primary", :id =>"btn_unlock", :disabled => true %>
-			</div>
-		</div>
-	<%end%>
-<%end%>
 
 <script type="text/javascript">
   $("#password_protect").keyup(function(){ check_submit(this)});
@@ -52,4 +70,30 @@
 		  $("#btn_unlock").removeAttr("disabled");
 		}
 	}
+
+	$(function(){
+    var ctrlDown = false;
+    $('.area').keydown(function(e){
+      if (e.keyCode == 17 || e.keyCode == 224) {
+        ctrlDown = true;
+      }
+
+      if (!ctrlDown || (ctrlDown && (e.keyCode != 67 && e.keyCode != 65))) {
+        return false;
+      }
+    }).keyup(function(e){
+      if (e.keyCode == 17 || e.keyCode == 224) {
+  	    ctrlDown = false;
+      }
+    });
+
+    $(".area").linedtextarea(
+    {selectedLine: 1}
+  );
+
+	});
+
+
+
+
 </script>

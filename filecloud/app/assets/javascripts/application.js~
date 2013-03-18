@@ -66,10 +66,4 @@ $(function() {
      $("#move_file_form").submit();
    });
 
-	 $("#btn_rename").click(function(){
-     $('#rename_form').submit(function() {
-       $(this).unbind('submit').submit();
-     });
-   });
-
 });

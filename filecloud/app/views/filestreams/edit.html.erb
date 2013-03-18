@@ -1,0 +1,30 @@
+<%= form_tag(filestreams_editcontent_path, :id => 'change_content_form', :method => 'GET') do %>
+	<b><font size="5"><%= @file.attach_file_name%></font></b>
+	<div style="float:right">
+		<%= submit_tag "Save", :class => "btn btn-large btn-primary" %>
+		<button type="button" class="btn btn-large btn-danger" onClick="location.href='/folders/<%=@file.folder_id%>'">Discard</button>
+	</div>
+	<br></br>
+	<div class="text_area">
+		<%= text_area_tag 'content', @data, :rows => 25, :cols => 40, :class => "area"%>
+	</div>
+	<%= hidden_field_tag 'file_id', @file.id%>
+<%end%>
+
+<style type="text/css">
+	.area{
+    resize: none;
+		margin-top: 1px;
+	}
+	.text_area{
+		margin-top: 15px;
+	}
+</style>
+
+<script type="text/javascript">
+$(function() {
+  $(".area").linedtextarea(
+    {selectedLine: 1}
+  );
+});
+</script>

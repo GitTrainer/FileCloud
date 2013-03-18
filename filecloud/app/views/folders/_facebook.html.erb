@@ -1,0 +1,10 @@
+<%= form_tag('/filestreams/facebook', :id =>'facebook_form', :method => 'POST') do %>
+	<h5>Your message</h5>
+  <div class="field">
+		<%= text_field_tag 'message' %>
+  </div>
+  	<br/>
+		<input type="submit" value="Submit" id="btn_facebook" class="btn btn-primary"/>
+  <%= hidden_field_tag :file_id, file_id %>
+  <%= hidden_field_tag :folder_id, folder_id %>
+<% end %>

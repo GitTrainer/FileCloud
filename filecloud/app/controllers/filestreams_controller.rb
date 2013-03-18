@@ -1,6 +1,7 @@
 class FilestreamsController < ApplicationController
 require 'zip/zip'
 require 'zip/zipfilesystem'
+
 before_filter :signed_in_user, only: [:index, :destroy, :create, :multiple_delete]
 before_filter :correct_user,   only: [:index]
 
@@ -21,10 +22,28 @@ before_filter :correct_user,   only: [:index]
     end
   end
 
+	def edit
+		@file = Filestream.find(params[:id])
+		@data = File.read(@file.attach.path)
+	end
+
+	def editcontent
+		@file = Filestream.find(params[:file_id])
+		File.open(@file.attach.path, "w+") do |f|
+  		f.write(params[:content])
+		end
+		redirect_to ("/filestreams/"+@file.id.to_s+"/edit")
+		flash[:success] = "Saved successfully"
+	end
+
   def show
     @folder = Folder.find(Filestream.find(params[:id]).folder_id)
     @user_id = @folder.user_id
     @upload = Filestream.find(params[:id])
+    @extension = @upload.attach_file_name.split('.').last
+    if @extension == "txt"
+    	@data = File.read(@upload.attach.path)
+    end
     @flagPass = false
     @flagSigned = false
     @flagNotSigned = false
@@ -99,7 +118,13 @@ before_filter :correct_user,   only: [:index]
     end
     @uploads.status=temp
     @uploads.save!
+    if @uploads.status == true
+    	status = "public"
+    else
+    	status = "private"
+    end
     redirect_to ("/folders/"+@uploads.folder_id.to_s)
+    flash[:notice] = "File " + @uploads.attach_file_name + " is " + status + " now."
     end
 
   def password_protect
@@ -145,6 +170,11 @@ before_filter :correct_user,   only: [:index]
       send_file @fileupload.attach.path, :type => @fileupload.attach_content_type
     end
   end
+
+	def facebook
+
+	end
+
 
 	 def delete_from_folder
 	 	 @upload = Filestream.find(params[:id])
