@@ -43,7 +43,7 @@
                 <li class="divider"></li>
               <% end %>
               <% extension = filestream.attach_file_name.split('.').last %>
-		   				<% if extension == "txt" %>
+		   				<% if extension == "txt" || extension == "doc" || extension == "docx" %>
 		            <li><a href="/filestreams/<%=filestream.id%>/edit">Edit</a></li>
   	            <li class="divider"></li>
 	            <% end %>
@@ -61,13 +61,21 @@
 		   					  </li>
 		   					  <li class="divider"></li>
 		   					<%end%>
-		   					<li><a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a></li>
+		   					<li>
+		   						<a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a>
+		   					</li>
 		   					<li class="divider"></li>
-		   					<li><a href="#moveFile-<%=filestream.id%>" class="inline">Move...</a></li>
+		   					<li>
+		   						<a href="#moveFile-<%=filestream.id%>" class="inline">Move...</a>
+		   					</li>
 		   					<li class="divider"></li>
-		   					<li><a href="#changename-<%=filestream.id%>" class="inline">Rename</a></li>
+		   					<li>
+		   						<a href="#changename-<%=filestream.id%>" class="inline">Rename</a>
+		   					</li>
 		   					<li class="divider"></li>
-		   					<li><a href="#">Share to Facebook</a></li>
+		   					<li>
+		   						<a href="#">Share to Facebook</a>
+		   					</li>
 		   					<li class="divider"></li>
 		   					<li>
 		   					  <a href="/filestreams/<%=filestream.id%>/delete_from_folder" data-confirm="Are you sure?">Delete

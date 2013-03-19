@@ -43,6 +43,11 @@ before_filter :correct_user,   only: [:index]
     @extension = @upload.attach_file_name.split('.').last
     if @extension == "txt"
     	@data = File.read(@upload.attach.path)
+
+    else
+      if @extension == "doc"
+        @docfile = File.read(@upload.attach.path)
+      end
     end
     @flagPass = false
     @flagSigned = false

@@ -44,8 +44,8 @@
         				<%else%>
             <td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Private</a></td>
         		<%end%>
-							<td><a href="/folders/<%=folder.id%>">Show</a></td>
-							<td><a href="/folders/<%=folder.id%>/edit">Edit</a></td>
+							<td><%= link_to "Show", folder_path(folder) %></td>
+							<td><%= link_to "Edit", edit_folder_path(folder)%></td>
 							<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'This action will delete all files and sub folders. Are you sure?' } %></td>
 						</tr>
 				<% end %>

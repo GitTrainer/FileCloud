@@ -1,9 +1,11 @@
 	<% if @flagSigned == true %>
 		<% if !@data.nil? %>
 			<b><font size="4"><%= @upload.attach_file_name%></font></b>
-			<%= text_area_tag 'content', @data, :rows => 20, :cols => 40, :class => "area" %>
-			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
-		<%else%>
+			<div class="text_input">
+				<%= text_area_tag 'content', @data, :rows => 20, :cols => 40, :class => "area" %>
+			</div>
+				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+		<%else %>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
 		 	<div style="float:right">
@@ -13,9 +15,12 @@
 
 	<% if @flagSignedStatus == true && @flagPass == true%>
 		<% if !@data.nil? %>
+		<div class="text_input">
 			<b><font size="4"><%= @upload.attach_file_name%></font></b>
 			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40,:class => "area"%>
+		</div>
 			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+
 		<%else%>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
@@ -38,9 +43,12 @@
 
 	<% if @flagNotSigned == true && @flagPass == true%>
 		<% if !@data.nil? %>
+		<div class="text_input">
 			<b><font size="4"><%= @upload.attach_file_name%></font></b>
 			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40, :class => "area" %>
+		</div>
 			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+
 		<%else%>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
@@ -93,7 +101,13 @@
 
 	});
 
-
-
-
 </script>
+<style type="text/css">
+	.area{
+		margin-top: 1px;
+	}
+	.text_input{
+		margin-top: 7px;
+		margin-bottom: 15px;
+	}
+</style>

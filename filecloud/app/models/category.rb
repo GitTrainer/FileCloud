@@ -1,4 +1,6 @@
 class Category < ActiveRecord::Base
+	extend FriendlyId
+	friendly_id :name
   attr_accessible :description, :name
   has_many :folders,class_name: "Folder", foreign_key: "category_id", dependent: :destroy
   validates :name, :presence => true, :uniqueness => true
@@ -13,7 +15,6 @@ def self.search(search)
     find(:all)
   end
 end
-
 
 
   # def to_s
