@@ -1,6 +1,7 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
 <br/>
+
 <%= form_tag('/filestreams/multiple_delete') do %>
 	<table class="table table-hover">
 		<tr>
@@ -43,7 +44,7 @@
                 <li class="divider"></li>
               <% end %>
               <% extension = filestream.attach_file_name.split('.').last %>
-		   				<% if extension == "txt" || extension == "doc" || extension == "docx" %>
+		   				<% if extension == "txt" %>
 		            <li><a href="/filestreams/<%=filestream.id%>/edit">Edit</a></li>
   	            <li class="divider"></li>
 	            <% end %>
@@ -62,7 +63,7 @@
 		   					  <li class="divider"></li>
 		   					<%end%>
 		   					<li>
-		   						<a href="#inline_content-<%=filestream.id%>" class="inline">Share...</a>
+		   						<a href="#inline_content-<%=filestream.id%>" class="inline">Share to users...</a>
 		   					</li>
 		   					<li class="divider"></li>
 		   					<li>
@@ -74,7 +75,7 @@
 		   					</li>
 		   					<li class="divider"></li>
 		   					<li>
-		   						<a href="#">Share to Facebook</a>
+		   						<a href="#facebook-<%=filestream.id%>" class="inline">Share to Facebook</a>
 		   					</li>
 		   					<li class="divider"></li>
 		   					<li>

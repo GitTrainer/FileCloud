@@ -1,7 +1,7 @@
 class FilestreamsController < ApplicationController
 require 'zip/zip'
 require 'zip/zipfilesystem'
-
+require 'koala'
 before_filter :signed_in_user, only: [:index, :destroy, :create, :multiple_delete]
 before_filter :correct_user,   only: [:index]
 
@@ -177,7 +177,8 @@ before_filter :correct_user,   only: [:index]
   end
 
 	def facebook
-
+		binding.pry
+		#graph = Koala::Facebook::API.new
 	end
 
 
