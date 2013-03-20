@@ -177,8 +177,8 @@ before_filter :correct_user,   only: [:index]
   end
 
 	def facebook
-		binding.pry
-		#graph = Koala::Facebook::API.new
+		UserMailer.delay({:run_at => 5.seconds.from_now}).email_file(params[:receiver_email], params[:message], params[:file_id])
+		redirect_to "/filestreams/#{params[:file_id]}"
 	end
 
 

@@ -38,7 +38,6 @@
 			 		  <tr>
 				  		<td><%= folder.name %> </td>
 						<td><%= folder.description %></td>
-
 						<% if folder.status == true %>
 						<td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Public</a></td>
         				<%else%>

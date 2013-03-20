@@ -1,0 +1,11 @@
+<%= form_tag('/filestreams/facebook', :id =>'facebook_form', :method => 'POST') do %>
+	<div class="tab-pane" id="email">
+		<%= label_tag 'Receiver:'%>
+		<br></br>
+		<%= text_field_tag 'receiver_email'%>
+		<%= label_tag 'Message:'%>
+		<%= text_area_tag 'message' %>
+		<%= submit_tag "Send", :class => "btn btn-primary"%>
+	</div>
+	<%= hidden_field_tag 'file_id', file_id%>
+<%end%>

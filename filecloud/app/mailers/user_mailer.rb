@@ -24,6 +24,13 @@ class UserMailer < ActionMailer::Base
 		@file_id = file_id
     mail(:to => @user_email, :subject => "You was shared file.")
   end
+  def email_file(email,message,file_id)
+  	@email = email
+  	@message = message
+  	@file_id = file_id
+  	@user = Filestream.find(@file_id).folder.user.name
+  	mail(:to => @email, :subject => "You was share a file")
+  end
 end
 
 

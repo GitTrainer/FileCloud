@@ -4,12 +4,16 @@
 			<div class="text_input">
 				<%= text_area_tag 'content', @data, :rows => 20, :cols => 40, :class => "area" %>
 			</div>
-				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+				<a href="/filestreams/<%= @upload.id %>/download_public_file">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 		<%else %>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
 		 	<div style="float:right">
-			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+							<a href="/filestreams/<%= @upload.id %>/download_public_file" class="point">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 		<%end%>
 	<%end%>
 
@@ -19,13 +23,17 @@
 			<b><font size="4"><%= @upload.attach_file_name%></font></b>
 			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40,:class => "area"%>
 		</div>
-			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+						<a href="/filestreams/<%= @upload.id %>/download_public_file" class="point">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 
 		<%else%>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
 	 		<div style="float:right">
-				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+								<a href="/filestreams/<%= @upload.id %>/download_public_file" class="point">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 		<%end%>
 	<% end %>
 
@@ -47,13 +55,17 @@
 			<b><font size="4"><%= @upload.attach_file_name%></font></b>
 			<%= text_area_tag 'content', @data,:rows => 20, :cols => 40, :class => "area" %>
 		</div>
-			<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+						<a href="/filestreams/<%= @upload.id %>/download_public_file" class="point">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 
 		<%else%>
 			<%= image_tag @upload.attach.url %>
 			<br></br>
  			<div style="float:right">
-				<button type="button" class="btn btn-large btn-primary" onClick="location.href='/filestreams/<%= @upload.id %>/download_public_file'" ><i class="icon-download icon-white"></i>Download</button>
+								<a href="/filestreams/<%= @upload.id %>/download_public_file" class="point">
+					<%= image_tag("download_icon.png", :alt => "download-photo", :size=>"55x65") %>
+				</a>
 		<%end%>
 	<%end%>
 
@@ -68,6 +80,18 @@
 		</div>
 		<%end%>
 	<%end%>
+	<a onclick="fbs_click()" class="point">
+		<%= image_tag("facebook_share.png", :alt => "Share-on-Facebook", :size=>"50x60") %>
+	</a>
+	<a href="#email_photo" class="inline" style="float:right">
+		<%= image_tag("email-icon.png", :alt => "email-photo", :size=>"55x65") %>
+	</a>
+
+	<div style='display:none'>
+		<div style="padding:10px; background:#fff;" id="email_photo">
+			<%= render 'folders/share_many', file_id: params[:id] %>
+		</div>
+	</div>
 
 <script type="text/javascript">
   $("#password_protect").keyup(function(){ check_submit(this)});
@@ -101,6 +125,13 @@
 
 	});
 
+	function fbs_click() {
+		//u=location.href;
+		//t=document.title;
+		window.open('http://www.facebook.com/sharer.php?u=htpp://www.framgia.com','sharer','toolbar=0,status=0,width=626,height=436');
+	return false;
+	}
+
 </script>
 <style type="text/css">
 	.area{
@@ -109,5 +140,9 @@
 	.text_input{
 		margin-top: 7px;
 		margin-bottom: 15px;
+	}
+	.point{
+	cursor: pointer;
+	float: right;
 	}
 </style>

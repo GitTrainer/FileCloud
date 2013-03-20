@@ -1,0 +1,9 @@
+<html>
+	<head></head>
+	<body>
+		You was shared a file by <%=@user%><br/>
+		Click link below to check out this file <br/>
+		<%= url_for(:action => 'show', :controller => 'filestreams', :host => "localhost:3000", :id => @file_id) %>
+		Message: <%=@message%>
+	</body>
+</html>
