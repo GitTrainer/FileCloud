@@ -8,17 +8,25 @@ class FoldersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
    def index
-		@foldersharings = Foldersharing.all
 		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
 		if ( @new_folder.nil?)
 			@new_folder = Folder.new
 		end
    	respond_to do |format|
 		  format.html { render action: "index"}
-		  format.js {render js: @foldersharings}
 		  format.js {render js: @new_folder }
       format.js {render js: @search_folder }
     end
+	end
+
+	def new
+		if ( @new_folder.nil?)
+			@new_folder = Folder.new
+		end
+		@folders = Folder.where(:user_id => current_user.id)
+   	respond_to do |format|
+		  format.html
+		end
 	end
 
 	def indexpublic
@@ -30,21 +38,20 @@ class FoldersController < ApplicationController
 	end
 
 	def create
-		@foldersharings = Foldersharing.all
 		@new_folder = Folder.new(params[:folder])
 		@new_folder.level = 1
 		respond_to do |format|
 		  if @new_folder.save
 			  @new_folder = nil
-  			@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-				format.html { render :action => 'index' }
+  			@folders = Folder.where(:user_id => current_user)
+				format.html { redirect_to "/folders/new"}
 		    format.js {render js: @new_folder }
-		    format.js {render js: @search_folder }
+		    format.js {render js: @folders }
 		  else
-			  @search_folder = Folder.where(:user_id => current_user).search(params[:search])
-			  format.html { render :action => 'index' }
-			  format.js {render js: @new_folder.errors, status: :unprocessable_entity}
-		    format.js {render js: @search_folder }
+			  @folders = Folder.where(:user_id => current_user)
+				format.html { redirect_to "/folders/new" }
+			  flash[:error] = "Name already taken."
+		    format.js {render js: @folders }
 		  end
 		end
 	end
@@ -62,15 +69,8 @@ class FoldersController < ApplicationController
    end
 
 	def edit
-		@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-  	@foldersharings = Foldersharing.all
-		@folders = Folder.where(:user_id => current_user)
 		@new_folder = Folder.find(params[:id])
-		respond_to do |format|
-			format.html { render action: "index"}
-			format.js {render js: @new_folder}
-			format.js {render js: @search_folder }
-		end
+		@folders = Folder.where(:user_id => current_user)
 	end
 
 	def show
@@ -92,21 +92,16 @@ class FoldersController < ApplicationController
 	end
 
 	def update
-		@foldersharings = Foldersharing.all
 		@new_folder = Folder.find(params[:id])
 		@folders = Folder.where(:user_id => current_user)
 		respond_to do |format|
 			if @new_folder.update_attributes(params[:folder])
 				@new_folder = nil
 				@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-		    format.html { redirect_to "/folders"}
-		    format.js { render js: @new_folder }
-		    format.js { render js: @search_folder }
+		    format.html { redirect_to "/folders/new"}
 		  else
-				@search_folder = Folder.where(:user_id => current_user).search(params[:search])
-		    format.html {render :action => 'index'}
-		    format.js {render js: @new_folder.errors, status: :unprocessable_entity }
-		    format.js { render js: @search_folder }
+		    format.html { redirect_to ("/folders/" + params[:id] + "/edit") }
+				flash[:error] = "Please input required fields"
 		  end
 		end
 	end
@@ -119,7 +114,7 @@ class FoldersController < ApplicationController
 			Folder.find(f.id).destroy
 		end
 		respond_to do |format|
-		  format.html { redirect_to "/folders"}
+		  format.html { redirect_to "/folders/new"}
     end
 	end
 

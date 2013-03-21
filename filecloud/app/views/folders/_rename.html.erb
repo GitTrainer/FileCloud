@@ -2,7 +2,7 @@
 	<% file_name = Filestream.find(file_id).attach_file_name %>
 	<h5>Please enter new name</h5>
   <div class="field">
-		<%= text_field_tag 'filename', file_name %>
+		<%= text_field_tag 'filename', file_name, :class=> "validate[required]" %>
   </div>
   	<br/>
 		<input type="submit" value="Save" id="btn_rename" class="btn btn-primary"/>

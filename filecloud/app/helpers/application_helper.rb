@@ -8,9 +8,7 @@ module ApplicationHelper
     link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
 
- 
-
-def avatar(user)
+	def avatar(user)
     if user.avatar.present?
       user.avatar
     else
@@ -20,17 +18,11 @@ def avatar(user)
     end
   end
 
-
-    def public(search_folder)
-      # binding.pry
-       @search_folder = Folder.find(search_folder)
-         if @search_folder.status=="t"
-           return true
-         end
-    end
-
-
-
+  def public(search_folder)
+    # binding.pry
+     @search_folder = Folder.find(search_folder)
+       if @search_folder.status=="t"
+         return true
+       end
+  end
 end
-
-

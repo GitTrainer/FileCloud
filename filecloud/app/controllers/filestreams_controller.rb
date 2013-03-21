@@ -177,7 +177,12 @@ before_filter :correct_user,   only: [:index]
   end
 
 	def facebook
-		UserMailer.delay({:run_at => 5.seconds.from_now}).email_file(params[:receiver_email], params[:message], params[:file_id])
+		file = Filestream.find(params[:file_id])
+		if file.status == false
+			file.status = true
+			file.save!
+		end
+		UserMailer.delay({:run_at => 2.seconds.from_now}).email_file(params[:receiver_email], params[:message], params[:file_id])
 		redirect_to "/filestreams/#{params[:file_id]}"
 	end
 

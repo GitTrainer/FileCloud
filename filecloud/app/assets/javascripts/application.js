@@ -32,6 +32,9 @@ $(function() {
 		$('#protect_download_form').validationEngine();
 		$('#rename_form').validationEngine();
 		$('#facebook_form').validationEngine();
+		$('#new_folder').validationEngine();
+		$('.edit_folder').validationEngine();
+
     $("#folders").live("click", function() {
     $.getScript(this.href);
     return false;

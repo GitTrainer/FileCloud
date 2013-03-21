@@ -1,0 +1,46 @@
+</div>
+
+ <% if(@new_folder.nil?)
+    @new_folder= Folder.new
+  end %>
+    <div class="span4" style="margin-left:200px;">
+    	 <h3>Create new folder</h3>
+  		<%= render 'folder'%>
+  	</div>
+
+  	<div class="span9" style="padding-left: 100px;">
+		<table class="table table-hover">
+		  <br/>
+				<tr>
+				  <th>Name</th>
+				  <th>Description </th>
+				  <th>Status</th>
+				  <th>Show details</th>
+				  <th> Edit </th>
+				  <th>Delete </th>
+				</tr>
+				<%if !@folders.nil? %>
+					<% @folders.each do |folder|%>
+			 		  <tr>
+				  		<td><%= folder.name %> </td>
+							<td><%= folder.description %></td>
+							<% if folder.status == true %>
+								<td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Public</a></td>
+        			<%else%>
+            		<td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Private</a></td>
+        			<%end%>
+								<td><%= link_to "Show", folder_path(folder) %></td>
+								<td><%= link_to "Edit", edit_folder_path(folder)%></td>
+								<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'This action will delete all files and sub folders. Are you sure?' } %>
+								</td>
+						</tr>
+				<% end %>
+			<% end %>
+		</table>
+	</div>
+
+<style type="text/css">
+.create{
+
+}
+</style>

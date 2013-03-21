@@ -331,69 +331,12 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding-left: 10px;
 }
 
-#maincont
-	{
-		width: 820px;
-		padding: 20px 20px 0 20px;
-		line-height: 22px;
-		background: url("../images/bg-maincont.png") repeat-y;
-	}
 
-			#maincont p { margin: 0 0 15px 0; }
-			#maincont h1, #maincont h2, #maincont h3, #maincont h4, #maincont h5 { margin: 0 0 15px 0; font-weight: normal; letter-spacing: -1px; }
-			#maincont h1 { font-size: 24px; }
-			#maincont h2 { font-size: 22px; }
-			#maincont h3 { font-size: 22px; }
-			#maincont h4 { font-size: 20px; }
-			#maincont h5 { font-size: 20px; }
-			#maincont ul { margin: 0 0 15px 35px; list-style-type: square; }
-			#maincont ul li { padding: 0 0 0 2px; }
-			#maincont ol { margin: 0 0 15px 35px; list-style-type: decimal; }
-			#maincont ol li { padding: 0 0 0 2px; }
-			#maincont blockquote { background: #EEE; border-left: 3px solid #D82B00; padding: 15px; margin: 0 0 15px 0; font-style: italic; line-height: 18px; }
 
-		#maincont #mainleft
-		{
-			float: left;
-			width: 190px;
-			padding: 0 15px;
-			font-size: 11px;
-		}
-
-			#maincont #mainleft ul.sidemenu
-			{
-				float: left;
-				width: 190px;
-				margin: 0 0 15px 0;
-			}
-
-			#maincont #mainleft ul.sidemenu li
-			{
-				display: block;
-				list-style-type: none;
-			}
-
-			#maincont #mainleft ul.sidemenu li a
-			{
-				float: left;
-				width: 170px;
-				padding: 6px 10px;
-				margin: 0 0 1px 0;
-				background: #EEE;
-				border-bottom: 1px solid #DDD;
-				color: #D82B00;
-				font-weight: bold;
-			}
-
-			#maincont #mainleft ul.sidemenu li a:hover
-			{
-				color: #FFF;
-				background: #D82B00 url('../images/bg-graphiccont.png') bottom repeat-x;
-			}
-
-		#maincont #mainright
-		{
-			float: left;
-			width: 580px;
-			padding: 0 0 0 20px;
-		}
+.table th{
+    border-top: 1px solid #DDDDDD;
+    line-height: 20px;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+}

@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-   default from: "ngvandung2010@gmail.com"
+   default from: "bui.trung.kien@framgia.com"
 
   def user_received(user)
     @user = user

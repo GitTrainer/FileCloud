@@ -2,9 +2,9 @@
 	<div class="tab-pane" id="email">
 		<%= label_tag 'Receiver:'%>
 		<br></br>
-		<%= text_field_tag 'receiver_email'%>
+		<input id="receiver_email" class="validate[required,custom[email]]" type="text" name="receiver_email" data-prompt-position="topLeft">
 		<%= label_tag 'Message:'%>
-		<%= text_area_tag 'message' %>
+		<textarea id="message" class="validate[required]" name="message" data-prompt-position="topLeft"></textarea>
 		<%= submit_tag "Send", :class => "btn btn-primary"%>
 	</div>
 	<%= hidden_field_tag 'file_id', file_id%>

@@ -16,22 +16,17 @@
 *= require_self
 *= require jquery.fileupload-ui
 
-.table-hover th .current {
-  padding-right: 12px;
-  background-repeat: no-repeat;
-  background-position: right center;
-}
 
 .table-hover th .asc {
   background-image: url(up_arrow.gif) ;
   background-repeat:no-repeat;
   background-position:right center;
-  padding: 10px;
+
 }
 
 .table-hover th .desc {
   background-image: url(down_arrow.gif);
   background-repeat:no-repeat;
   background-position: right center;
-  padding: 10px;
+
 }

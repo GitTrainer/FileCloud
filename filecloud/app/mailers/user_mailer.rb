@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "ngvandung2010@gmail.com"
+  default from: "bui.trung.kien@framgia.com"
   def welcome_email(user)
     @user = user
     #@url  = "http://localhost:3000/users/#{user.login}/activate"

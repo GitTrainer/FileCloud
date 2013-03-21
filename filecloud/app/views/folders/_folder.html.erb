@@ -1,22 +1,21 @@
-
-    	<div class="span2">
-		<%= f.label :name %></div>
-    	<div class="span3"><%= f.text_field :name %></div>
-        <div class="span2">
-    	<%= f.label :description %></div>
-    	<div class="span3"><%= f.text_area :description , :size => "20x4" %></div>
-    	 <div class="span2">
-    	<%= f.label :category_id %></div>
-    	<div class="span3">
-    	<% if params[:action] == "edit" %>
-    		<% if Folder.find(params[:id]).parentID.nil? %>
-    			<%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%>
-    		<% else %>
-    			<%= f.collection_select :category_id, Category.where(:id => Folder.find(Folder.find(params[:id]).parentID).category_id), :id,:name,{}, {:disabled => true} %>
-    		<% end %>
-    	<% else %>
-				<%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }%>
-    	<%end%>
-    	</div>
-        <%= f.hidden_field :user_id, :value=> current_user.id %>
+<%= form_for(@new_folder) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <br/>
+		<%= f.label :name %>
+    <%= f.text_field :name, :class => "validate[required]" %>
+    <%= f.label :description %>
+    <%= f.text_area :description , :size => "20x4" %>
+   	<%= f.label :category_id %>
+   	<% if params[:action] == "edit" %>
+  		<% if Folder.find(params[:id]).parentID.nil? %>
+  			<%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true }, :class => "validate[required]" %>
+  		<% else %>
+  			<%= f.collection_select :category_id, Category.where(:id => Folder.find(Folder.find(params[:id]).parentID).category_id), :id,:name,{}, {:disabled => true} %>
+  		<% end %>
+  	<% else %>
+			<%= f.collection_select :category_id, Category.all, :id,:name, {prompt: true },:class => "validate[required]"%>
+  	<%end%>
+      <%= f.hidden_field :user_id, :value=> current_user.id %>
 		</br>
+		<%= f.submit class: "btn  btn-primary"%>
+<%end%>

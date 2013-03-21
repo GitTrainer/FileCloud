@@ -1,4 +1,3 @@
-<h1>Folders management</h1>
 <%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Folder Name </label>
@@ -7,60 +6,43 @@
     <%= submit_tag "Search", :name => nil , class: "btn  btn-primary" %>
   </p>
 <% end %>
-<br></br>
-<div class="row">
-  <% if(@new_folder.nil?)
-    @new_folder= Folder.new
-  end %>
-	<%= form_for(@new_folder ) do |f| %>
-    <div class="span7">
-  		<h2>New Folder</h2>
-  		<%= render 'shared/error_messages', object: f.object %>
-  		<br/>
-  		<%= render 'folder', f: f%>
-  		<div class="span5"><center></br><%= f.submit class: "btn  btn-primary"%></center></div>
-  	</div>
-  <%end%>
-
-	<div class="span8">
-		<table class="table table-hover">
-		  <br/>
-				<tr>
-				  <th>Name</th>
-				  <th>Description </th>
-				  <th>Status</th>
-				  <th>Show details</th>
-				  <th> Edit </th>
-				  <th>Delete </th>
-				</tr>
-				<%if !@search_folder.nil? %>
-					<% @search_folder.each do |folder|%>
-			 		  <tr>
-				  		<td><%= folder.name %> </td>
-						<td><%= folder.description %></td>
-						<% if folder.status == true %>
-						<td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Public</a></td>
-        				<%else%>
-            <td><a href="/folders/<%=folder.id%>/accept?status=<%=folder.status%>">Private</a></td>
-        		<%end%>
-							<td><%= link_to "Show", folder_path(folder) %></td>
-							<td><%= link_to "Edit", edit_folder_path(folder)%></td>
-							<td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'This action will delete all files and sub folders. Are you sure?' } %></td>
-						</tr>
-				<% end %>
-			<% end %>
-		</table>
-	</div>
 </div>
 
+<div class="leftSide">
+
+
+</div>
+
+
 <style type="text/css">
+	.leftSide{
+
+	}
+
 	input.tf-search{
     width: 200px;
     float: left;
     margin-left: 10px;
     margin-right: 10px;
 	}
+
 	p.span2{
     width: 400px;
 	}
 </style>
+<script type="text/javascript">
+	$(function () {
+		$("#leftSide")
+			.jstree({ "plugins" : ["themes","html_data","ui"] })
+			// 1) if using the UI plugin bind to select_node
+			.bind("select_node.jstree", function (event, data) {
+				// `data.rslt.obj` is the jquery extended node that was clicked
+				alert(data.rslt.obj.attr("id"));
+			})
+			// 2) if not using the UI plugin - the Anchor tags work as expected
+			//    so if the anchor has a HREF attirbute - the page will be changed
+			//    you can actually prevent the default, etc (normal jquery usage)
+			.delegate("a", "click", function (event, data) { event.preventDefault(); })
+	});
+
+</script>
