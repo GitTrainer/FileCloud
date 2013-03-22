@@ -49,8 +49,8 @@ class FoldersController < ApplicationController
 		    format.js {render js: @folders }
 		  else
 			  @folders = Folder.where(:user_id => current_user)
-				format.html { redirect_to "/folders/new" }
-			  flash[:error] = "Name already taken."
+				format.html { render :action => "new" }
+				 format.js {render js: @new_folder.errors, status: :unprocessable_entity}
 		    format.js {render js: @folders }
 		  end
 		end
@@ -177,13 +177,6 @@ class FoldersController < ApplicationController
 				end
 			end
 		end while(temp = true, x = nil)
-  end
-
-  def signed_in_user
-    unless signed_in?
-      store_location
-      redirect_to signin_url, notice: "Please sign in."
-    end
   end
 
 	def sort_column

@@ -1,7 +1,7 @@
 class Folder < ActiveRecord::Base
   attr_accessible :category_id, :description, :name, :user_id, :parentID, :status, :level
   validates :name, :presence => true
-	validates_uniqueness_of :name, :scope => :id
+	validates_uniqueness_of :name, :scope => :user_id
   validates :category_id, :presence => true
   belongs_to :category, class_name: "Category"
   belongs_to :user

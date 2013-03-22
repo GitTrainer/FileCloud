@@ -254,13 +254,6 @@ before_filter :correct_user,   only: [:index]
 
   private
 
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
-    end
-
     def correct_user
 	    folder = Folder.find_by_id(params[:folder_id])
 	    if !folder.nil?
