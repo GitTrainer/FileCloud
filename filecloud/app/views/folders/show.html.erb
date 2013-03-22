@@ -88,7 +88,7 @@
 		<% if signed_in? %>
 		<tr>
 			<th></th>
-			<th>Children Name</th>
+			<th>Sub folder</th>
 			<th>Description</th>
 		</tr>
 		<% Folder.where(:parentID => @folder.id).each do |child| %>
@@ -109,7 +109,7 @@
 	<%= hidden_field_tag :page, :value => params[:page] %>
 	<% if Folder.where(:user_id => current_user, :id => params[:id]).exists? %>
 		<p><a href="/foldersharings/?folder_id=<%=@folder.id%>">Share folder to members</a></p>
-		<p><a href="/folders/<%=@folder.id%>/folder_child">Create folder child</a></p>
+		<p><a href="/folders/<%=@folder.id%>/folder_child">Create sub folder</a></p>
 	<%end%>
 
 <style type="text/css">

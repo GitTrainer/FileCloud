@@ -1,3 +1,77 @@
+ <script>
+  $(document).ready(function(){
+      $("#treeViewDiv").jstree({
+		    "json_data" : {
+		        "data":[
+		            {
+		            	"data": "My Files", "children": [
+								  {"data" : "Search engines",
+								  "children" :[
+								     {"data":"Yahoo", "metadata":{"href":"http://www.yahoo.com"}},
+								     {"data":"Bing", "metadata":{"href":"http://www.bing.com"}},
+								     {"data":"Google", "children":[
+			 		           	{"data":"Youtube", "metadata":{"href":"http://youtube.com"}},
+                      {"data":"Gmail", "metadata":{"href":"http://www.gmail.com"}},								   	                     {"data":"Orkut", "children":[
+                      	{"data": "Orkut-sub", "metadata":{"href":"http://24h.com.vn"}}
+                      ]}
+                      ]}
+                      ]},
+                      {
+                        "data" : "Networking sites",
+                        "children" :[
+                            {"data":"Facebook", "metadata":{"href":"http://www.fb.com"}},
+                            {"data":"Twitter", "metadata":{"href":"http://twitter.com"}}
+                        ]
+                      }
+                      ],
+                      "state" : "open"
+                            },
+
+                        ]
+                    },
+		    "themes" :
+		    {
+			"theme":"default",
+		    },
+		    /*"types" :
+		    {
+			"default":
+			{
+				"icon":
+				{
+					"image":"http://static.jstree.com/v.1.0rc/_docs/_drive.png"
+				}
+			}
+		    },*/
+
+			"types" : {
+    "valid_children" : [ "folder" ],
+    "types" : {
+        "folder" : {
+            "valid_children" : [ "file" ],
+            "max_depth" : 1
+        },
+
+        "file" : {
+            "valid_children" : [ "none" ],
+        }
+    }
+},
+
+                    "plugins" : [ "themes", "json_data", "ui", "types",]
+                }).bind("select_node.jstree", function(e, data)
+                    {
+                        if(jQuery.data(data.rslt.obj[0], "href"))
+                        {
+                            window.location=jQuery.data(data.rslt.obj[0], "href");
+                        }
+                        else
+                        {
+                            alert("No href defined for this element");
+                        }
+                    })
+            });
+        </script>
 <%= form_tag folders_path, :method => 'get', :id => "search_folder" do %>
   <p class="span2">
     <label style="float:left;">Folder Name </label>
@@ -8,15 +82,14 @@
 <% end %>
 </div>
 
-<div class="leftSide">
-
-
+<div id="treeViewDiv" class="treeView">
 </div>
 
 
 <style type="text/css">
-	.leftSide{
-
+	.treeView{
+		margin-left: 100px;
+		font-size: 16px;
 	}
 
 	input.tf-search{
@@ -30,19 +103,3 @@
     width: 400px;
 	}
 </style>
-<script type="text/javascript">
-	$(function () {
-		$("#leftSide")
-			.jstree({ "plugins" : ["themes","html_data","ui"] })
-			// 1) if using the UI plugin bind to select_node
-			.bind("select_node.jstree", function (event, data) {
-				// `data.rslt.obj` is the jquery extended node that was clicked
-				alert(data.rslt.obj.attr("id"));
-			})
-			// 2) if not using the UI plugin - the Anchor tags work as expected
-			//    so if the anchor has a HREF attirbute - the page will be changed
-			//    you can actually prevent the default, etc (normal jquery usage)
-			.delegate("a", "click", function (event, data) { event.preventDefault(); })
-	});
-
-</script>
